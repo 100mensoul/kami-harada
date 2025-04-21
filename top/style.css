@@ -61,3 +61,18 @@ footer {
   background-color: #eee;
   font-size: 0.9rem;
 }
+
+.sub-hero {
+  background-color: #007ACC;
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+.intro, .history, .info, .consult {
+  padding: 1.5rem;
+  max-width: 720px;
+  margin: auto;
+}
+.intro h2, .history h2, .info h2, .consult h2 {
+  margin-bottom: 0.5rem;
+}
