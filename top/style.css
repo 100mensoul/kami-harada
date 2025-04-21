@@ -1,0 +1,63 @@
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.hero {
+  background: url('../images/top.jpg') no-repeat center center / cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 1rem;
+}
+
+.hero-text {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.btn-group {
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  margin: 0 1rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+}
+
+.btn.guest {
+  background-color: #007ACC;
+}
+
+.btn.local {
+  background-color: #00A676;
+}
+
+.news {
+  padding: 2rem 1rem;
+  max-width: 640px;
+  margin: auto;
+}
+
+.news h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #eee;
+  font-size: 0.9rem;
+}
