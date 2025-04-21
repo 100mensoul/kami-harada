@@ -76,3 +76,26 @@ footer {
 .intro h2, .history h2, .info h2, .consult h2 {
   margin-bottom: 0.5rem;
 }
+.sitemap {
+  background-color: #f0f0f0;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+.sitemap h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+.sitemap ul {
+  list-style-type: none;
+  padding: 0;
+}
+.sitemap li {
+  margin-bottom: 0.5rem;
+}
+.sitemap a {
+  color: #007ACC;
+  text-decoration: none;
+}
+.sitemap a:hover {
+  text-decoration: underline;
+}
