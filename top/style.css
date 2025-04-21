@@ -133,3 +133,37 @@ footer {
 .sitemap a:hover {
   text-decoration: underline;
 }
+
+.nav-links {
+  background-color: #F0F9EF;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 720px;
+  border-radius: 12px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.04);
+}
+
+.nav-links h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #2E7D32;
+}
+
+.nav-links ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.nav-links li {
+  margin-bottom: 0.8rem;
+  font-size: 1.05rem;
+}
+
+.nav-links a {
+  color: #007ACC;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
