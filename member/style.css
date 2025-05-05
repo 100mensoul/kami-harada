@@ -1,8 +1,7 @@
 body {
-  background: url('wood_background.jpg') no-repeat center center fixed;
-  background-size: cover;
-  color: #333;
+  background: #f7f0e1; /* 和室っぽい土壁色 */
   font-family: "Hiragino Mincho ProN", serif;
+  color: #333;
   text-align: center;
   margin: 0;
   padding: 2rem;
@@ -26,39 +25,35 @@ p {
 }
 
 .member {
-  width: 200px;
+  width: 220px;
 }
 
 .frame {
-  position: relative;
-  width: 200px;
-  height: 250px;
-  background: url('frame_gold.png') no-repeat center center;
-  background-size: contain;
+  border: 8px solid #4a2f14; /* 濃い茶色の木枠っぽい色 */
+  padding: 8px;
+  background: #fff; /* 額縁の内側のマット部分 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
 .frame img {
-  width: 160px;
-  height: 210px;
-  object-fit: cover;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  filter: grayscale(20%) contrast(1.1);
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(30%) contrast(1.1);
 }
 
 .info h3 {
-  margin: 0.5rem 0 0.3rem;
+  margin-top: 0.5rem;
   font-size: 1.1rem;
 }
 
-.info .title {
-  font-weight: bold;
+.info p {
+  margin: 0.2rem 0;
   font-size: 0.9rem;
 }
 
 .info .quote {
   font-style: italic;
-  font-size: 0.85rem;
   color: #555;
+  font-size: 0.85rem;
 }
