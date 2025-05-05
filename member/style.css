@@ -1,0 +1,53 @@
+body {
+  background: url('wood_background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+  font-family: "Hiragino Mincho ProN", serif;
+}
+
+.hall-of-fame {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.member {
+  width: 200px;
+  text-align: center;
+}
+
+.frame {
+  position: relative;
+  width: 200px;
+  height: 250px;
+  background: url('frame_gold.png') no-repeat center center;
+  background-size: contain;
+}
+
+.frame img {
+  width: 160px;
+  height: 210px;
+  object-fit: cover;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  filter: grayscale(20%) contrast(1.1);
+}
+
+.info h3 {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.info .title {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.info .quote {
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #555;
+}
