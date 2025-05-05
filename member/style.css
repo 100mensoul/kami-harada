@@ -3,6 +3,19 @@ body {
   background-size: cover;
   color: #333;
   font-family: "Hiragino Mincho ProN", serif;
+  text-align: center;
+  margin: 0;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem;
+  margin-bottom: 2rem;
 }
 
 .hall-of-fame {
@@ -10,12 +23,10 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
-  padding: 2rem;
 }
 
 .member {
   width: 200px;
-  text-align: center;
 }
 
 .frame {
@@ -37,8 +48,8 @@ body {
 }
 
 .info h3 {
-  margin-top: 0.5rem;
-  font-size: 1.2rem;
+  margin: 0.5rem 0 0.3rem;
+  font-size: 1.1rem;
 }
 
 .info .title {
