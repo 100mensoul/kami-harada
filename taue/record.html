@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>田植え2025 当日記録｜セーブポイント上原田</title>
+  <link rel="stylesheet" href="../top/style.css" />
+  <style>
+    /* 記録ページ専用スタイル */
+    .record-hero {
+      background: linear-gradient(rgba(56, 142, 60, 0.8), rgba(76, 175, 80, 0.8)), 
+                  url('taue2025.jpg') no-repeat center center / cover;
+      height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+    }
+    
+    .record-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+    
+    .record-hero .date {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .timeline {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .timeline-section {
+      background: white;
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      border-left: 5px solid #4CAF50;
+    }
+    
+    .timeline-section h2 {
+      color: #2E7D32;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #E8F5E8;
+      padding-bottom: 0.5rem;
+    }
+    
+    .timeline-section h3 {
+      color: #388E3C;
+      margin: 1.5rem 0 0.5rem 0;
+      font-size: 1.1rem;
+    }
+    
+    .prep-timeline {
+      background: #F1F8E9;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    
+    .prep-item {
+      margin: 0.8rem 0;
+      padding: 0.5rem 0;
+      border-bottom: 1px dotted #81C784;
+    }
+    
+    .prep-item:last-child {
+      border-bottom: none;
+    }
+    
+    .prep-date {
+      font-weight: bold;
+      color: #2E7D32;
+      margin-right: 1rem;
+    }
+    
+    .live-report {
+      background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+      padding: 2rem;
+      border-radius: 15px;
+      margin: 2rem 0;
+    }
+    
+    .live-report h2 {
+      color: #1565C0;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .report-item {
+      background: white;
+      margin: 1rem 0;
+      padding: 1.5rem;
+      border-radius: 10px;
+      border-left: 4px solid #2196F3;
+    }
+    
+    .report-time {
+      font-weight: bold;
+      color: #1976D2;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .report-text {
+      line-height: 1.6;
+      color: #333;
+    }
+    
+    .machine-highlight {
+      background: #FFF8E1;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 2px solid #FFB74D;
+      margin: 1rem 0;
+      font-style: italic;
+    }
+    
+    .photo-gallery {
+      background: #FAFAFA;
+      padding: 2rem;
+      border-radius: 15px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .photo-gallery h2 {
+      color: #424242;
+      margin-bottom: 1rem;
+    }
+    
+    .photo-placeholder {
+      background: #E0E0E0;
+      height: 200px;
+      margin: 1rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #757575;
+      font-style: italic;
+    }
+    
+    .video-section {
+      background: linear-gradient(135deg, #FCE4EC, #F8BBD9);
+      padding: 2rem;
+      border-radius: 15px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .video-section h2 {
+      color: #C2185B;
+      margin-bottom: 1rem;
+    }
+    
+    .youtube-embed {
+      margin: 1.5rem 0;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+    
+    .youtube-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .archive-link {
+      background: #E8F5E8;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+    }
+    
+    .archive-link a {
+      color: #2E7D32;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    .archive-link a:hover {
+      text-decoration: underline;
+    }
+    
+    .instagram-section {
+      background: linear-gradient(45deg, #E91E63, #9C27B0);
+      color: white;
+      padding: 2rem;
+      border-radius: 15px;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .instagram-btn {
+      background: white;
+      color: #E91E63;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .instagram-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    .completion-message {
+      background: linear-gradient(135deg, #C8E6C9, #A5D6A7);
+      padding: 2rem;
+      border-radius: 15px;
+      margin: 2rem 0;
+      text-align: center;
+      border: 3px solid #4CAF50;
+    }
+    
+    .completion-message h2 {
+      color: #1B5E20;
+      margin-bottom: 1rem;
+    }
+    
+    .completion-time {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #2E7D32;
+      margin: 1rem 0;
+    }
+    
+    @media (max-width: 768px) {
+      .record-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .timeline-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="record-hero">
+    <div>
+      <h1>田植え2025 完全記録</h1>
+      <p class="date">2025年5月28日（水）午後</p>
+      <p>〜新しい田植機と共に〜</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="timeline">
+      <section class="timeline-section">
+        <h2>📅 田植えまでの道のり</h2>
+        <div class="prep-timeline">
+          <div class="prep-item">
+            <span class="prep-date">5/10</span>稲苗がJAから届く。ブルーシートのプールで2週間程度育苗開始
+          </div>
+          <div class="prep-item">
+            <span class="prep-date">5/20</span>田の草刈り作業
+          </div>
+          <div class="prep-item">
+            <span class="prep-date">5/23</span>田んぼの水入れ
+          </div>
+          <div class="prep-item">
+            <span class="prep-date">5/23-24</span>代掻き（田んぼをならす作業）
+          </div>
+          <div class="prep-item">
+            <span class="prep-date">5/27 夜</span>天気予報を見て、急遽翌日に決行決定
+          </div>
+        </div>
+        
+        <div style="background: #FFF3E0; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+          <p><strong>天気との闘い：</strong>29日の天気が不安定なため、農機具店との打合せで急遽28日午後からの実施に変更。新しい田植機は雨が降ると肥料がまけなくなるため、天気予報とにらめっこの日々でした。</p>
+        </div>
+      </section>
+
+      <section class="live-report">
+        <h2>📱 当日リアルタイム実況</h2>
+        <p style="text-align: center; margin-bottom: 2rem; color: #1565C0;">
+          <em>※現場からの生の声をお届け</em>
+        </p>
+        
+        <div class="report-item">
+          <div class="report-time">13:52</div>
+          <div class="report-text">
+            新しい田植機です。素晴らしく改良されています❢<br>
+            横に歯車みたいなのが着いていますが、これは、次に植えるところの中央を田に印をつけているのです。
+          </div>
+          <div class="machine-highlight">
+            🚜 <strong>新技術ポイント1</strong>：自動で植える位置に印をつける機能
+          </div>
+        </div>
+
+        <div class="report-item">
+          <div class="report-time">14:13</div>
+          <div class="report-text">
+            新しい田植機は、Uターンすると、ハンドルを回すだけで、後ろの苗の部分が自動で上がります❢<br>
+            こうなればいいのになあーーという改善部分がちゃんと改良されています❢
+          </div>
+          <div class="machine-highlight">
+            🚜 <strong>新技術ポイント2</strong>：Uターン時の苗部分自動昇降機能
+          </div>
+        </div>
+
+        <div class="report-item">
+          <div class="report-time">14:14</div>
+          <div class="report-text">
+            農機具だけでないとおもうけど、人間の知恵と能力はすばらしいなと思います😊
+          </div>
+        </div>
+
+        <div class="report-item">
+          <div class="report-time">14:31</div>
+          <div class="report-text">
+            こんなにえぐれている所も、平らにして植えていきました❢
+          </div>
+        </div>
+
+        <div class="report-item">
+          <div class="report-time">14:36</div>
+          <div class="report-text">
+            田植機の大きなタイヤの後ろに小さなトゲトゲのある物がぐるぐる回っているけどーー、それが回りながら土を平らにしているのです。<br>
+            土を平らにしてから苗を植えているのです❢すごい改良です❢❢
+          </div>
+          <div class="machine-highlight">
+            🚜 <strong>新技術ポイント3</strong>：回転式土ならし機能で自動整地
+          </div>
+        </div>
+
+        <div class="report-item">
+          <div class="report-time">15:29</div>
+          <div class="report-text">
+            農業だけでなく、医療の分野でも、食料の分野でも、教育の分野でも、それぞれの要望にかなうよう改良改善の研究がされて、よりよい生活の向上が目指されているのだなと思いながらーー、田植えを見守っています😊
+          </div>
+        </div>
+
+        <div class="report-item">
+          <div class="report-time">15:31</div>
+          <div class="report-text">
+            今で、2つ目の半分が終わっています。あと30分ほどで終わる予定😃
+          </div>
+        </div>
+
+        <div class="report-item">
+          <div class="report-time">15:42-15:43</div>
+          <div class="report-text">
+            箱洗いは、この溝の中に入ってします。苗は水耕栽培みたいなものだから、箱に土はついていないで簡単です😃<br>
+            洗って溝に干してーー、田植えが終わると同時に、箱洗いも完了しています😊
+          </div>
+        </div>
+      </section>
+
+      <div class="completion-message">
+        <h2>🎉 田植え完了！</h2>
+        <div class="completion-time">16:26 今年の田植え、無事終了しました❢</div>
+        <p>新しい田植機の素晴らしい技術と、天気のタイミングに恵まれ、<br>
+        無事に2025年の田植えを完了することができました。</p>
+      </div>
+
+      <section class="photo-gallery">
+        <h2>📸 当日の写真ギャラリー</h2>
+        <p>※順子さん撮影による貴重な記録写真（約10枚）</p>
+        <div class="photo-placeholder">
+          写真1: 新しい田植機の全景
+        </div>
+        <div class="photo-placeholder">
+          写真2: 自動印つけ機能の様子
+        </div>
+        <div class="photo-placeholder">
+          写真3: 土ならし機能作動中
+        </div>
+        <div class="photo-placeholder">
+          写真4: 田植え作業風景
+        </div>
+        <div class="photo-placeholder">
+          写真5: 箱洗いの様子
+        </div>
+        <p style="margin-top: 1rem; color: #666; font-style: italic;">
+          ※写真は準備中です。順次アップロード予定
+        </p>
+      </section>
+
+      <section class="instagram-section">
+        <h2>📱 SNSでも記録公開中</h2>
+        <p>当日の様子や準備過程の写真・動画を随時アップしています</p>
+        <a href="https://instagram.com/hirao_banshu" class="instagram-btn" target="_blank">
+          @hirao_banshu
+        </a>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+          現在21投稿・フォロー&いいね大歓迎！
+        </p>
+      </section>
+
+      <section class="video-section">
+        <h2>🎬 映像アーカイブ</h2>
+        
+        <div class="archive-link">
+          <h3>📹 2025年田植え動画</h3>
+          <p>順子さん撮影による当日の動画記録（準備中）</p>
+        </div>
+
+        <div class="archive-link">
+          <h3>🎥 2023年 稲作伝記</h3>
+          <p>前回の田植えの貴重な記録映像</p>
+          <a href="https://youtu.be/G8y_AnHE0j8" target="_blank">
+            【稲作伝記 #1】まるで受験のような緊張感。水も天気も気を使うXデーの記録。''姫路のとかち''で作られる福本ライス。泥と水の記憶。
+          </a>
+        </div>
+
+        <div class="youtube-embed">
+          <iframe 
+            src="https://www.youtube.com/embed/G8y_AnHE0j8" 
+            title="稲作伝記 2023" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+      <section class="nav-links" style="margin-top: 3rem;">
+        <h2>🏠 セーブポイント上原田</h2>
+        <ul>
+          <li><a href="index.html">田植え2025特設ページに戻る</a></li>
+          <li><a href="growth.html">稲成長観察ページ（準備中）</a></li>
+          <li><a href="../top/index.html">トップページ</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 上原田自治会 - セーブポイント上原田</p>
+  </footer>
+</body>
+</html>
