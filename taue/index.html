@@ -167,19 +167,30 @@
       <h1>田植え2025</h1>
       <p class="subtitle">〜 祈りを込めて、未来へ繋ぐ 〜</p>
       <div class="countdown">
-        <span id="countdown-text">5月29日（木）まで あと<span id="days"></span>日</span>
+        <span id="completion-text">今年の田植えは無事に終了しました。</span>
+      </div>
+      <div class="prayer-text" style="margin-top: 1rem; background: rgba(255,255,255,0.9); color: #2E7D32;">
+        応援くださった皆さま、誠にありがとうございました。<br>
+        植えられた苗たちが豊かな土に根を張り、<br>
+        暑い夏を乗り越え、台風や害虫にも負けず、<br>
+        秋の実りの時まで健やかに育ちますように。<br>
+        どうぞ温かくお見守りください。
       </div>
     </div>
   </header>
 
   <main>
     <section class="event-info">
-      <h2>🌾 2025年度 上原田田植え情報</h2>
+      <h2>🌾 2025年度 上原田田植え完了報告</h2>
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <img src="taue2025.jpg" alt="2025年田植えの様子" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+        <p style="margin-top: 1rem; font-style: italic; color: #666;">2025年5月28日 上原田田植えの様子</p>
+      </div>
       <div class="info-grid">
         <div class="info-card">
-          <h3>📅 開催日時</h3>
-          <p><strong>2025年5月29日（木）</strong><br>
-          朝7時頃開始予定</p>
+          <h3>📅 実施日時</h3>
+          <p><strong>2025年5月28日（水）</strong><br>
+          午後に実施完了</p>
         </div>
         <div class="info-card">
           <h3>📍 場所</h3>
@@ -235,9 +246,22 @@
     </section>
 
     <section class="future-vision">
-      <h2>🔮 来年に向けて</h2>
-      <p>未来のいつかには手植えでの田植えも検討中。その際は多くの参加者を募集予定です。</p>
-      <p>みんなで一緒に、上原田の田植え文化を育てていきましょう！</p>
+      <h2>🌱 これからの稲の冒険</h2>
+      <p>植えられた苗たちは、これから長い成長の旅を始めます。</p>
+      <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
+        <li><strong>6月〜7月</strong>：根張りと分げつ（株分かれ）の時期</li>
+        <li><strong>8月</strong>：暑い夏を乗り越え、穂が出始める</li>
+        <li><strong>9月</strong>：台風シーズンを無事に通過</li>
+        <li><strong>10月</strong>：黄金色に実った稲穂の収穫</li>
+      </ul>
+      <div class="prayer-text">
+        みんなの祈りと温かい見守りが、<br>
+        きっと稲たちの力になります
+      </div>
+      
+      <h3 style="margin-top: 2rem;">📝 成長を見守る</h3>
+      <p>稲の成長過程は以下のページで定期的に更新予定です：</p>
+      <p><a href="growth.html" style="color: #2E7D32; font-weight: bold;">→ 稲成長観察ページ（準備中）</a></p>
     </section>
 
     <section class="nav-links" style="margin-top: 3rem;">
@@ -254,23 +278,6 @@
     <p>© 2025 上原田自治会 - セーブポイント上原田</p>
   </footer>
 
-  <script>
-    // カウントダウン機能
-    function updateCountdown() {
-      const targetDate = new Date('2025-05-29T07:00:00');
-      const now = new Date();
-      const difference = targetDate.getTime() - now.getTime();
-      
-      if (difference > 0) {
-        const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
-        document.getElementById('days').textContent = days;
-      } else {
-        document.getElementById('countdown-text').textContent = '田植え当日！';
-      }
-    }
-    
-    updateCountdown();
-    setInterval(updateCountdown, 1000 * 60 * 60); // 1時間ごとに更新
-  </script>
+  <!-- カウントダウン機能は不要になったため削除 -->
 </body>
 </html>
