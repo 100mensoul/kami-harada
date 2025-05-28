@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>田植え2025｜セーブポイント上原田</title>
+  <link rel="stylesheet" href="../top/style.css" />
+  <style>
+    /* 田植え特設ページ専用スタイル */
+    .taue-hero {
+      background: linear-gradient(rgba(76, 175, 80, 0.7), rgba(139, 195, 74, 0.7)), 
+                  url('../images/rice-field.jpg') no-repeat center center / cover;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    
+    .taue-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    }
+    
+    .taue-hero .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .countdown {
+      background: rgba(255,255,255,0.9);
+      color: #2E7D32;
+      padding: 1rem 2rem;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    
+    .event-info {
+      background: #E8F5E8;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 15px;
+      border-left: 5px solid #4CAF50;
+    }
+    
+    .event-info h2 {
+      color: #2E7D32;
+      margin-bottom: 1rem;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .info-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .info-card h3 {
+      color: #388E3C;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pino-section {
+      background: linear-gradient(135deg, #FFE0B2, #FFCC80);
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    
+    .pino-section h2 {
+      color: #E65100;
+      margin-bottom: 1rem;
+    }
+    
+    .virtual-participate {
+      background: #F3E5F5;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    
+    .virtual-participate h2 {
+      color: #7B1FA2;
+      margin-bottom: 1rem;
+    }
+    
+    .prayer-text {
+      font-style: italic;
+      color: #4A4A4A;
+      font-size: 1.1rem;
+      margin: 1rem 0;
+      padding: 1rem;
+      background: rgba(255,255,255,0.7);
+      border-radius: 10px;
+    }
+    
+    .instagram-section {
+      background: linear-gradient(45deg, #E91E63, #9C27B0);
+      color: white;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 15px;
+      text-align: center;
+    }
+    
+    .instagram-btn {
+      background: white;
+      color: #E91E63;
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 1rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .instagram-btn:hover {
+      transform: scale(1.05);
+    }
+    
+    .future-vision {
+      background: #FFF3E0;
+      padding: 2rem;
+      margin: 2rem auto;
+      max-width: 800px;
+      border-radius: 15px;
+      border: 2px dashed #FF9800;
+    }
+    
+    .future-vision h2 {
+      color: #F57C00;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .taue-hero h1 {
+        font-size: 2rem;
+      }
+      
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="taue-hero">
+    <div>
+      <h1>田植え2025</h1>
+      <p class="subtitle">〜 祈りを込めて、未来へ繋ぐ 〜</p>
+      <div class="countdown">
+        <span id="countdown-text">5月29日（木）まで あと<span id="days"></span>日</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="event-info">
+      <h2>🌾 2025年度 上原田田植え情報</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>📅 開催日時</h3>
+          <p><strong>2025年5月29日（木）</strong><br>
+          朝7時頃開始予定</p>
+        </div>
+        <div class="info-card">
+          <h3>📍 場所</h3>
+          <p><strong>八反田</strong><br>
+          上原田地区内</p>
+        </div>
+        <div class="info-card">
+          <h3>🌱 品種</h3>
+          <p><strong>キヌヒカリ</strong><br>
+          上原田の豊かな土壌で育つ</p>
+        </div>
+        <div class="info-card">
+          <h3>🚜 作業方法</h3>
+          <p><strong>機械植え</strong><br>
+          今年も安定した作業で</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pino-section">
+      <h2>🎵 特別企画：田んぼライブ</h2>
+      <p>花田町が産んだ歌姫、地元のローカルシンガーソングライター<strong>pino</strong>が田んぼでライブを開催！</p>
+      <p>「稲の花」「ふかふか」など、心温まる楽曲で田植えを彩ります。</p>
+      <div class="prayer-text">
+        音楽と共に、稲の成長を見守り、<br>
+        豊かな実りへの願いを込めて
+      </div>
+    </section>
+
+    <section class="virtual-participate">
+      <h2>💚 バーチャル参加・応援歓迎</h2>
+      <p>遠くからでも、心はひとつ。田植えを見守り、応援してください。</p>
+      <p><strong>参加方法：</strong></p>
+      <ul style="text-align: left; max-width: 500px; margin: 1rem auto;">
+        <li>🎵 歌、舞、笛、太鼓など表現での応援</li>
+        <li>🙏 稲の成長への祈り</li>
+        <li>👀 当日の見学・見守り</li>
+        <li>💬 SNSでの応援メッセージ</li>
+      </ul>
+      <div class="prayer-text">
+        「植えた苗がちゃんと根付きますように<br>
+        無事に夏を乗り切り、秋の収穫を迎えられますように」<br>
+        〜 温かく、やさしい気持ちが水を通じて稲に伝わります 〜
+      </div>
+    </section>
+
+    <section class="instagram-section">
+      <h2>📸 リアルタイム更新中</h2>
+      <p>田植えの準備から当日まで、Instagram で最新情報をお届けします</p>
+      <a href="https://instagram.com/hirao_banshu" class="instagram-btn" target="_blank">
+        @hirao_banshu をフォロー
+      </a>
+    </section>
+
+    <section class="future-vision">
+      <h2>🔮 来年に向けて</h2>
+      <p>2026年からは手植えでの田植えも検討中。その際は多くの参加者を募集予定です。</p>
+      <p>みんなで一緒に、上原田の田植え文化を育てていきましょう！</p>
+    </section>
+
+    <section class="nav-links" style="margin-top: 3rem;">
+      <h2>🏠 セーブポイント上原田</h2>
+      <ul>
+        <li><a href="../top/index.html">トップページに戻る</a></li>
+        <li><a href="../top/local.html">町民の方へ</a></li>
+        <li><a href="../top/guest.html">訪問者の方へ</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 上原田自治会 - セーブポイント上原田</p>
+  </footer>
+
+  <script>
+    // カウントダウン機能
+    function updateCountdown() {
+      const targetDate = new Date('2025-05-29T07:00:00');
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+      
+      if (difference > 0) {
+        const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
+        document.getElementById('days').textContent = days;
+      } else {
+        document.getElementById('countdown-text').textContent = '田植え当日！';
+      }
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000 * 60 * 60); // 1時間ごとに更新
+  </script>
+</body>
+</html>
