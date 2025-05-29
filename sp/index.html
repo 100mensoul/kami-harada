@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セーブポイント上原田 - 東の見張り台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e8f4fd" width="1200" height="600"/><polygon fill="%23fff" points="600,150 650,200 600,250 550,200"/><rect fill="%23f0f8ff" x="580" y="180" width="40" height="40"/><circle fill="%2387CEEB" cx="200" cy="100" r="30"/><circle fill="%2387CEEB" cx="1000" cy="120" r="25"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* 現在の観測状況 */
+        .current-status {
+            background: white;
+            margin: -50px auto 0;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+        }
+
+        .status-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .status-header h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-time {
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+
+        .observation-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .castle-view {
+            background: #f8f9ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            position: relative;
+        }
+
+        .visibility-status {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .visible {
+            color: #27ae60;
+        }
+
+        .not-visible {
+            color: #e74c3c;
+        }
+
+        .weather-info {
+            background: #f0f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .weather-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .weather-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2980b9;
+        }
+
+        .weather-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        /* ストーリーセクション */
+        .story-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .story-text h3 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .story-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        .story-image {
+            background: linear-gradient(45deg, #f0f8ff, #e8f4fd);
+            height: 300px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* 観測ログセクション */
+        .log-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .log-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .log-form {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 3rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            color: #333;
+        }
+
+        .submit-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #c0392b;
+        }
+
+        /* 過去の記録 */
+        .log-history {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .log-entry {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        .log-date {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .log-visibility {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .log-details {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* フッター */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .observation-card {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .story-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container">
+            <h1>東の見張り台</h1>
+            <p>姫路へ入る、最後の門。</p>
+            <div class="hero-subtitle">
+                上原田交差点から望む姫路城の日々を記録する
+            </div>
+        </div>
+    </section>
+
+    <!-- 現在の観測状況 -->
+    <section class="container">
+        <div class="current-status fade-in">
+            <div class="status-header">
+                <h2>今日の姫路城</h2>
+                <div class="current-time" id="currentTime">
+                    2025年5月29日 14:30 更新
+                </div>
+            </div>
+            
+            <div class="observation-card">
+                <div class="castle-view">
+                    <div class="visibility-status visible" id="visibilityStatus">
+                        👁️ 見えます！
+                    </div>
+                    <p>晴天により、姫路城がクリアに確認できます。<br>
+                    漆喰の白さが青空に映えて美しい一日です。</p>
+                </div>
+                
+                <div class="weather-info">
+                    <div class="weather-grid">
+                        <div class="weather-item">
+                            <div class="weather-value">☀️</div>
+                            <div class="weather-label">晴れ</div>
+                        </div>
+                        <div class="weather-item">
+                            <div class="weather-value">22°C</div>
+                            <div class="weather-label">気温</div>
+                        </div>
+                        <div class="weather-item">
+                            <div class="weather-value">45%</div>
+                            <div class="weather-label">湿度</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ストーリーセクション -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-text">
+                    <h3>白い城の真価</h3>
+                    <p>姫路城が美しいのは、近くで見る精巧な造りだけではありません。</p>
+                    <p>真の価値は、この上原田の地から4キロ離れても見える「白さ」にあります。膨張色である白い漆喰に包まれた城だからこそ、遠景でも堂々と存在感を示すのです。</p>
+                    <p>近くで見る美しさは当然として、遠くから見えてこそ白鷺城たる所以なのです。</p>
+                </div>
+                <div class="story-image">
+                    🏯
+                </div>
+            </div>
+
+            <div class="story-grid">
+                <div class="story-image">
+                    🚪
+                </div>
+                <div class="story-text">
+                    <h3>姫路への玄関</h3>
+                    <p>ここ上原田は、京都方面から姫路に入る歴史的な玄関口でした。</p>
+                    <p>この地点で姫路城が見えたとき、旅人は「姫路に着いた」ことを実感したのです。逆に姫路を発つとき、最後に城を見納める場所でもありました。</p>
+                    <p>現代でも、この景色は姫路への入口・出口として、特別な意味を持っています。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 観測ログセクション -->
+    <section class="log-section">
+        <div class="container">
+            <h2>見張り報告</h2>
+            
+            <!-- 新規報告フォーム -->
+            <div class="log-form">
+                <h3 style="margin-bottom: 1rem;">今日の観測を報告する</h3>
+                <form id="observationForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="visibility">見え具合</label>
+                            <select id="visibility" required>
+                                <option value="">選択してください</option>
+                                <option value="clear">クリアに見える</option>
+                                <option value="partial">うっすら見える</option>
+                                <option value="hidden">見えない</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="weather">天気</label>
+                            <select id="weather" required>
+                                <option value="">選択してください</option>
+                                <option value="sunny">晴れ</option>
+                                <option value="cloudy">曇り</option>
+                                <option value="rainy">雨</option>
+                                <option value="foggy">霧</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">観測時刻</label>
+                            <input type="time" id="time" required>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label for="comment">コメント</label>
+                        <textarea id="comment" rows="3" placeholder="今日の姫路城の様子や感想をお聞かせください"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">報告を記録する</button>
+                </form>
+            </div>
+
+            <!-- 過去の記録 -->
+            <div class="log-history" id="logHistory">
+                <div class="log-entry">
+                    <div class="log-date">2025年5月29日 14:30</div>
+                    <div class="log-visibility visible">👁️ クリアに見える</div>
+                    <div class="log-details">天気: 晴れ | 気温: 22°C<br>
+                    コメント: 青空に白い城が映えて絶景でした！</div>
+                </div>
+                
+                <div class="log-entry">
+                    <div class="log-date">2025年5月28日 16:45</div>
+                    <div class="log-visibility not-visible">🌫️ 見えない</div>
+                    <div class="log-details">天気: 霧 | 気温: 18°C<br>
+                    コメント: 霧が濃くて全く見えませんでした</div>
+                </div>
+                
+                <div class="log-entry">
+                    <div class="log-date">2025年5月27日 08:15</div>
+                    <div class="log-visibility visible">👁️ うっすら見える</div>
+                    <div class="log-details">天気: 曇り | 気温: 20°C<br>
+                    コメント: 朝靄の中にうっすらと城影が</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 セーブポイント上原田 - 今をセーブし、未来の上原田をセーフする</p>
+        </div>
+    </footer>
+
+    <script>
+        // 現在時刻の更新
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('ja-JP', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }) + ' 更新';
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // フォーム送信処理
+        document.getElementById('observationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const visibility = document.getElementById('visibility').value;
+            const weather = document.getElementById('weather').value;
+            const time = document.getElementById('time').value;
+            const comment = document.getElementById('comment').value;
+            
+            if (!visibility || !weather || !time) {
+                alert('必須項目を入力してください');
+                return;
+            }
+            
+            // 新しいログエントリを作成
+            const logEntry = createLogEntry(visibility, weather, time, comment);
+            
+            // ログ履歴の先頭に追加
+            const logHistory = document.getElementById('logHistory');
+            logHistory.insertBefore(logEntry, logHistory.firstChild);
+            
+            // フォームをリセット
+            this.reset();
+            
+            alert('観測記録を保存しました！');
+        });
+
+        function createLogEntry(visibility, weather, time, comment) {
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            
+            const now = new Date();
+            const dateString = now.toLocaleDateString('ja-JP', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) + ' ' + time;
+            
+            let visibilityText = '';
+            let visibilityClass = '';
+            
+            switch(visibility) {
+                case 'clear':
+                    visibilityText = '👁️ クリアに見える';
+                    visibilityClass = 'visible';
+                    break;
+                case 'partial':
+                    visibilityText = '👁️ うっすら見える';
+                    visibilityClass = 'visible';
+                    break;
+                case 'hidden':
+                    visibilityText = '🌫️ 見えない';
+                    visibilityClass = 'not-visible';
+                    break;
+            }
+            
+            const weatherText = {
+                'sunny': '晴れ',
+                'cloudy': '曇り',
+                'rainy': '雨',
+                'foggy': '霧'
+            }[weather];
+            
+            entry.innerHTML = `
+                <div class="log-date">${dateString}</div>
+                <div class="log-visibility ${visibilityClass}">${visibilityText}</div>
+                <div class="log-details">天気: ${weatherText}<br>
+                ${comment ? 'コメント: ' + comment : ''}</div>
+            `;
+            
+            return entry;
+        }
+
+        // ページ読み込み時の処理
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 60000); // 1分ごとに更新
+            
+            // 現在時刻をtime inputのデフォルト値に設定
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                             now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('time').value = timeString;
+        });
+
+        // ランダムに見え具合を変更（デモ用）
+        setInterval(function() {
+            const statuses = [
+                { emoji: '👁️', text: '見えます！', class: 'visible' },
+                { emoji: '🌫️', text: '見えません', class: 'not-visible' },
+                { emoji: '👁️', text: 'うっすら見えます', class: 'visible' }
+            ];
+            
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            const statusElement = document.getElementById('visibilityStatus');
+            statusElement.innerHTML = randomStatus.emoji + ' ' + randomStatus.text;
+            statusElement.className = 'visibility-status ' + randomStatus.class;
+        }, 30000); // 30秒ごとに変更
+    </script>
+</body>
+</html>
