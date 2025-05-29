@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>セーブポイント上原田 - 東の見張り台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* ゼルダ時のオカリナ インスパイア カラーパレット */
+            --time-temple-blue: #2c5aa0;
+            --deep-water-blue: #1e3d72;
+            --sacred-light-blue: #4a90e2;
+            --mystic-navy: #0f1b3c;
+            --crystal-blue: #87ceeb;
+            --time-flow-blue: #3b82f6;
+            
+            /* 神殿の白 */
+            --temple-white: #f8fafc;
+            --sacred-white: #ffffff;
+            --stone-gray: #e2e8f0;
+            --ancient-gray: #64748b;
+            
+            /* セーブポイント専用 */
+            --save-glow: #60a5fa;
+            --success-green: #10b981;
+            --danger-red: #ef4444;
+            --warning-amber: #f59e0b;
+            
+            /* グラデーション - 時の流れを表現 */
+            --time-flow-gradient: linear-gradient(135deg, var(--deep-water-blue) 0%, var(--time-temple-blue) 50%, var(--sacred-light-blue) 100%);
+            --temple-gradient: linear-gradient(180deg, var(--temple-white) 0%, var(--stone-gray) 100%);
+            --save-screen-gradient: radial-gradient(ellipse at center, var(--time-temple-blue) 0%, var(--mystic-navy) 70%);
+            --water-flow-gradient: linear-gradient(45deg, var(--crystal-blue) 0%, var(--time-flow-blue) 50%, var(--deep-water-blue) 100%);
+            
+            /* 神殿建築 */
+            --border-radius: 8px;
+            --temple-shadow: 0 8px 32px rgba(28, 61, 114, 0.3);
+            --sacred-shadow: 0 4px 20px rgba(74, 144, 226, 0.2);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --temple-border: 2px solid rgba(135, 206, 235, 0.3);
+        }
+
+        body {
+            font-family: 'Noto Sans JP', serif;
+            line-height: 1.6;
+            color: var(--temple-white);
+            background: var(--save-screen-gradient);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 神聖な背景パターン */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(74, 144, 226, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(44, 90, 160, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: sacredFlow 20s ease-in-out infinite;
+        }
+
+        @keyframes sacredFlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        /* ヒーローセクション - 時の神殿風 */
+        .hero {
+            background: var(--time-flow-gradient);
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(135, 206, 235, 0.1) 50%, transparent 70%),
+                linear-gradient(-45deg, transparent 30%, rgba(74, 144, 226, 0.08) 50%, transparent 70%);
+            animation: templeLight 8s ease-in-out infinite;
+        }
+
+        @keyframes templeLight {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 300;
+            margin-bottom: 2rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.1em;
+            color: var(--sacred-white);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 30px rgba(135, 206, 235, 0.3); }
+            to { text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 50px rgba(135, 206, 235, 0.6); }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            opacity: 0.85;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* セーブポイント状況表示 - ゼルダのセーブ画面風 */
+        .save-status {
+            background: rgba(248, 250, 252, 0.95);
+            margin: -80px auto 0;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--temple-shadow);
+            position: relative;
+            z-index: 10;
+            max-width: 1000px;
+            border: var(--temple-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .save-status::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--water-flow-gradient);
+            opacity: 0.05;
+            border-radius: var(--border-radius);
+            pointer-events: none;
+        }
+
+        .status-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .status-header h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--deep-water-blue);
+            margin-bottom: 1rem;
+            font-weight: 400;
+            text-shadow: 0 2px 4px rgba(44, 90, 160, 0.2);
+        }
+
+        .current-time {
+            color: var(--ancient-gray);
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .save-file-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: stretch;
+        }
+
+        /* 観測データ表示 - セーブファイル風 */
+        .observation-data {
+            background: var(--temple-gradient);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border: var(--temple-border);
+            position: relative;
+            box-shadow: var(--sacred-shadow);
+        }
+
+        .observation-data::before {
+            content: '📊';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .observation-title {
+            font-size: 1.3rem;
+            color: var(--time-temple-blue);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            border-bottom: 2px solid var(--crystal-blue);
+            padding-bottom: 0.5rem;
+        }
+
+        .visibility-status {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .visible { color: var(--success-green); }
+        .not-visible { color: var(--danger-red); }
+        .partial { color: var(--warning-amber); }
+
+        .observation-comment {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--ancient-gray);
+            text-align: center;
+        }
+
+        /* 天気データ - 時の神殿の石柱風 */
+        .weather-data {
+            background: var(--temple-gradient);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            border: var(--temple-border);
+            box-shadow: var(--sacred-shadow);
+            position: relative;
+        }
+
+        .weather-data::before {
+            content: '🌤️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .weather-pillar {
+            background: var(--sacred-white);
+            padding: 1.8rem 1rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: 2px solid var(--crystal-blue);
+            box-shadow: 0 4px 15px rgba(135, 206, 235, 0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .weather-pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(135, 206, 235, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .weather-pillar:hover::before {
+            left: 100%;
+        }
+
+        .weather-pillar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4);
+        }
+
+        .weather-value {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--time-temple-blue);
+            margin-bottom: 0.8rem;
+        }
+
+        .weather-label {
+            font-size: 1rem;
+            color: var(--ancient-gray);
+            font-weight: 400;
+        }
+
+        /* 物語セクション - 神殿の石版風 */
+        .temple-story {
+            padding: 6rem 0;
+            background: var(--temple-white);
+            position: relative;
+        }
+
+        .temple-story::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(135, 206, 235, 0.03) 50%, transparent 60%),
+                linear-gradient(-45deg, transparent 40%, rgba(74, 144, 226, 0.02) 50%, transparent 60%);
+        }
+
+        .story-tablet {
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .story-tablet h2 {
+            font-size: clamp(2.2rem, 4vw, 3.2rem);
+            color: var(--deep-water-blue);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .story-tablet p {
+            font-size: 1.3rem;
+            color: var(--ancient-gray);
+            line-height: 1.8;
+        }
+
+        .temple-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .temple-text {
+            padding: 2rem;
+        }
+
+        .temple-text h3 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--time-temple-blue);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .temple-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--ancient-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .sacred-inscription {
+            background: var(--water-flow-gradient);
+            background-size: 200% 200%;
+            animation: flowingWater 8s ease-in-out infinite;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin: 2rem 0;
+            border: 2px solid var(--crystal-blue);
+            color: var(--sacred-white);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes flowingWater {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .temple-icon {
+            background: var(--time-flow-gradient);
+            height: 400px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: var(--sacred-white);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: var(--temple-border);
+        }
+
+        .temple-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(135, 206, 235, 0.2) 0%, transparent 70%);
+            animation: iconPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        /* セーブログセクション - ゼルダのセーブ画面完全再現 */
+        .save-log-section {
+            padding: 6rem 0;
+            background: var(--save-screen-gradient);
+            color: var(--sacred-white);
+            position: relative;
+        }
+
+        .save-log-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(135, 206, 235, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(74, 144, 226, 0.08) 0%, transparent 50%);
+            animation: saveScreenFlow 15s ease-in-out infinite;
+        }
+
+        @keyframes saveScreenFlow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .save-interface {
+            position: relative;
+            z-index: 2;
+        }
+
+        .save-interface h2 {
+            text-align: center;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .save-description {
+            text-align: center;
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* セーブファイル作成フォーム */
+        .save-file-creator {
+            background: rgba(248, 250, 252, 0.15);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(15px);
+            border: var(--temple-border);
+            margin-bottom: 4rem;
+            box-shadow: var(--temple-shadow);
+        }
+
+        .save-file-creator h3 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .save-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .save-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .save-field label {
+            margin-bottom: 1rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .save-field input, .save-field select, .save-field textarea {
+            padding: 1.2rem;
+            border: 2px solid var(--crystal-blue);
+            border-radius: var(--border-radius);
+            background: rgba(248, 250, 252, 0.95);
+            color: var(--deep-water-blue);
+            font-size: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .save-field input:focus, .save-field select:focus, .save-field textarea:focus {
+            outline: none;
+            background: var(--sacred-white);
+            border-color: var(--save-glow);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3);
+        }
+
+        .save-button {
+            background: var(--time-flow-gradient);
+            color: var(--sacred-white);
+            border: none;
+            padding: 1.5rem 3rem;
+            border-radius: var(--border-radius);
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            margin: 2rem auto 0;
+            display: block;
+            border: 2px solid var(--crystal-blue);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .save-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.4);
+            background: var(--sacred-light-blue);
+        }
+
+        /* セーブファイル履歴 */
+        .save-files {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .save-file {
+            background: rgba(248, 250, 252, 0.12);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+            border: var(--temple-border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .save-file::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--water-flow-gradient);
+            background-size: 200% 100%;
+            animation: flowingWater 3s linear infinite;
+        }
+
+        .save-file:hover {
+            transform: translateY(-5px);
+            background: rgba(248, 250, 252, 0.18);
+            box-shadow: var(--temple-shadow);
+        }
+
+        .save-timestamp {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .save-visibility {
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+        }
+
+        .save-details {
+            font-size: 1rem;
+            opacity: 0.85;
+            line-height: 1.7;
+        }
+
+        /* コミュニティ神殿 */
+        .community-temple {
+            padding: 6rem 0;
+            background: var(--temple-white);
+            position: relative;
+        }
+
+        .temple-pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .community-pillar {
+            background: var(--temple-gradient);
+            padding: 3rem 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border: var(--temple-border);
+            transition: var(--transition);
+            box-shadow: var(--sacred-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community-pillar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--water-flow-gradient);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .community-pillar:hover::before {
+            opacity: 0.05;
+        }
+
+        .community-pillar:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--temple-shadow);
+        }
+
+        .pillar-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .community-pillar h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--time-temple-blue);
+            font-weight: 400;
+        }
+
+        .community-pillar p {
+            color: var(--ancient-gray);
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* 神聖なフッター */
+        .sacred-footer {
+            background: var(--mystic-navy);
+            color: var(--sacred-white);
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .sacred-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--water-flow-gradient);
+            background-size: 200% 100%;
+            animation: flowingWater 4s linear infinite;
+        }
+
+        .footer-content h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .footer-content p {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-blessing {
+            font-size: 1rem;
+            opacity: 0.6;
+            margin-top: 2rem;
+            font-style: italic;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .save-file-display, .temple-columns {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .save-form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .weather-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .save-status {
+                margin: -60px auto 0;
+                padding: 2rem;
+            }
+
+            .temple-story, .save-log-section, .community-temple {
+                padding: 4rem 0;
+            }
+        }
+
+        /* スクロール効果 */
+        .temple-fade {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .temple-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 時の流れアニメーション */
+        @keyframes timeFlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .time-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--crystal-blue);
+            border-radius: 50%;
+            animation: timeFlow 8s linear infinite;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- 時の粒子エフェクト -->
+    <div class="time-particle" style="top: 20%; animation-delay: 0s;"></div>
+    <div class="time-particle" style="top: 40%; animation-delay: 2s;"></div>
+    <div class="time-particle" style="top: 60%; animation-delay: 4s;"></div>
+    <div class="time-particle" style="top: 80%; animation-delay: 6s;"></div>
+
+    <!-- ヒーローセクション - 時の神殿 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>東の見張り台</h1>
+            <p class="hero-subtitle">姫路へ入る、最後の門。</p>
+            <p class="hero-description">
+                時の流れと共に記録される、<br>
+                上原田の聖なる見張り場所
+            </p>
+        </div>
+    </section>
+
+    <!-- セーブポイント状況 -->
+    <section class="container">
+        <div class="save-status temple-fade">
+            <div class="status-header">
+                <h2>今日のセーブデータ</h2>
+                <div class="current-time" id="currentTime">
+                    2025年5月29日 14:30 更新
+                </div>
+            </div>
+            
+            <div class="save-file-display">
+                <div class="observation-data">
+                    <div class="observation-title">観測記録</div>
+                    <div class="visibility-status visible" id="visibilityStatus">
+                        👁️ 見えます
+                    </div>
+                    <p class="observation-comment" id="observationComment">
+                        晴天により、姫路城がクリアに確認できます。<br>
+                        漆喰の白さが青空に映えて、まさに白鷺城の美しさを実感できる一日です。
+                    </p>
+                </div>
+                
+                <div class="weather-data">
+                    <div class="observation-title">天候データ</div>
+                    <div class="weather-grid">
+                        <div class="weather-pillar">
+                            <div class="weather-value" id="weatherIcon">☀️</div>
+                            <div class="weather-label">天気</div>
+                        </div>
+                        <div class="weather-pillar">
+                            <div class="weather-value" id="temperature">22°C</div>
+                            <div class="weather-label">気温</div>
+                        </div>
+                        <div class="weather-pillar">
+                            <div class="weather-value" id="humidity">45%</div>
+                            <div class="weather-label">湿度</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 物語セクション - 神殿の石版 -->
+    <section class="temple-story">
+        <div class="container">
+            <div class="story-tablet temple-fade">
+                <h2>時の神殿に刻まれた物語</h2>
+                <p>
+                    遠い昔から、この地は時の流れを見守り続けています。<br>
+                    4キロの距離を超えて届く白い城の姿には、深い意味が込められています。
+                </p>
+            </div>
+
+            <div class="temple-columns temple-fade">
+                <div class="temple-text">
+                    <h3>白鷺城の神聖な力</h3>
+                    <p>姫路城の真の美しさは、近距離での精巧な造りだけではありません。この上原田の聖地から4キロ離れても見える「白さ」にこそ、その神聖な力が宿っています。</p>
+                    <div class="sacred-inscription">
+                        <p>膨張色である白い漆喰に包まれた城だからこそ、遠景でも堂々とその存在を示すのです。遠くから見えてこそ、真の白鷺城なのです。</p>
+                    </div>
+                    <p>この地で体感する漆喰の力は、時を超えた神聖な体験となるでしょう。</p>
+                </div>
+                <div class="temple-icon">
+                    🏯
+                </div>
+            </div>
+
+            <div class="temple-columns temple-fade">
+                <div class="temple-icon">
+                    ⛩️
+                </div>
+                <div class="temple-text">
+                    <h3>聖なる玄関の守護</h3>
+                    <p>ここ上原田は、京都方面から姫路に入る神聖な玄関口として、長い間その役目を果たしてきました。</p>
+                    <div class="sacred-inscription">
+                        <p>この地点で姫路城が見えたとき、旅人は「聖地姫路に着いた」ことを悟ったのです。逆に姫路を発つとき、最後に城を見納める神聖な場所でもありました。</p>
+                    </div>
+                    <p>現代でも、この景色は姫路への入口・出口として、特別な意味を持ち続けています。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- コミュニティ神殿 -->
+    <section class="community-temple">
+        <div class="container">
+            <div class="story-tablet temple-fade">
+                <h2>みんなで守る聖なる場所</h2>
+                <p>
+                    ここは単なる観測地点ではありません。<br>
+                    地域の人々が時を刻み、未来へとつなぐ「聖なる拠り所」です。
+                </p>
+            </div>
+
+            <div class="temple-pillars">
+                <div class="community-pillar temple-fade">
+                    <span class="pillar-icon">📜</span>
+                    <h4>時の記録</h4>
+                    <p>毎日の観測記録が積み重なり、季節の移り変わりや天候の変化を永続的な物語として神殿に刻んでいきます。</p>
+                </div>
+                <div class="community-pillar temple-fade">
+                    <span class="pillar-icon">🤝</span>
+                    <h4>結束の聖域</h4>
+                    <p>地域の人々が情報を共有し、日常も非常時も支え合う神聖なネットワークの中心地です。</p>
+                </div>
+                <div class="community-pillar temple-fade">
+                    <span class="pillar-icon">⚡</span>
+                    <h4>時の中継点</h4>
+                    <p>過去から現在、そして未来へと続く時の流れの中で、今を記録し、未来の上原田をセーフ（救う）する聖なる場所です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- セーブログセクション - ゼルダのセーブ画面 -->
+    <section class="save-log-section">
+        <div class="save-interface container">
+            <h2>セーブファイル管理</h2>
+            <p class="save-description">
+                あなたの観測記録が、この聖地の貴重な時の記憶となります。<br>
+                今日の姫路城の姿を、時の神殿に刻んでください。
+            </p>
+            
+            <!-- セーブファイル作成 -->
+            <div class="save-file-creator temple-fade">
+                <h3>新しいセーブファイルを作成</h3>
+                <form id="saveForm">
+                    <div class="save-form-grid">
+                        <div class="save-field">
+                            <label for="visibility">見え具合</label>
+                            <select id="visibility" required>
+                                <option value="">選択してください</option>
+                                <option value="clear">クリアに見える</option>
+                                <option value="partial">うっすら見える</option>
+                                <option value="hidden">見えない</option>
+                            </select>
+                        </div>
+                        <div class="save-field">
+                            <label for="weather">天気</label>
+                            <select id="weather" required>
+                                <option value="">選択してください</option>
+                                <option value="sunny">晴れ</option>
+                                <option value="cloudy">曇り</option>
+                                <option value="rainy">雨</option>
+                                <option value="foggy">霧</option>
+                            </select>
+                        </div>
+                        <div class="save-field">
+                            <label for="time">観測時刻</label>
+                            <input type="time" id="time" required>
+                        </div>
+                    </div>
+                    <div class="save-field" style="margin-top: 1rem;">
+                        <label for="comment">聖地への想い</label>
+                        <textarea id="comment" rows="3" placeholder="姫路城の様子や、この神聖な景色への想いをお聞かせください"></textarea>
+                    </div>
+                    <button type="submit" class="save-button">セーブファイルを作成</button>
+                </form>
+            </div>
+
+            <!-- セーブファイル履歴 -->
+            <div class="save-files" id="saveFiles">
+                <div class="save-file">
+                    <div class="save-timestamp">2025年5月29日 14:30</div>
+                    <div class="save-visibility visible">👁️ クリアに見える</div>
+                    <div class="save-details">天気: 晴れ | 気温: 22°C<br>
+                    聖地への想い: 青空に白い城が映えて絶景でした！久しぶりにこんなにはっきり見えて、心が清められる思いです。</div>
+                </div>
+                
+                <div class="save-file">
+                    <div class="save-timestamp">2025年5月28日 16:45</div>
+                    <div class="save-visibility not-visible">🌫️ 見えない</div>
+                    <div class="save-details">天気: 霧 | 気温: 18°C<br>
+                    聖地への想い: 霧に包まれて神秘的でした。見えないときも含めて記録することが、この聖地を守ることです。</div>
+                </div>
+                
+                <div class="save-file">
+                    <div class="save-timestamp">2025年5月27日 08:15</div>
+                    <div class="save-visibility partial">👁️ うっすら見える</div>
+                    <div class="save-details">天気: 曇り | 気温: 20°C<br>
+                    聖地への想い: 朝靄の中にうっすらと城影が。まるで時の神殿から届く神聖な光のようでした。</div>
+                </div>
+                
+                <div class="save-file">
+                    <div class="save-timestamp">2025年5月26日 12:00</div>
+                    <div class="save-visibility visible">👁️ クリアに見える</div>
+                    <div class="save-details">天気: 晴れ | 気温: 25°C<br>
+                    聖地への想い: 孫と一緒に聖地を訪れました。4キロも離れているのに見えることに、時を超えた神秘を感じました。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 神聖なフッター -->
+    <footer class="sacred-footer">
+        <div class="container">
+            <div class="footer-content">
+                <h3>セーブポイント上原田</h3>
+                <p>
+                    時の流れと共に記録し、未来の上原田をセーフ（救う）する。<br>
+                    みんなで見守る聖なる拠り所として、この神聖な景色を永遠に守り続けます。
+                </p>
+                <p class="footer-blessing">
+                    時の女神の加護がありますように<br>
+                    &copy; 2025 セーブポイント上原田 - 東の見張り台
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 現在時刻の更新
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('ja-JP', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            }) + ' 更新';
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // 神殿フェードイン効果
+        function handleTempleAnimation() {
+            const elements = document.querySelectorAll('.temple-fade');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // セーブファイル作成
+        document.getElementById('saveForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const visibility = document.getElementById('visibility').value;
+            const weather = document.getElementById('weather').value;
+            const time = document.getElementById('time').value;
+            const comment = document.getElementById('comment').value;
+            
+            if (!visibility || !weather || !time) {
+                alert('必須項目を入力してください');
+                return;
+            }
+            
+            const saveFile = createSaveFile(visibility, weather, time, comment);
+            const saveFiles = document.getElementById('saveFiles');
+            saveFiles.insertBefore(saveFile, saveFiles.firstChild);
+            
+            this.reset();
+            
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                             now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('time').value = timeString;
+            
+            alert('セーブファイルが神殿に記録されました！聖なる記録をありがとうございます。');
+        });
+
+        function createSaveFile(visibility, weather, time, comment) {
+            const file = document.createElement('div');
+            file.className = 'save-file';
+            file.style.animation = 'fadeInUp 0.8s ease-out';
+            
+            const now = new Date();
+            const dateString = now.toLocaleDateString('ja-JP', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) + ' ' + time;
+            
+            let visibilityText = '';
+            let visibilityClass = '';
+            
+            switch(visibility) {
+                case 'clear':
+                    visibilityText = '👁️ クリアに見える';
+                    visibilityClass = 'visible';
+                    break;
+                case 'partial':
+                    visibilityText = '👁️ うっすら見える';
+                    visibilityClass = 'partial';
+                    break;
+                case 'hidden':
+                    visibilityText = '🌫️ 見えない';
+                    visibilityClass = 'not-visible';
+                    break;
+            }
+            
+            const weatherText = {
+                'sunny': '晴れ',
+                'cloudy': '曇り',
+                'rainy': '雨',
+                'foggy': '霧'
+            }[weather];
+            
+            file.innerHTML = `
+                <div class="save-timestamp">${dateString}</div>
+                <div class="save-visibility ${visibilityClass}">${visibilityText}</div>
+                <div class="save-details">天気: ${weatherText}<br>
+                ${comment ? '聖地への想い: ' + comment : ''}</div>
+            `;
+            
+            return file;
+        }
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 60000);
+            
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                             now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('time').value = timeString;
+            
+            handleTempleAnimation();
+            window.addEventListener('scroll', handleTempleAnimation);
+        });
+
+        // 神秘的な状況変化（デモ用）
+        setInterval(function() {
+            const statuses = [
+                { 
+                    emoji: '👁️', 
+                    text: '見えます', 
+                    class: 'visible',
+                    comment: '晴天により、姫路城がクリアに確認できます。漆喰の白さが青空に映えて、まさに白鷺城の美しさを実感できる神聖な一日です。'
+                },
+                { 
+                    emoji: '🌫️', 
+                    text: '見えません', 
+                    class: 'not-visible',
+                    comment: '霧や雲により、残念ながら姫路城が見えない状況です。しかし、見えないときも含めて記録することが、この聖地を守ることです。'
+                },
+                { 
+                    emoji: '👁️', 
+                    text: 'うっすら見えます', 
+                    class: 'partial',
+                    comment: '薄雲の合間から、姫路城がうっすらと確認できます。まるで時の神殿から届く神聖な光のような、幻想的な美しさです。'
+                }
+            ];
+            
+            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+            const statusElement = document.getElementById('visibilityStatus');
+            const commentElement = document.getElementById('observationComment');
+            
+            statusElement.innerHTML = randomStatus.emoji + ' ' + randomStatus.text;
+            statusElement.className = 'visibility-status ' + randomStatus.class;
+            commentElement.innerHTML = randomStatus.comment;
+        }, 60000); // 1分ごとに変更
+    </script>
+</body>
+</html>
