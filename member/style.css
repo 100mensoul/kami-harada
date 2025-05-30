@@ -44,11 +44,11 @@ p {
 
 .info h3 {
   margin-top: 0.5rem;
+  margin-bottom: 0; /* 名前の下の余白を完全に削除 */
   font-size: 1.1rem;
 }
-
 .info p {
-  margin: 0.2rem 0;
+  margin: 0.05rem 0; /* さらに狭める */
   font-size: 0.9rem;
 }
 
@@ -57,3 +57,4 @@ p {
   color: #555;
   font-size: 0.85rem;
 }
+
