@@ -42,28 +42,21 @@ p {
   filter: grayscale(30%) contrast(1.1);
 }
 
-/* 既存のCSSに以下を追加または置き換え */
 .info h3 {
-  margin: 0.5rem 0 0 0 !important; /* 上だけ余白、下は0 */
+  margin-top: 0.5rem;
+  margin-bottom: 0; /* 名前の下の余白を削除 */
   font-size: 1.1rem;
-  line-height: 1.1;
 }
 
-.info p {
-  margin: 0 !important; /* 全ての余白を0に */
-  padding: 0 !important;
+.info p.title {
+  margin-top: 0; /* 称号の上の余白を削除 */
+  margin-bottom: 0.2rem;
   font-size: 0.9rem;
-  line-height: 1.2;
 }
 
-/* 称号（最初のp要素）にだけ少し上余白を付ける場合 */
-.info p:first-of-type {
-  margin-top: 0.1rem !important;
-}
-
-.info .quote {
+.info p.quote {
+  margin: 0.3rem 0 0 0; /* 引用文は少し間隔を空ける */
   font-style: italic;
   color: #555;
   font-size: 0.85rem;
-  margin-top: 0.3rem !important;
 }
