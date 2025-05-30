@@ -49,15 +49,21 @@ p {
 }
 
 .info p {
-  margin: 0.2rem 0;
   font-size: 0.9rem;
 }
 
-.info .quote {
+.info p.title {
+  margin: 0.1rem 0 0 0;  /* ← 上を少し空けて、下を0に */
+  font-size: 0.9rem;
+}
+
+.info p.quote {
+  margin: 0.1rem 0 0.2rem 0;  /* ← 上を少し、下は気持ち広く */
+  font-size: 0.85rem;
   font-style: italic;
   color: #555;
-  font-size: 0.85rem;
 }
+
 .sub-hero {
   position: relative;
   width: 100%;
