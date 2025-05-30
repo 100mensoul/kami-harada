@@ -42,6 +42,10 @@ p {
   filter: grayscale(30%) contrast(1.1);
 }
 
+.info {
+  line-height: 1.2; /* 全体的な行間を狭める */
+}
+
 .info h3 {
   margin-top: 0.5rem;
   margin-bottom: 0; /* 名前の下の余白を完全に削除 */
