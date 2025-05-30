@@ -1,4 +1,3 @@
-body {
   background: #f7f0e1; /* 和室っぽい土壁色 */
   font-family: "Hiragino Mincho ProN", serif;
   color: #333;
@@ -49,21 +48,15 @@ p {
 }
 
 .info p {
+  margin: 0.2rem 0;
   font-size: 0.9rem;
 }
 
-.info p.title {
-  margin: 0.1rem 0 0 0;  /* ← 上を少し空けて、下を0に */
-  font-size: 0.9rem;
-}
-
-.info p.quote {
-  margin: 0.1rem 0 0.2rem 0;  /* ← 上を少し、下は気持ち広く */
-  font-size: 0.85rem;
+.info .quote {
   font-style: italic;
   color: #555;
+  font-size: 0.85rem;
 }
-
 .sub-hero {
   position: relative;
   width: 100%;
