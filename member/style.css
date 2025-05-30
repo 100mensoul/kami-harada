@@ -44,12 +44,12 @@ p {
 
 .info h3 {
   margin-top: 0.5rem;
-  margin-bottom: 0; /* 名前の下の余白を削除 */
+  margin-bottom: 0.5rem; /* 名前の下の余白を削除 */
   font-size: 1.1rem;
 }
 
 .info p.title {
-  margin-top: 0; /* 称号の上の余白を削除 */
+  margin-top: 0.2rem; /* 称号の上の余白を削除 */
   margin-bottom: 0.2rem;
   font-size: 0.9rem;
 }
