@@ -3,18 +3,18 @@
     "name": "桐本さん",
     "title": "用水路マスター",
     "quote": "地域の水路を守り続ける男",
-    "photo": "member1.jpg"
+    "photo": "../images/member1.jpg"
   },
   {
     "name": "△△さん",
     "title": "川の守護者",
     "quote": "川の恵みを次世代へ",
-    "photo": "member2.jpg"
+    "photo": "../images/member2.jpg"
   },
   {
     "name": "□□さん",
     "title": "殿堂入り",
     "quote": "上原田の誇り",
-    "photo": "member3.jpg"
+    "photo": "../images/member3.jpg"
   }
 ]
