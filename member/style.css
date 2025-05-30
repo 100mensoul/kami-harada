@@ -44,6 +44,7 @@ p {
 
 .info h3 {
   margin-top: 0.5rem;
+  margin-bottom: 0.3rem;  /* ← これが肩書きとの間の余白 */
   font-size: 1.1rem;
 }
 
