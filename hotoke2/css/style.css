@@ -1,0 +1,189 @@
+/* 基本的なリセットとサイト全体のスタイル */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9; /* 和を感じさせる少し温かみのある白 */
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px; /* 最大幅 */
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* ヘッダー */
+header {
+    background-color: #4a4a4a; /* 落ち着いたグレー */
+    color: #fff;
+    padding: 20px 0;
+    border-bottom: 3px solid #c8a064; /* 金色のようなアクセント */
+}
+
+header h1 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+header nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav ul li a:hover {
+    color: #c8a064;
+}
+
+/* メインコンテンツ */
+main {
+    padding: 30px 0;
+}
+
+section {
+    margin-bottom: 40px;
+    padding: 30px 0;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+section:nth-child(odd) { /* セクションごとに少し背景色を変えるなど（任意） */
+    /* background-color: #fdfcf8; */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    color: #543a1a; /* 茶系の色 */
+    position: relative;
+    padding-bottom: 10px;
+}
+h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background-color: #c8a064;
+    margin: 10px auto 0;
+}
+
+
+/* ヒーローセクション */
+.hero {
+    position: relative;
+    width: 100%;
+    max-width: 1000px; /* コンテナ幅に合わせる */
+    height: 500px; /* 仮の高さ、画像に合わせて調整 */
+    margin: 0 auto 40px; /* 上下のマージン調整 */
+    overflow: hidden;
+    padding: 0; /* sectionのpaddingを上書き */
+    background-color: #000; /* 画像読み込み中の背景 */
+}
+
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像の比率を保ちつつエリアを埋める */
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.hero-slide.active {
+    opacity: 1;
+}
+
+.hero-caption {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 15px 25px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+/* ごあいさつ、最新作セクションなど */
+.introduction p, .latest-work p, .gallery-section-link p {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.work-item-preview {
+    display: flex;
+    align-items: flex-start; /* 画像とテキストを上揃え */
+    gap: 20px; /* 画像とテキストの間隔 */
+    background-color: #fdfcf8;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.work-item-preview img {
+    max-width: 250px; /* 最新作のプレビュー画像サイズ */
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.work-item-preview h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #543a1a;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #c8a064;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #b08d57;
+}
+
+/* フッター */
+footer {
+    background-color: #333;
+    color: #aaa;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+}
