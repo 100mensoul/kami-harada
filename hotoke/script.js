@@ -12,4 +12,4 @@ function nextSlide() {
   showSlide(currentSlide);
 }
 
-setInterval(nextSlide, 3000); // 3秒ごとに切り替え
+setInterval(nextSlide, 7000); // 7秒ごとに切り替え
