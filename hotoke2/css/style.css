@@ -92,12 +92,12 @@ h2::after {
 .hero {
     position: relative;
     width: 100%;
-    max-width: 1000px; /* コンテナ幅に合わせる */
-    height: 500px; /* 仮の高さ、画像に合わせて調整 */
-    margin: 0 auto 40px; /* 上下のマージン調整 */
+    max-width: 1000px;
+    height: 500px;
+    margin: 0 auto 40px;
     overflow: hidden;
-    padding: 0; /* sectionのpaddingを上書き */
-    background-color: #000; /* 画像読み込み中の背景 */
+    padding: 0;
+    background-color: #000;
 }
 
 .hero-slider {
@@ -112,14 +112,18 @@ h2::after {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 画像の比率を保ちつつエリアを埋める */
+    object-fit: cover;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    /* ↓ トランジションの時間を長くし、イージングを変更 */
+    transition: opacity 1.5s ease-in-out; /* 例: 1秒から1.5秒に変更、ease-in-outで滑らかに */
+    /* visibility: hidden; /* より厳密に非表示にする場合 (通常opacityで十分) */
 }
 
 .hero-slide.active {
     opacity: 1;
+    /* visibility: visible; /* visibilityと併用する場合 */
 }
+
 
 .hero-caption {
     position: absolute;
