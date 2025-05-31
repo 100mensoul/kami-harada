@@ -179,16 +179,6 @@ h2::after {
     background-color: #b08d57;
 }
 
-/* フッター */
-footer {
-    background-color: #333;
-    color: #aaa;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 30px;
-}
-
-/* ... 既存のスタイル ... */
 
 /* ギャラリーセクション */
 .gallery-section {
@@ -252,4 +242,12 @@ footer {
     margin-bottom: 15px;
 }
 
-/* ... フッターなど既存のスタイル ... */
+
+/* フッター */
+footer {
+    background-color: #333;
+    color: #aaa;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 30px;
+}
