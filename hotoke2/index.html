@@ -13,7 +13,7 @@
             <nav>
                 <ul>
                     <li><a href="index.html">ホーム</a></li>
-                    <li><a href="gallery.html">写仏画ギャラリー (準備中)</a></li>
+                    <li><a href="#gallery">写仏画ギャラリー</a></li> <!-- ← ページ内リンクに変更 -->
                     <li><a href="#">福本正について (準備中)</a></li>
                 </ul>
             </nav>
@@ -23,7 +23,7 @@
     <main>
         <section class="hero">
             <div class="hero-slider">
-                <img src="images/hero1.jpg" alt="ヒーローイメージ 写仏画 1" class="hero-slide active">
+                <img src="images/hero/hero1.jpg" alt="ヒーローイメージ 写仏画 1" class="hero-slide active">
                 <img src="images/hero/hero2.jpg" alt="ヒーローイメージ 写仏画 2" class="hero-slide">
                 <img src="images/hero/hero3.jpg" alt="ヒーローイメージ 写仏画 3" class="hero-slide">
                 <img src="images/hero/hero4.jpg" alt="ヒーローイメージ 写仏画 4" class="hero-slide">
@@ -44,24 +44,71 @@
             <div class="container">
                 <h2>最新作のご紹介 (仮)</h2>
                 <div class="work-item-preview">
-                    <!-- 最新作の画像はヒーローセクションの1枚目を流用するか、専用のものをここに配置 -->
-                    <img src="images/kannon.jpg" alt="最新作 (仮)">
+                    <img src="images/hero/hero1.jpg" alt="最新作 (仮)"> <!-- 最新作画像は適宜差し替え -->
                     <div>
                         <h3>(仮) 観音菩薩像</h3>
-                        <p>作者コメント: 「穏やかな表情と、流れるような衣の線に心を配り描きました。ご覧いただく皆様の心が少しでも安らげばと願っております。」（ここに最新作の簡単な説明や作者コメントが入ります）</p>
-                        <p><a href="#">詳細を見る (準備中)</a></p>
+                        <p>作者コメント: 「穏やかな表情と、流れるような衣の線に心を配り描きました。ご覧いただく皆様の心が少しでも安らげばと願っております。」</p>
+                        <p><a href="artwork-detail.html">詳細を見る (準備中)</a></p> <!-- 詳細ページへのリンク -->
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="gallery-section-link">
+        <!-- ↓↓↓ 新しく追加/変更するギャラリーセクション ↓↓↓ -->
+        <section id="gallery" class="gallery-section">  <!-- id="gallery" を追加 -->
             <div class="container">
                 <h2>写仏画ギャラリー</h2>
-                <p>これまでに描かれた写仏画をご覧いただけます。</p>
-                <p><a href="gallery.html" class="button">ギャラリーへ (準備中)</a></p>
+                <p>これまでに描かれた写仏画の数々です。クリックすると詳細をご覧いただけます。(現在準備中)</p>
+                <div class="gallery-grid">
+                    <!-- 仮のギャラリーアイテム (ここを将来的に作品データで埋めていく) -->
+                    <div class="gallery-item">
+                        <a href="artwork-detail.html"> <!-- 各作品の詳細ページへのリンク -->
+                            <img src="images/gallery/temp-thumb1.jpg" alt="写仏画作品 1 (仮)">
+                            <h3>(仮) 阿弥陀如来像</h3>
+                        </a>
+                        <p class="gallery-item-date">2023年12月</p>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="artwork-detail.html">
+                            <img src="images/gallery/temp-thumb2.jpg" alt="写仏画作品 2 (仮)">
+                            <h3>(仮) 不動明王像</h3>
+                        </a>
+                        <p class="gallery-item-date">2023年11月</p>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="artwork-detail.html">
+                            <img src="images/gallery/temp-thumb3.jpg" alt="写仏画作品 3 (仮)">
+                            <h3>(仮) 薬師如来像</h3>
+                        </a>
+                        <p class="gallery-item-date">2023年10月</p>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="artwork-detail.html">
+                            <img src="images/gallery/temp-thumb4.jpg" alt="写仏画作品 4 (仮)">
+                            <h3>(仮) 弁財天像</h3>
+                        </a>
+                        <p class="gallery-item-date">2023年9月</p>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="artwork-detail.html">
+                            <img src="images/gallery/temp-thumb5.jpg" alt="写仏画作品 5 (仮)">
+                            <h3>(仮) 地蔵菩薩像</h3>
+                        </a>
+                        <p class="gallery-item-date">2023年8月</p>
+                    </div>
+                    <div class="gallery-item">
+                        <a href="artwork-detail.html">
+                            <img src="images/gallery/temp-thumb6.jpg" alt="写仏画作品 6 (仮)">
+                            <h3>(仮) 弥勒菩薩像</h3>
+                        </a>
+                        <p class="gallery-item-date">2023年7月</p>
+                    </div>
+                    <!-- 必要に応じてアイテムを追加 -->
+                </div>
             </div>
         </section>
+        <!-- ↑↑↑ 新しく追加/変更するギャラリーセクション ↑↑↑ -->
+
     </main>
 
     <footer>
