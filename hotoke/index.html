@@ -38,14 +38,14 @@
 
         .hero-slider {
             position: relative;
-            width: 400%;
+            width: 500%;
             height: 100%;
             display: flex;
-            transition: transform 0.8s ease-in-out;
+            transition: transform 1.2s ease-in-out;
         }
 
         .hero-slide {
-            width: 25%;
+            width: 20%;
             height: 100%;
             background-size: cover;
             background-position: center;
@@ -320,7 +320,7 @@
         }
 
         .new-badge {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            background: linear-gradient(45deg, #8b6f47, #a0804d);
             color: white;
             padding: 0.2rem 0.6rem;
             border-radius: 12px;
@@ -328,7 +328,7 @@
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 2px 8px rgba(139, 111, 71, 0.3);
         }
 
         .card-description {
@@ -375,7 +375,7 @@
 
         .modal-image {
             width: 100%;
-            height: 400px;
+            height: 60vh;
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
@@ -386,14 +386,85 @@
             padding: 2rem;
         }
 
+        .modal-details {
+            margin-top: 1rem;
+        }
+
+        .toggle-details {
+            background: #8b4513;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-details:hover {
+            background: #a0522d;
+        }
+
+        .details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .details-content.open {
+            max-height: 500px;
+        }
+
+        /* フッター */
+        .footer {
+            background: linear-gradient(135deg, #3c2f26, #2c1810);
+            color: #d4c4a8;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 3px solid #8b4513;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
         /* レスポンシブ */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .hero-title {
+                font-size: 1.2rem;
+                letter-spacing: 0.05em;
             }
             
-            .hero-subtitle {
-                font-size: 1rem;
+            .hero-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .hero-controls {
+                display: block;
+            }
+
+            .hero-prev {
+                left: 1rem;
+            }
+
+            .hero-next {
+                right: 1rem;
+            }
+
+            .hero-dot {
+                width: 8px;
+                height: 8px;
             }
             
             .nav-container {
@@ -419,6 +490,15 @@
                 justify-content: center;
                 flex-wrap: wrap;
             }
+
+            .modal-image {
+                height: 50vh;
+            }
+
+            #about > div > div {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
         }
     </style>
 </head>
@@ -439,6 +519,7 @@
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-slider" id="heroSlider">
+                <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
                 <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
                 <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
                 <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
@@ -601,32 +682,55 @@
         ];
 
         // ヒーロースライダー機能
-        let currentSlide = 0;
+        let currentSlide = 1; // 1から開始（0は最後のスライドのクローン）
         const totalSlides = 4;
         const slider = document.getElementById('heroSlider');
         const dots = document.querySelectorAll('.hero-dot');
 
-        function updateSlider() {
-            const translateX = -currentSlide * 25;
+        // 初期位置設定
+        slider.style.transform = `translateX(-20%)`;
+
+        function updateSlider(animated = true) {
+            if (!animated) {
+                slider.style.transition = 'none';
+            } else {
+                slider.style.transition = 'transform 1.2s ease-in-out';
+            }
+            
+            const translateX = -currentSlide * 20;
             slider.style.transform = `translateX(${translateX}%)`;
             
+            const dotIndex = currentSlide === 0 ? 3 : (currentSlide === 5 ? 0 : currentSlide - 1);
             dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentSlide);
+                dot.classList.toggle('active', index === dotIndex);
             });
+
+            // 無限ループのためのリセット
+            if (currentSlide === 0) {
+                setTimeout(() => {
+                    currentSlide = 4;
+                    updateSlider(false);
+                }, 1200);
+            } else if (currentSlide === 5) {
+                setTimeout(() => {
+                    currentSlide = 1;
+                    updateSlider(false);
+                }, 1200);
+            }
         }
 
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
+            currentSlide++;
             updateSlider();
         }
 
         function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            currentSlide--;
             updateSlider();
         }
 
         function goToSlide(index) {
-            currentSlide = index;
+            currentSlide = index + 1;
             updateSlider();
         }
 
@@ -710,8 +814,11 @@
             modalImage.style.backgroundImage = `url('${buddha.image}')`;
             modalInfo.innerHTML = `
                 <h2 style="color: #8b4513; margin-bottom: 1rem;">${buddha.title}</h2>
-                <p style="color: #666; margin-bottom: 1rem; line-height: 1.6;">${buddha.description}</p>
-                <p style="color: #999; font-size: 0.9rem;">制作日：${buddha.date}</p>
+                <button class="toggle-details" onclick="toggleDetails()">詳細を表示</button>
+                <div class="details-content" id="detailsContent">
+                    <p style="color: #666; margin-bottom: 1rem; line-height: 1.6;">${buddha.description}</p>
+                    <p style="color: #999; font-size: 0.9rem;">制作日：${buddha.date}</p>
+                </div>
             `;
             
             modal.style.display = 'block';
@@ -731,21 +838,9 @@
             }
         });
 
-        // コメント追加機能
+        // コメント追加機能（削除）
         function addComment(button) {
-            const input = button.previousElementSibling;
-            const comment = input.value.trim();
-            
-            if (comment) {
-                const commentDiv = document.createElement('div');
-                commentDiv.className = 'family-comment';
-                commentDiv.innerHTML = `<span class="comment-author">あなた：</span>${comment}`;
-                
-                const commentsContainer = button.parentElement.parentElement;
-                commentsContainer.insertBefore(commentDiv, button.parentElement);
-                
-                input.value = '';
-            }
+            // この機能は一時的に無効化
         }
 
         // スムーズスクロール
