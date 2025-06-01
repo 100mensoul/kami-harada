@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const slides = document.querySelectorAll('.hero-slide');
     let currentSlide = 0;
-    const slideInterval = 6000; // 6秒ごとに切り替え
+    const slideInterval = 12000; // 12秒ごとに切り替え
 
     if (slides.length > 0) {
         // 初期表示
