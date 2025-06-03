@@ -132,7 +132,6 @@
                 revenue: "高",
                 coordinates: { lat: 34.823056, lng: 134.623056 },
                 googleMapsUrl: "https://maps.app.goo.gl/3vhSckBMswNYsnZ78",
-                https://maps.app.goo.gl/KBF4FbFTK9ypuQjr6
                 accessibility: {
                     himejiStation: 18,
                     hanedaIC: 5,
