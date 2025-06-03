@@ -1,0 +1,54 @@
+{
+  "categories": [
+    {
+      "id": "restaurant",
+      "name": "飲食店・カフェ",
+      "filename": "restaurant.json",
+      "icon": "🍽️",
+      "color": "#ff6b6b"
+    },
+    {
+      "id": "hotel",
+      "name": "宿泊",
+      "filename": "hotel.json",
+      "icon": "🏨",
+      "color": "#4ecdc4"
+    },
+    {
+      "id": "commercial",
+      "name": "商業",
+      "filename": "commercial.json",
+      "icon": "🏪",
+      "color": "#45b7d1"
+    },
+    {
+      "id": "medical",
+      "name": "医療・福祉",
+      "filename": "medical.json",
+      "icon": "🏥",
+      "color": "#96ceb4"
+    },
+    {
+      "id": "education",
+      "name": "教育",
+      "filename": "education.json",
+      "icon": "🎓",
+      "color": "#feca57"
+    },
+    {
+      "id": "tourism",
+      "name": "観光",
+      "filename": "tourism.json",
+      "icon": "🗾",
+      "color": "#ff9ff3"
+    }
+  ],
+  "dataStructure": {
+    "note": "各カテゴリJSONファイルは配列形式で、以下の構造を持つオブジェクトを格納",
+    "requiredFields": [
+      "id", "name", "type", "category", "address", "area", "zoning", 
+      "status", "revenue", "coordinates", "googleMapsUrl", 
+      "accessibility", "infrastructure"
+    ]
+  }
+}
