@@ -1,0 +1,32 @@
+[
+    {
+        "id": 6,
+        "name": "道の駅（候補地）",
+        "type": "development",
+        "category": "公共施設開発予定",
+        "address": "兵庫県姫路市花田町上原田（花田IC東側）",
+        "area": 15000,
+        "zoning": "市街化調整区域",
+        "status": "2025年7月公募予定",
+        "revenue": "計画中",
+        "coordinates": { "lat": 34.822956, "lng": 134.622956 },
+        "googleMapsUrl": "https://maps.app.goo.gl/KBF4FbFTK9ypuQjr6",
+        "accessibility": {
+            "himejiStation": 16,
+            "hanedaIC": 1,
+            "sanyoHimejiIC": 8,
+            "kobe": 45,
+            "osaka": 65,
+            "kyoto": 90
+        },
+        "infrastructure": {
+            "roadType": "国道・県道接続",
+            "roadWidth": "片側二車線予定",
+            "traffic": { "morning": "予測高", "noon": "予測中", "evening": "予測高" },
+            "water": "整備予定",
+            "electricity": "整備予定",
+            "gas": "整備予定",
+            "internet": "光ファイバー対応予定"
+        }
+    }
+]
