@@ -229,18 +229,37 @@
             updateStats();
         }
 
+        // グローバル関数として定義（HTMLから呼び出される）
+        window.toggleSelection = toggleSelection;
+        window.showDetail = showDetail;
+        window.showOnMap = showOnMap;
+        window.exportSelected = exportSelected;
+        window.clearSelection = clearSelection;
+        window.setView = setView;
+        window.closeModal = closeModal;
+
         // 統計情報更新
         function updateStats() {
-            document.getElementById('totalSpots').textContent = filteredData.length;
-            document.getElementById('storeCount').textContent = filteredData.filter(item => item.type === 'store').length;
-            document.getElementById('vacantCount').textContent = filteredData.filter(item => item.type === 'vacant' || item.type === 'development').length;
-            document.getElementById('selectedCount').textContent = selectedItems.size;
+            const totalSpots = filteredData.length;
+            const storeCount = filteredData.filter(item => item.type === 'store').length;
+            const vacantCount = filteredData.filter(item => item.type === 'vacant' || item.type === 'development').length;
+            const selectedCount = selectedItems.size;
+            
+            document.getElementById('totalSpots').textContent = totalSpots;
+            document.getElementById('storeCount').textContent = storeCount;
+            document.getElementById('vacantCount').textContent = vacantCount;
+            document.getElementById('selectedCount').textContent = selectedCount;
+            
+            console.log('統計更新:', { totalSpots, storeCount, vacantCount, selectedCount });
         }
 
         // 詳細表示
         function showDetail(id) {
-            const item = locationData.find(item => item.id === id);
-            if (!item) return;
+            const item = locationData.find(item => item.id == id);
+            if (!item) {
+                console.error('アイテムが見つかりません:', id);
+                return;
+            }
 
             document.getElementById('modalTitle').textContent = item.name;
             document.getElementById('modalBody').innerHTML = `
@@ -355,8 +374,11 @@
 
         // 地図で表示
         function showOnMap(id) {
-            const item = locationData.find(item => item.id === id);
-            if (!item) return;
+            const item = locationData.find(item => item.id == id);
+            if (!item) {
+                console.error('アイテムが見つかりません:', id);
+                return;
+            }
             
             // Google Mapsの既存URLがある場合はそれを使用、なければ座標で表示
             let url;
@@ -372,12 +394,17 @@
 
         // CSV出力
         function exportSelected() {
+            console.log('CSV出力開始、選択数:', selectedItems.size);
+            console.log('選択されたアイテム:', Array.from(selectedItems));
+            
             if (selectedItems.size === 0) {
                 alert('エクスポートする項目を選択してください。');
                 return;
             }
 
             const selectedData = locationData.filter(item => selectedItems.has(item.id));
+            console.log('エクスポート対象データ:', selectedData);
+            
             const csvContent = convertToCSV(selectedData);
             downloadCSV(csvContent, '播州ロケーションデータ.csv');
         }
