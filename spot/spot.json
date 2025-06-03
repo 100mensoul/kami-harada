@@ -1,0 +1,182 @@
+[
+    {
+        "id": 1,
+        "name": "セブンイレブン姫路上原田店",
+        "type": "store",
+        "category": "コンビニエンスストア",
+        "address": "兵庫県姫路市花田町上原田",
+        "area": 600,
+        "zoning": "商業地域",
+        "status": "営業中",
+        "revenue": "高",
+        "coordinates": { "lat": 34.823456, "lng": 134.623456 },
+        "googleMapsUrl": "https://maps.app.goo.gl/8Vp2631oNY4gL2j47",
+        "accessibility": {
+            "himejiStation": 15,
+            "hanedaIC": 2,
+            "sanyoHimejiIC": 8,
+            "kobe": 45,
+            "osaka": 65,
+            "kyoto": 90
+        },
+        "infrastructure": {
+            "roadType": "県道",
+            "roadWidth": "片側一車線",
+            "traffic": { "morning": "中", "noon": "低", "evening": "高" },
+            "water": "整備済み",
+            "electricity": "整備済み",
+            "gas": "整備済み",
+            "internet": "光ファイバー対応"
+        }
+    },
+    {
+        "id": 2,
+        "name": "西松屋 花田店",
+        "type": "store",
+        "category": "子供用品店",
+        "address": "兵庫県姫路市花田町上原田",
+        "area": 1200,
+        "zoning": "商業地域",
+        "status": "営業中",
+        "revenue": "中",
+        "coordinates": { "lat": 34.823356, "lng": 134.623356 },
+        "googleMapsUrl": "https://maps.app.goo.gl/PitdUhCmTTCYjQBC7",
+        "accessibility": {
+            "himejiStation": 16,
+            "hanedaIC": 3,
+            "sanyoHimejiIC": 9,
+            "kobe": 46,
+            "osaka": 66,
+            "kyoto": 91
+        },
+        "infrastructure": {
+            "roadType": "県道",
+            "roadWidth": "片側一車線",
+            "traffic": { "morning": "中", "noon": "中", "evening": "高" },
+            "water": "整備済み",
+            "electricity": "整備済み",
+            "gas": "整備済み",
+            "internet": "光ファイバー対応"
+        }
+    },
+    {
+        "id": 3,
+        "name": "ラ・ムー",
+        "type": "store",
+        "category": "スーパーマーケット",
+        "address": "兵庫県姫路市花田町上原田",
+        "area": 1800,
+        "zoning": "商業地域",
+        "status": "営業中",
+        "revenue": "高",
+        "coordinates": { "lat": 34.823256, "lng": 134.623256 },
+        "googleMapsUrl": "https://maps.app.goo.gl/5J75h49UHn7a9buW6",
+        "accessibility": {
+            "himejiStation": 17,
+            "hanedaIC": 4,
+            "sanyoHimejiIC": 10,
+            "kobe": 47,
+            "osaka": 67,
+            "kyoto": 92
+        },
+        "infrastructure": {
+            "roadType": "県道",
+            "roadWidth": "片側一車線",
+            "traffic": { "morning": "高", "noon": "中", "evening": "高" },
+            "water": "整備済み",
+            "electricity": "整備済み",
+            "gas": "整備済み",
+            "internet": "光ファイバー対応"
+        }
+    },
+    {
+        "id": 4,
+        "name": "マクドナルド花田フレッツガーデン店",
+        "type": "store",
+        "category": "飲食店",
+        "address": "兵庫県姫路市花田町上原田",
+        "area": 800,
+        "zoning": "商業地域",
+        "status": "営業中",
+        "revenue": "高",
+        "coordinates": { "lat": 34.823156, "lng": 134.623156 },
+        "googleMapsUrl": "https://maps.app.goo.gl/2HnVvRdxnoRxsVhz6",
+        "accessibility": {
+            "himejiStation": 18,
+            "hanedaIC": 5,
+            "sanyoHimejiIC": 11,
+            "kobe": 48,
+            "osaka": 68,
+            "kyoto": 93
+        },
+        "infrastructure": {
+            "roadType": "県道",
+            "roadWidth": "片側一車線",
+            "traffic": { "morning": "中", "noon": "高", "evening": "高" },
+            "water": "整備済み",
+            "electricity": "整備済み",
+            "gas": "整備済み",
+            "internet": "光ファイバー対応"
+        }
+    },
+    {
+        "id": 5,
+        "name": "ヤマダデンキ テックランド姫路店",
+        "type": "store",
+        "category": "家電量販店",
+        "address": "兵庫県姫路市花田町上原田",
+        "area": 2800,
+        "zoning": "商業地域",
+        "status": "営業中",
+        "revenue": "高",
+        "coordinates": { "lat": 34.823056, "lng": 134.623056 },
+        "googleMapsUrl": "https://maps.app.goo.gl/3vhSckBMswNYsnZ78",
+        "accessibility": {
+            "himejiStation": 18,
+            "hanedaIC": 5,
+            "sanyoHimejiIC": 12,
+            "kobe": 48,
+            "osaka": 68,
+            "kyoto": 93
+        },
+        "infrastructure": {
+            "roadType": "県道",
+            "roadWidth": "片側一車線",
+            "traffic": { "morning": "中", "noon": "中", "evening": "高" },
+            "water": "整備済み",
+            "electricity": "整備済み",
+            "gas": "整備済み",
+            "internet": "光ファイバー対応"
+        }
+    },
+    {
+        "id": 6,
+        "name": "道の駅（候補地）",
+        "type": "development",
+        "category": "公共施設開発予定",
+        "address": "兵庫県姫路市花田町上原田（花田IC東側）",
+        "area": 15000,
+        "zoning": "市街化調整区域",
+        "status": "2025年7月公募予定",
+        "revenue": "計画中",
+        "coordinates": { "lat": 34.822956, "lng": 134.622956 },
+        "googleMapsUrl": "https://maps.app.goo.gl/KBF4FbFTK9ypuQjr6",
+        "accessibility": {
+            "himejiStation": 16,
+            "hanedaIC": 1,
+            "sanyoHimejiIC": 8,
+            "kobe": 45,
+            "osaka": 65,
+            "kyoto": 90
+        },
+        "infrastructure": {
+            "roadType": "国道・県道接続",
+            "roadWidth": "片側二車線予定",
+            "traffic": { "morning": "予測高", "noon": "予測中", "evening": "予測高" },
+            "water": "整備予定",
+            "electricity": "整備予定",
+            "gas": "整備予定",
+            "internet": "光ファイバー対応予定"
+        }
+    }
+]
