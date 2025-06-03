@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ロケーションインサイト - 播州上原田</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="spot.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+   
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ロケーションインサイト</h1>
+            <p>姫路市街地と豊かな自然をつなぐ上原田エリア - 道の駅を核とした持続可能なまちづくり</p>
+            
+            <!-- Google Map埋め込み - 上原田交差点 -->
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6567.5!2d134.736366!3d34.835389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x355327d1f2a3b4c5%3A0x12345678901abcde!2z5LiK5Y6f55Sw5Lqk5beu54K55LiJ6YGp54K5!5e0!3m2!1sja!2sjp!4v1635123456789!5m2!1sja!2sjp"
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- エリア特性セクション -->
+        <div class="analytics-section">
+            <div class="analytics-header">
+                <h2>エリア特性</h2>
+            </div>
+            
+            <div class="area-features">
+                <div class="feature-card">
+                    <div class="feature-icon">🛣️</div>
+                    <h3>交通アクセス拠点</h3>
+                    <p>花田ICまで車で3分。播但連絡道路経由で関西圏へのアクセスが抜群。姫路中心部よりも効率的に東西南北へ移動可能。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏞️</div>
+                    <h3>都市と自然の境界</h3>
+                    <p>姫路市街地から約4km。西は市街地、東は豊かな自然と農地エリア。都市機能と自然環境の両方にアクセス可能な立地。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏪</div>
+                    <h3>道の駅開発予定</h3>
+                    <p>2025年7月公募開始予定。姫路市初の道の駅として地域の新たな核となる可能性。観光と地域経済の活性化が期待される。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalSpots">6</div>
+                    <div class="stat-label">総スポット数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="storeCount">5</div>
+                    <div class="stat-label">店舗</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="vacantCount">3</div>
+                    <div class="stat-label">開発用地</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="selectedCount">0</div>
+                    <div class="stat-label">選択中</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label for="typeFilter">種別</label>
+                    <select id="typeFilter">
+                        <option value="">すべて</option>
+                        <option value="store">店舗</option>
+                        <option value="vacant">空き地</option>
+                        <option value="residential">住宅</option>
+                        <option value="agriculture">農地</option>
+                        <option value="development">開発予定</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="areaFilter">面積（m²）</label>
+                    <select id="areaFilter">
+                        <option value="">すべて</option>
+                        <option value="0-1000">1,000m²未満</option>
+                        <option value="1000-5000">1,000-5,000m²</option>
+                        <option value="5000+">5,000m²以上</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="distanceFilter">姫路駅からの距離</label>
+                    <select id="distanceFilter">
+                        <option value="">すべて</option>
+                        <option value="0-15">15分以内</option>
+                        <option value="15-30">15-30分</option>
+                        <option value="30+">30分以上</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="searchInput">キーワード検索</label>
+                    <input type="text" id="searchInput" placeholder="施設名、住所で検索">
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="exportSelected()">選択項目をCSV出力</button>
+                <button class="btn btn-secondary" onclick="clearSelection()">選択解除</button>
+                <div class="view-toggle">
+                    <button class="active" id="galleryBtn" onclick="setView('gallery')">ギャラリー</button>
+                    <button id="listBtn" onclick="setView('list')">リスト</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="gallery" id="gallery">
+            <!-- カードはJavaScriptで動的生成 -->
+        </div>
+
+        <!-- リストビュー -->
+        <div class="list-view" id="listView">
+            <table>
+                <thead>
+                    <tr>
+                        <th>選択</th>
+                        <th>名称</th>
+                        <th>種別</th>
+                        <th>面積</th>
+                        <th>姫路駅まで</th>
+                        <th>状態</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="listTableBody">
+                    <!-- データはJavaScriptで動的生成 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- モーダル -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">詳細情報</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modalBody">
+                <!-- 詳細情報はJavaScriptで動的生成 -->
+            </div>
+        </div>
+    </div>
+
+ <script type="module" src="spot.js"></script>
+</body>
+</html>
