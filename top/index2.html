@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>タウンページ｜SAVE POINT 上原田</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* タウンページ専用スタイル */
+    :root {
+      --earth-yellow: #D4C4A8;
+      --soot-brown: #3A2F2A;
+      --wood-brown: #8B5A3C;
+      --doma-gray: #6B6B6B;
+      --water-blue: #4A90E2;
+      --shishimai-red: #C62D42;
+      --aged-white: #F5F3E7;
+    }
+
+```
+body {
+  background: linear-gradient(135deg, var(--earth-yellow) 0%, #E8DCC0 100%);
+  font-family: "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  color: var(--soot-brown);
+}
+
+/* 古民家背景テクスチャ */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(139, 90, 60, 0.1) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(58, 47, 42, 0.05) 0%, transparent 25%),
+    linear-gradient(45deg, transparent 49%, rgba(139, 90, 60, 0.02) 49%, rgba(139, 90, 60, 0.02) 51%, transparent 51%);
+  background-size: 200px 200px, 150px 150px, 20px 20px;
+  z-index: -1;
+  animation: woodGrain 30s ease-in-out infinite;
+}
+
+@keyframes woodGrain {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.5; }
+}
+
+/* 電光掲示板ヘッダー */
+.digital-clock {
+  background: var(--soot-brown);
+  color: #00FF00;
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 3px solid var(--wood-brown);
+  box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.2);
+  animation: digitalFlicker 2s infinite;
+}
+
+@keyframes digitalFlicker {
+  0%, 98% { opacity: 1; }
+  99% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+/* メインコンテンツエリア */
+.town-hall {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(245, 243, 231, 0.9);
+  box-shadow: 
+    inset 0 0 50px rgba(139, 90, 60, 0.1),
+    0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 20px 20px;
+  backdrop-filter: blur(5px);
+}
+
+/* タイトルエリア */
+.town-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.town-title h1 {
+  font-size: 3rem;
+  color: var(--wood-brown);
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.1em;
+}
+
+.town-title .subtitle {
+  font-size: 1.2rem;
+  color: var(--doma-gray);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* 獅子舞ナビゲーター */
+.shishimai-guide {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  background: var(--shishimai-red);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  animation: shishimaiFloat 3s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(198, 45, 66, 0.4);
+  border: 3px solid #F5F3E7;
+}
+
+.shishimai-guide::before {
+  content: '🦁';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  animation: shishimaiBlink 2s infinite;
+}
+
+@keyframes shishimaiFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shishimaiBlink {
+  0%, 90% { opacity: 1; }
+  95% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* 水路ナビゲーション */
+.water-navigation {
+  background: linear-gradient(90deg, var(--water-blue), #87CEEB, var(--water-blue));
+  padding: 1rem;
+  border-radius: 50px;
+  margin: 2rem 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.water-navigation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: waterFlow 3s linear infinite;
+}
+
+@keyframes waterFlow {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+/* コンテンツグリッド */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.content-card {
+  background: var(--aged-white);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 2px solid var(--wood-brown);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.content-card:hover {
+  transform: translateY(-5px);
+}
+
+.content-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--wood-brown), var(--earth-yellow));
+  border-radius: 17px;
+  z-index: -1;
+}
+
+.content-card h3 {
+  color: var(--wood-brown);
+  margin-top: 0;
+  font-size: 1.3rem;
+  border-bottom: 2px solid var(--earth-yellow);
+  padding-bottom: 0.5rem;
+}
+
+.content-card p {
+  line-height: 1.6;
+  color: var(--soot-brown);
+}
+
+/* 先祖からの手紙 */
+.ancestor-letter {
+  background: var(--aged-white);
+  border: 3px solid var(--wood-brown);
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 3rem 0;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ancestor-letter:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.letter-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.letter-text {
+  font-size: 1.1rem;
+  color: var(--soot-brown);
+  font-style: italic;
+}
+
+/* モーダル */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background: var(--aged-white);
+  margin: 5% auto;
+  padding: 2rem;
+  border: 3px solid var(--wood-brown);
+  border-radius: 15px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.close {
+  color: var(--soot-brown);
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close:hover {
+  color: var(--shishimai-red);
+}
+
+.letter-content {
+  font-family: 'serif';
+  line-height: 1.8;
+  color: var(--soot-brown);
+  margin-top: 1rem;
+}
+
+.signature {
+  text-align: right;
+  margin-top: 2rem;
+  font-style: italic;
+  color: var(--wood-brown);
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .town-title h1 {
+    font-size: 2rem;
+  }
+  
+  .nav-items {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .town-hall {
+    padding: 1rem;
+  }
+}
+```
+
+  </style>
+</head>
+<body>
+  <!-- 電光掲示板 -->
+  <div class="digital-clock">
+    <span id="current-time">2025/06/04 23:45:32</span>
+    <span style="margin-left: 2rem;">SAVE POINT 上原田 - デジタル公民館</span>
+  </div>
+
+  <!-- メインコンテンツ -->
+
+  <div class="town-hall">
+    <!-- タイトル -->
+    <div class="town-title">
+      <h1>タウンページ</h1>
+      <p class="subtitle">〜 デジタル公民館へようこそ 〜</p>
+    </div>
+
+```
+<!-- 水路ナビゲーション -->
+<nav class="water-navigation">
+  <div class="nav-items">
+    <a href="../flower/index.html" class="nav-item">🌸 花壇記録</a>
+    <a href="../taue/index.html" class="nav-item">🌾 田植え記録</a>
+    <a href="../member/index.html" class="nav-item">👥 メンバー</a>
+    <a href="../history/index.html" class="nav-item">📜 歴史</a>
+    <a href="../local.html" class="nav-item">🏠 町民の方へ</a>
+    <a href="../guest.html" class="nav-item">🎋 訪問者の方へ</a>
+  </div>
+</nav>
+
+<!-- コンテンツグリッド -->
+<div class="content-grid">
+  <div class="content-card">
+    <h3>🌸 最新の活動</h3>
+    <p>2025年6月4日に上原田交差点の花壇整備が完了しました。春の花から夏の花への植え替え作業を、地域のローカルレジェンズたちが行いました。</p>
+    <p><a href="../flower/index.html" style="color: var(--water-blue);">詳細を見る →</a></p>
+  </div>
+
+  <div class="content-card">
+    <h3>🌾 田植え2025</h3>
+    <p>今年の田植えは5月28日に無事完了。新しい田植機の素晴らしい技術と共に、キヌヒカリの苗が元気に育っています。秋の収穫が楽しみです。</p>
+    <p><a href="../taue/index.html" style="color: var(--water-blue);">記録を見る →</a></p>
+  </div>
+
+  <div class="content-card">
+    <h3>💧 水の記憶</h3>
+    <p>上原田を潤す水路は、昔から地域の生活を支えてきました。市川から引く用水システム（花田井）が、この里の繁栄の基盤となっています。</p>
+    <p><a href="../history/index.html" style="color: var(--water-blue);">歴史を学ぶ →</a></p>
+  </div>
+
+  <div class="content-card">
+    <h3>⏰ 時空の結合点</h3>
+    <p>花田ICは単なる高速道路の連絡口ではありません。過去・現在・未来をつなぐタイムポートとして、多くの人々の人生に関わってきました。</p>
+    <p><a href="../about/index.html" style="color: var(--water-blue);">詳しく知る →</a></p>
+  </div>
+</div>
+
+<!-- 先祖からの手紙 -->
+<div class="ancestor-letter" onclick="openLetter()">
+  <span class="letter-icon">📜</span>
+  <p class="letter-text">なにやら古い手紙がある。読んでみますか？</p>
+</div>
+```
+
+  </div>
+
+  <!-- 獅子舞ナビゲーター -->
+
+  <div class="shishimai-guide" onclick="showGuide()"></div>
+
+  <!-- モーダル：先祖からの手紙 -->
+
+  <div id="letter-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLetter()">&times;</span>
+      <h2 style="color: var(--wood-brown); text-align: center;">先祖からの手紙</h2>
+      <div class="letter-content">
+        <p>この地で生まれた者よ、</p>
+        <p>たとえ大人になって外の世界へ出ようとも、ここが故郷であることは変わりない。</p>
+        <p>原風景を過ごした最初のセーブポイントは、ここ姫路市花田町上原田なのだから。</p>
+        <p>水は流れ、季節は巡り、人は移ろいゆく。しかし、この土地に刻まれた記憶と、そこに息づく営みは永遠に続いていく。</p>
+        <p>君たちが歩む未来が、どうか豊かなものでありますように。</p>
+        <div class="signature">
+          近代の先祖代表<br>
+          町内会長 F.S より
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 現在時刻の更新
+    function updateTime() {
+      const now = new Date();
+      const timeString = now.getFullYear() + '/' + 
+        String(now.getMonth() + 1).padStart(2, '0') + '/' + 
+        String(now.getDate()).padStart(2, '0') + ' ' +
+        String(now.getHours()).padStart(2, '0') + ':' + 
+        String(now.getMinutes()).padStart(2, '0') + ':' + 
+        String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('current-time').textContent = timeString;
+    }
+
+    // 1秒ごとに時刻更新
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // 手紙モーダル
+    function openLetter() {
+      document.getElementById('letter-modal').style.display = 'block';
+    }
+
+    function closeLetter() {
+      document.getElementById('letter-modal').style.display = 'none';
+    }
+
+    // 獅子舞ガイド
+    function showGuide() {
+      alert('獅子舞ナビゲーター：\n過去と未来をつなぐ案内役です。\n何かお困りのことはありませんか？');
+    }
+
+    // モーダル外クリックで閉じる
+    window.onclick = function(event) {
+      const modal = document.getElementById('letter-modal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+</html>
