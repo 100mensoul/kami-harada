@@ -48,7 +48,7 @@ body.town-page::before {
 
 /* === 電光掲示板ヘッダー === */
 .digital-clock {
-  background: var(--soot-brown);
+  background: #1a1a1a
   color: var(--digital-orange);
   font-family: 'Courier New', monospace;
   font-size: 1.2rem;
