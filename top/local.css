@@ -470,10 +470,13 @@ color: var(–wood-brown);
 font-weight: bold;
 }
 
+/* 強制的にモバイルで表示させるための修正 */
 @media (max-width: 768px) {
 .water-navigation {
 width: calc(100% + 2rem);
 margin-left: -1rem;
+background: linear-gradient(90deg, var(–deep-blue), #2A4A6B, var(–deep-blue)) !important;
+min-height: 80px !important;
 }
 
 .town-title h1 {
@@ -481,56 +484,60 @@ font-size: 2rem;
 }
 
 .nav-container {
-padding: 0 1rem;
+padding: 0 1rem !important;
 display: flex !important;
 align-items: center !important;
+min-height: 60px !important;
 }
 
 .nav-control {
-width: 35px;
-height: 35px;
-font-size: 1.2rem;
-flex-shrink: 0;
+width: 35px !important;
+height: 35px !important;
+font-size: 1.2rem !important;
+flex-shrink: 0 !important;
+background: rgba(135, 206, 235, 0.7) !important;
+border: none !important;
+color: white !important;
+border-radius: 50% !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
 }
 
 .nav-scroll-container {
-margin: 0 0.5rem;
-height: 50px !important;
-display: flex !important;
-align-items: center !important;
-overflow: hidden !important;
-border: 1px solid rgba(255,255,255,0.3);
+margin: 0 0.5rem !important;
+height: 60px !important;
+display: block !important;
+overflow: visible !important;
+background: rgba(255,255,255,0.1) !important;
+border: 2px solid white !important;
+border-radius: 5px !important;
+flex: 1 !important;
 }
 
 .nav-items {
-display: flex !important;
-flex-direction: row !important;
-gap: 1rem !important;
-/* アニメーションを一時停止してデバッグ */
-/* animation: navItemsFlowMobile 15s linear infinite !important; */
+display: block !important;
+position: relative !important;
+top: 10px !important;
+left: 10px !important;
 animation: none !important;
-transform: translateX(0) !important;
-white-space: nowrap !important;
-align-items: center !important;
-width: max-content !important;
-background: rgba(255,0,0,0.2);
-}
-
-@keyframes navItemsFlowMobile {
-0% { transform: translateX(100%); }
-100% { transform: translateX(-100%); }
+transform: none !important;
+background: rgba(255,255,255,0.3) !important;
+padding: 5px !important;
+border-radius: 3px !important;
 }
 
 .nav-item {
-font-size: 0.8rem !important;
-padding: 0.4rem 0.8rem !important;
-white-space: nowrap !important;
-min-width: fit-content !important;
-flex-shrink: 0 !important;
 display: inline-block !important;
-background: rgba(255, 255, 255, 0.8) !important;
+font-size: 0.7rem !important;
+padding: 0.3rem 0.6rem !important;
+margin: 0.2rem !important;
+background: white !important;
 color: #333 !important;
-border: 1px solid #ccc !important;
+border: 1px solid #333 !important;
+border-radius: 15px !important;
+text-decoration: none !important;
+white-space: nowrap !important;
 }
 
 .content-grid {
