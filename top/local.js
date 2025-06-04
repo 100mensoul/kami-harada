@@ -161,9 +161,6 @@ function initializeNavigation() {
   const prevBtn = document.getElementById('nav-prev');
   const nextBtn = document.getElementById('nav-next');
   
-  let currentPosition = 0;
-  const scrollAmount = 200;
-  
   // 水の流れエフェクト
   navItems.forEach(item => {
     item.addEventListener('click', function(e) {
@@ -174,14 +171,28 @@ function initializeNavigation() {
   // ナビゲーション制御ボタン
   if (prevBtn && nextBtn && navContainer) {
     prevBtn.addEventListener('click', function() {
-      currentPosition = Math.min(currentPosition + scrollAmount, 0);
-      navContainer.style.transform = `translateX(${currentPosition}px)`;
+      // アニメーション速度を速くする
+      navContainer.style.animationDuration = '10s';
+      setTimeout(() => {
+        navContainer.style.animationDuration = '20s';
+      }, 3000);
     });
     
     nextBtn.addEventListener('click', function() {
-      const maxScroll = -(navContainer.scrollWidth - navContainer.parentElement.clientWidth);
-      currentPosition = Math.max(currentPosition - scrollAmount, maxScroll);
-      navContainer.style.transform = `translateX(${currentPosition}px)`;
+      // アニメーション速度を遅くする
+      navContainer.style.animationDuration = '30s';
+      setTimeout(() => {
+        navContainer.style.animationDuration = '20s';
+      }, 3000);
+    });
+    
+    // ホバー時にアニメーション一時停止
+    navContainer.parentElement.addEventListener('mouseenter', function() {
+      navContainer.style.animationPlayState = 'paused';
+    });
+    
+    navContainer.parentElement.addEventListener('mouseleave', function() {
+      navContainer.style.animationPlayState = 'running';
     });
   }
 }
