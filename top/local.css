@@ -499,16 +499,21 @@ height: 50px !important;
 display: flex !important;
 align-items: center !important;
 overflow: hidden !important;
+border: 1px solid rgba(255,255,255,0.3);
 }
 
 .nav-items {
 display: flex !important;
 flex-direction: row !important;
 gap: 1rem !important;
-animation: navItemsFlowMobile 15s linear infinite !important;
+/* アニメーションを一時停止してデバッグ */
+/* animation: navItemsFlowMobile 15s linear infinite !important; */
+animation: none !important;
+transform: translateX(0) !important;
 white-space: nowrap !important;
 align-items: center !important;
 width: max-content !important;
+background: rgba(255,0,0,0.2);
 }
 
 @keyframes navItemsFlowMobile {
@@ -523,6 +528,9 @@ white-space: nowrap !important;
 min-width: fit-content !important;
 flex-shrink: 0 !important;
 display: inline-block !important;
+background: rgba(255, 255, 255, 0.8) !important;
+color: #333 !important;
+border: 1px solid #ccc !important;
 }
 
 .content-grid {
