@@ -5,58 +5,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FACE OF HANADA｜SAVE POINT 上原田</title>
   <link rel="stylesheet" href="../top/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* マリメッコ風デザイン */
+    /* 北欧風やさしい色調 */
     :root {
-      --marimekko-red: #FF4B4B;
-      --marimekko-orange: #FF8A00;
-      --marimekko-yellow: #FFD600;
-      --marimekko-green: #00C853;
-      --marimekko-blue: #2196F3;
-      --marimekko-purple: #9C27B0;
-      --marimekko-pink: #E91E63;
-      --marimekko-dark: #1A1A1A;
+      --nordic-coral: #E6A3A3;
+      --nordic-peach: #F4C2A1;
+      --nordic-sage: #A8C4A2;
+      --nordic-sky: #A2C4E0;
+      --nordic-lavender: #C8A2C8;
+      --nordic-cream: #F7F5F0;
+      --nordic-warm-gray: #5A5A5A;
+      --nordic-soft-gray: #8B8B8B;
+      --nordic-light-gray: #F0F0F0;
+    }
+    
+    body {
+      font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+      color: var(--nordic-warm-gray);
     }
     
     .face-hero {
-      background: linear-gradient(135deg, var(--marimekko-orange), var(--marimekko-red)), 
-                  url('kami-harada/images/top.jpg') no-repeat center center / cover;
-      background-blend-mode: overlay;
+      background: var(--nordic-cream) url('kami-harada/images/top.jpg') no-repeat center center / cover;
+      background-blend-mode: soft-light;
       height: 70vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: white;
+      color: var(--nordic-warm-gray);
       position: relative;
+    }
+    
+    .face-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(247, 245, 240, 0.7);
+    }
+    
+    .face-hero > div {
+      position: relative;
+      z-index: 2;
     }
     
     .face-hero h1 {
       font-size: 4rem;
       margin-bottom: 0.5rem;
-      text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-      font-weight: 900;
-      letter-spacing: 0.1em;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
     }
     
     .face-hero .subtitle {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       margin-bottom: 2rem;
-      font-weight: 600;
+      font-weight: 400;
+      color: var(--nordic-soft-gray);
     }
     
     .roadmap-section {
-      background: linear-gradient(45deg, var(--marimekko-yellow), var(--marimekko-orange));
-      padding: 3rem 2rem;
+      background: var(--nordic-cream);
+      padding: 4rem 2rem;
       margin: 0;
       text-align: center;
     }
     
     .roadmap-section h2 {
-      color: var(--marimekko-dark);
+      color: var(--nordic-warm-gray);
       font-size: 2.5rem;
-      margin-bottom: 2rem;
-      font-weight: 900;
+      margin-bottom: 3rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
     }
     
     .activity-card {
@@ -65,37 +88,47 @@
       margin: 2rem auto;
       border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 4px solid var(--marimekko-green);
+      border: 2px solid var(--nordic-sage);
     }
     
     .activity-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.12);
     }
     
     .card-header {
-      background: linear-gradient(135deg, var(--marimekko-green), var(--marimekko-blue));
+      background: var(--nordic-sage);
       color: white;
       padding: 2rem;
       text-align: center;
     }
     
     .card-header h3 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       margin-bottom: 0.5rem;
-      font-weight: 800;
+      font-weight: 500;
     }
     
     .card-header .date {
-      font-size: 1.2rem;
-      font-weight: 600;
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+    
+    .card-completion-note {
+      background: var(--nordic-light-gray);
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: var(--nordic-soft-gray);
+      text-align: center;
+      font-style: italic;
     }
     
     .next-schedule {
-      background: linear-gradient(135deg, var(--marimekko-purple), var(--marimekko-pink));
+      background: var(--nordic-sky);
       color: white;
       padding: 3rem 2rem;
       margin: 0;
@@ -103,9 +136,9 @@
     }
     
     .next-schedule h2 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin-bottom: 1.5rem;
-      font-weight: 800;
+      font-weight: 500;
     }
     
     .schedule-highlight {
@@ -113,13 +146,77 @@
       padding: 1.5rem;
       border-radius: 15px;
       margin: 1.5rem auto;
-      max-width: 600px;
-      font-size: 1.2rem;
-      font-weight: 600;
+      max-width: 500px;
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+    
+    .seasons-section {
+      background: var(--nordic-light-gray);
+      padding: 4rem 2rem;
+      margin: 0;
+    }
+    
+    .seasons-section h2 {
+      text-align: center;
+      color: var(--nordic-warm-gray);
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    
+    .seasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .season-card {
+      padding: 2.5rem;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      color: white;
+      text-align: center;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .season-card:hover {
+      transform: translateY(-3px);
+    }
+    
+    .season-card.spring {
+      background: linear-gradient(135deg, var(--nordic-coral), var(--nordic-peach));
+    }
+    
+    .season-card.summer {
+      background: linear-gradient(135deg, var(--nordic-peach), #F5C469);
+    }
+    
+    .season-card.autumn {
+      background: linear-gradient(135deg, var(--nordic-lavender), var(--nordic-sky));
+    }
+    
+    .season-card.winter {
+      background: linear-gradient(135deg, var(--nordic-sky), #9BB5C9);
+    }
+    
+    .season-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    
+    .season-card p {
+      font-weight: 300;
+      line-height: 1.6;
     }
     
     .legends-section {
-      background: linear-gradient(45deg, var(--marimekko-blue), var(--marimekko-green));
+      background: var(--nordic-sage);
       color: white;
       padding: 3rem 2rem;
       margin: 0;
@@ -127,20 +224,25 @@
     }
     
     .legends-section h2 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       margin-bottom: 1rem;
-      font-weight: 800;
+      font-weight: 500;
+    }
+    
+    .legends-section p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
     }
     
     .legends-link {
       display: inline-block;
       background: white;
-      color: var(--marimekko-blue);
-      padding: 1rem 2rem;
+      color: var(--nordic-sage);
+      padding: 1rem 2.5rem;
       border-radius: 50px;
       text-decoration: none;
-      font-weight: bold;
-      margin-top: 1rem;
+      font-weight: 500;
       transition: transform 0.3s ease;
     }
     
@@ -148,48 +250,14 @@
       transform: scale(1.05);
     }
     
-    .seasons-section {
-      background: linear-gradient(135deg, var(--marimekko-red), var(--marimekko-orange));
-      color: white;
-      padding: 3rem 2rem;
-      margin: 0;
-    }
-    
-    .seasons-section h2 {
-      text-align: center;
-      font-size: 2.2rem;
-      margin-bottom: 2rem;
-      font-weight: 800;
-    }
-    
-    .seasons-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    
-    .season-card {
-      background: rgba(255,255,255,0.15);
-      padding: 2rem;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-    }
-    
-    .season-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-    
     .description-section {
-      background: var(--marimekko-dark);
+      background: var(--nordic-warm-gray);
       color: white;
       padding: 2rem;
       text-align: center;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-style: italic;
+      font-weight: 300;
     }
     
     /* モーダルスタイル */
@@ -202,11 +270,11 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0,0,0,0.5);
     }
 
     .modal-content {
-      background-color: #fefef5;
+      background-color: white;
       margin: 5% auto;
       padding: 0;
       border: none;
@@ -214,21 +282,21 @@
       max-width: 600px;
       border-radius: 20px;
       position: relative;
-      box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     }
 
     .close {
       position: absolute;
       top: 15px;
       right: 20px;
-      font-size: 2rem;
+      font-size: 1.8rem;
       cursor: pointer;
       color: white;
       z-index: 1000;
     }
 
     .modal-header {
-      background: linear-gradient(135deg, var(--marimekko-green), var(--marimekko-blue));
+      background: var(--nordic-sage);
       padding: 2rem;
       color: white;
       border-radius: 20px 20px 0 0;
@@ -236,21 +304,22 @@
     }
     
     .modal-header h3 {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       margin: 0;
-      font-weight: 800;
+      font-weight: 500;
     }
 
     .modal-body {
       padding: 2rem;
       text-align: left;
       line-height: 1.6;
+      color: var(--nordic-warm-gray);
     }
     
     .modal-body h4 {
-      color: var(--marimekko-green);
+      color: var(--nordic-sage);
       margin: 1.5rem 0 0.5rem 0;
-      font-weight: 700;
+      font-weight: 500;
     }
 
     .thumbnail {
@@ -262,12 +331,21 @@
     }
     
     .memo-box {
-      background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
-      padding: 1rem;
+      background: var(--nordic-light-gray);
+      padding: 1.2rem;
       border-radius: 10px;
       margin: 1rem 0;
-      border-left: 4px solid var(--marimekko-orange);
+      border-left: 4px solid var(--nordic-coral);
       font-style: italic;
+      color: var(--nordic-soft-gray);
+    }
+    
+    footer {
+      background: var(--nordic-warm-gray);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      font-weight: 300;
     }
     
     @media (max-width: 768px) {
@@ -305,6 +383,9 @@
           <h3>花の植え替え作業</h3>
           <p class="date">2025年6月4日（水）実施完了</p>
         </div>
+        <div class="card-completion-note">
+          花の植え替え作業が完了しました
+        </div>
       </div>
     </section>
 
@@ -313,37 +394,36 @@
       <div class="schedule-highlight">
         📅 2025年6月7日 - 夏の花の苗植え予定
       </div>
-      <p>土づくりが完了し、夏の花の植付けに向けた準備が整いました。</p>
-    </section>
-
-    <section class="legends-section">
-      <h2>🏆 レジェンズについてはコチラ</h2>
-      <p>上原田の「ローカルレジェンズ」たちの詳しい紹介は専用ページで。</p>
-      <a href="https://100mensoul.github.io/kami-harada/member/index.html" class="legends-link" target="_blank">
-        ヒーロー名鑑を見る
-      </a>
     </section>
 
     <section class="seasons-section">
-      <h2>🌸 上原田の四季の顔ぶれ</h2>
+      <h2>四季の華やぎ</h2>
       <div class="seasons-grid">
-        <div class="season-card">
+        <div class="season-card spring">
           <h3>🌸 春（3-5月）</h3>
           <p>パンジー、ビオラなどの春の花</p>
         </div>
-        <div class="season-card">
+        <div class="season-card summer">
           <h3>🌻 夏（6-8月）</h3>
           <p>マリーゴールド、サルビアなどの夏の花</p>
         </div>
-        <div class="season-card">
+        <div class="season-card autumn">
           <h3>🍂 秋（9-11月）</h3>
           <p>コスモス、菊などの秋の花</p>
         </div>
-        <div class="season-card">
+        <div class="season-card winter">
           <h3>❄️ 冬（12-2月）</h3>
           <p>パンジー、葉牡丹などの冬の花</p>
         </div>
       </div>
+    </section>
+
+    <section class="legends-section">
+      <h2>上原田を支えるレジェンズ</h2>
+      <p>メンバーの詳しい紹介はこちら</p>
+      <a href="https://100mensoul.github.io/kami-harada/member/index.html" class="legends-link" target="_blank">
+        ヒーロー名鑑を見る
+      </a>
     </section>
 
     <!-- モーダル：活動記録 -->
@@ -384,7 +464,7 @@
     </div>
 
     <section class="nav-links" style="background: white; padding: 2rem; text-align: center;">
-      <p><a href="../top/index.html" style="color: var(--marimekko-blue); font-weight: bold; font-size: 1.1rem;">トップページに戻る</a></p>
+      <p><a href="../top/index.html" style="color: var(--nordic-sage); font-weight: 500; font-size: 1.1rem;">トップページに戻る</a></p>
     </section>
   </main>
 
@@ -393,7 +473,7 @@
   </section>
 
   <footer>
-    <p>© 2025 上原田自治会 - SAVE POINT 上原田</p>
+    <p>© 2025 上原田自治会 - SAVE POINT 上原田 - </p>
   </footer>
 
   <script>
