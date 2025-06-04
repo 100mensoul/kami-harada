@@ -270,12 +270,16 @@ body.town-page::before {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* === コンテンツグリッド === */
+/* === コンテンツ縦一覧に === */
 .content-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
-  margin-top: 3rem;
+}
+
+.content-card {
+  width: 100%;
+  max-width: 800px;
 }
 
 .content-card {
