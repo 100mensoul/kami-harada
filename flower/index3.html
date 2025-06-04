@@ -219,15 +219,17 @@
       margin: 0 auto;
     }
     
-    .season-card {
-      padding: 2.5rem;
-      margin: 2rem 0;
-      backdrop-filter: blur(10px);
-      color: white;
-      text-align: center;
-      transition: transform 0.3s ease;
-      width: 100%;
-    }
+  .season-card {
+    box-sizing: border-box; /* ← これが重要！！ */
+    width: 100%;
+    max-width: 800px;        /* ← 親と揃える */
+    margin: 2rem auto;       /* ← 中央揃え */
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    color: white;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
     
     .next-schedule h2 {
       font-size: 2rem;
