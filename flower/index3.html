@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FACE OF HANADA｜SAVE POINT 上原田</title>
+  <link rel="stylesheet" href="../top/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* 北欧風やさしい色調 */
+    :root {
+      --nordic-coral: #E6A3A3;
+      --nordic-peach: #F4C2A1;
+      --nordic-sage: #A8C4A2;
+      --nordic-sky: #A2C4E0;
+      --nordic-lavender: #C8A2C8;
+      --nordic-cream: #F7F5F0;
+      --nordic-warm-gray: #5A5A5A;
+      --nordic-soft-gray: #8B8B8B;
+      --nordic-light-gray: #F0F0F0;
+    }
+    
+    /* 大きな花のパターン背景 */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200vh;
+      background: 
+        radial-gradient(circle at 15% 25%, rgba(230, 163, 163, 0.4) 0%, transparent 25%),
+        radial-gradient(circle at 85% 35%, rgba(168, 196, 162, 0.4) 0%, transparent 30%),
+        radial-gradient(circle at 45% 65%, rgba(162, 196, 224, 0.4) 0%, transparent 28%),
+        radial-gradient(circle at 25% 75%, rgba(200, 162, 200, 0.35) 0%, transparent 25%),
+        radial-gradient(circle at 75% 15%, rgba(244, 194, 161, 0.4) 0%, transparent 32%),
+        radial-gradient(circle at 55% 45%, rgba(230, 163, 163, 0.3) 0%, transparent 20%),
+        radial-gradient(circle at 35% 85%, rgba(168, 196, 162, 0.35) 0%, transparent 25%),
+        radial-gradient(circle at 65% 25%, rgba(162, 196, 224, 0.3) 0%, transparent 22%),
+        linear-gradient(135deg, rgba(247, 245, 240, 0.8) 0%, rgba(240, 240, 240, 0.6) 100%);
+      background-size: 300px 300px, 250px 250px, 350px 350px, 280px 280px, 320px 320px, 180px 180px, 260px 260px, 200px 200px, 100% 100%;
+      z-index: -1;
+      animation: flowerFloat 25s ease-in-out infinite;
+    }
+    
+    @keyframes flowerFloat {
+      0%, 100% { 
+        transform: translateY(0px) scale(1); 
+        opacity: 0.7;
+      }
+      50% { 
+        transform: translateY(-20px) scale(1.02); 
+        opacity: 0.9;
+      }
+    }
+    
+    body {
+      font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+      color: var(--nordic-warm-gray);
+      position: relative;
+      background: transparent;
+    }
+    
+    /* セクション間の隙間を作って背景を見せる */
+    .section-gap {
+      height: 60px;
+      background: transparent;
+    }
+    
+    .roadmap-section {
+      background: rgba(247, 245, 240, 0.85);
+      backdrop-filter: blur(10px);
+      padding: 4rem 2rem;
+      margin: 2rem 0;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    .face-hero {
+      background: url('../images/top.jpg') no-repeat center center / cover;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--nordic-warm-gray);
+      position: relative;
+      margin-bottom: 0;
+    }
+    
+    .face-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .face-hero > div {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .face-hero h1 {
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+    }
+    
+    .face-hero .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      font-weight: 400;
+      color: var(--nordic-soft-gray);
+    }
+    
+    .activity-card {
+      background: white;
+      max-width: 500px;
+      margin: 2rem auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid var(--nordic-sage);
+    }
+    
+    .activity-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.12);
+    }
+    
+    .card-header {
+      background: var(--nordic-sage);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .card-header h3 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .card-header .date {
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+    
+    .card-completion-note {
+      background: var(--nordic-light-gray);
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: var(--nordic-soft-gray);
+      text-align: center;
+      font-style: italic;
+    }
+    
+    .roadmap-section h2 {
+      color: var(--nordic-warm-gray);
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    
+    .next-schedule {
+      background: rgba(162, 196, 224, 0.9);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 3rem 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    .seasons-section {
+      background: rgba(240, 240, 240, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 4rem 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    .legends-section {
+      background: rgba(168, 196, 162, 0.9);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 3rem 2rem;
+      margin: 2rem auto;
+      max-width: 1200px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    .roadmap-section h2 {
+      color: var(--nordic-warm-gray);
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    
+    .seasons-grid {
+      display: block;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .season-card {
+      padding: 2.5rem;
+      margin: 0;
+      backdrop-filter: blur(10px);
+      color: white;
+      text-align: center;
+      transition: transform 0.3s ease;
+      width: 100%;
+    }
+    
+    .next-schedule h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    
+    .schedule-highlight {
+      background: rgba(255,255,255,0.2);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin: 1.5rem auto;
+      max-width: 500px;
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+    
+    .seasons-section h2 {
+      text-align: center;
+      color: var(--nordic-warm-gray);
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    
+    .season-card:hover {
+      transform: translateY(-3px);
+    }
+    
+    .season-card.spring {
+      background: linear-gradient(135deg, var(--nordic-coral), var(--nordic-peach));
+    }
+    
+    .season-card.summer {
+      background: linear-gradient(135deg, var(--nordic-peach), #F5C469);
+    }
+    
+    .season-card.autumn {
+      background: linear-gradient(135deg, var(--nordic-lavender), var(--nordic-sky));
+    }
+    
+    .season-card.winter {
+      background: linear-gradient(135deg, var(--nordic-sky), #9BB5C9);
+    }
+    
+    .season-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    
+    .season-card p {
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    
+    .legends-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    
+    .legends-section p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    
+    .legends-link {
+      display: inline-block;
+      background: white;
+      color: var(--nordic-sage);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: transform 0.3s ease;
+    }
+    
+    .legends-link:hover {
+      transform: scale(1.05);
+    }
+    
+    .description-section {
+      background: rgba(90, 90, 90, 0.9);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 2rem;
+      margin: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 1rem;
+      font-style: italic;
+      font-weight: 300;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    /* モーダルスタイル */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 0;
+      border: none;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: white;
+      z-index: 1000;
+    }
+
+    .modal-header {
+      background: var(--nordic-sage);
+      padding: 2rem;
+      color: white;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+    }
+    
+    .modal-header h3 {
+      font-size: 1.4rem;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .modal-body {
+      padding: 2rem;
+      text-align: left;
+      line-height: 1.6;
+      color: var(--nordic-warm-gray);
+    }
+    
+    .modal-body h4 {
+      color: var(--nordic-sage);
+      margin: 1.5rem 0 0.5rem 0;
+      font-weight: 500;
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+    
+    .memo-box {
+      background: var(--nordic-light-gray);
+      padding: 1.2rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      border-left: 4px solid var(--nordic-coral);
+      font-style: italic;
+      color: var(--nordic-soft-gray);
+    }
+    
+    footer {
+      background: var(--nordic-warm-gray);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      font-weight: 300;
+    }
+    
+    @media (max-width: 768px) {
+      .face-hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .roadmap-section h2,
+      .next-schedule h2,
+      .legends-section h2,
+      .seasons-section h2 {
+        font-size: 1.8rem;
+      }
+      
+      .seasons-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="face-hero">
+    <div>
+      <h1>FACE OF HANADA</h1>
+      <p class="subtitle">〜 城見街道に花を添える自治会の仕事 〜</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="roadmap-section">
+      <h2>2025年度 ロードマップ</h2>
+      
+      <div class="activity-card" onclick="openModal('activity-modal')">
+        <div class="card-header">
+          <h3>花の植え替え作業</h3>
+          <p class="date">2025年6月4日（水）実施完了</p>
+        </div>
+        <div class="card-completion-note">
+          花の植え替え作業が完了しました
+        </div>
+      </div>
+    </section>
+
+    <section class="next-schedule">
+      <h2>🌻 次回予定</h2>
+      <div class="schedule-highlight">
+        📅 2025年6月7日 - 夏の花の苗植え予定
+      </div>
+    </section>
+
+    <section class="seasons-section">
+      <h2>四季の華やぎ</h2>
+      <div class="seasons-grid">
+        <div class="season-card spring">
+          <h3>🌸 春（3-5月）</h3>
+          <p>パンジー、ビオラなどの春の花</p>
+        </div>
+        <div class="season-card summer">
+          <h3>🌻 夏（6-8月）</h3>
+          <p>マリーゴールド、サルビアなどの夏の花</p>
+        </div>
+        <div class="season-card autumn">
+          <h3>🍂 秋（9-11月）</h3>
+          <p>コスモス、菊などの秋の花</p>
+        </div>
+        <div class="season-card winter">
+          <h3>❄️ 冬（12-2月）</h3>
+          <p>パンジー、葉牡丹などの冬の花</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="legends-section">
+      <h2>上原田を支えるレジェンズ</h2>
+      <p>メンバーの詳しい紹介はこちら</p>
+      <a href="https://100mensoul.github.io/kami-harada/member/index.html" class="legends-link" target="_blank">
+        ヒーロー名鑑を見る
+      </a>
+    </section>
+
+    <!-- モーダル：活動記録 -->
+    <div id="activity-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('activity-modal')">✖️</span>
+        <div class="modal-header">
+          <h3>花の植え替え作業 完了記録</h3>
+        </div>
+        <div class="modal-body">
+          <img src="../images/kadan-work.jpg" alt="花壇整備作業の様子" class="thumbnail">
+          
+          <h4>📍 整備した場所</h4>
+          <p>上原田交差点花壇（県道372号線 城見通り沿い）</p>
+          
+          <h4>👥 参加者</h4>
+          <p>上原田自治会メンバー 10数名</p>
+          
+          <h4>🔧 作業内容</h4>
+          <ul>
+            <li>古くなったパンジーの撤去</li>
+            <li>花壇の清掃・雑草除去</li>
+            <li>ISEKI製耕運機による土づくり</li>
+          </ul>
+          
+          <h4>📸 活動写真</h4>
+          <p>コアメンバーが耕運機で丁寧に土を耕している様子を記録</p>
+          
+          <h4>📝 簡単な作業記録</h4>
+          <p>春から咲き続けたパンジーを撤去し、夏の花のための土づくりを実施。青いISEKI製耕運機を使用して、ふかふかの土に仕上げました。</p>
+          
+          <div class="memo-box">
+            💡 <strong>一言メモ：</strong><br>
+            花田交差点付近で道路工事があり上原田交差点付近も渋滞の中、多くの沿道客に見守られての作業でした。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="nav-links" style="background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); padding: 2rem; text-align: center; width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,0.1);">
+      <p><a href="../top/index.html" style="color: var(--nordic-sage); font-weight: 500; font-size: 1.1rem;">トップページに戻る</a></p>
+    </section>
+  </main>
+
+  <section class="description-section">
+    <p>このページでは、姫路市街地へ通る県道372号線（城見通り）を彩る花田の景観を作っている上原田「ローカルレジェンズ」の整備作業を記録します。</p>
+  </section>
+
+  <footer>
+    <p>© 2025 上原田自治会 - SAVE POINT 上原田</p>
+  </footer>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    
+    // モーダル外クリックで閉じる
+    window.onclick = function(event) {
+      const modals = document.getElementsByClassName('modal');
+      for (let modal of modals) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      }
+    }
+  </script>
+</body>
+</html>
