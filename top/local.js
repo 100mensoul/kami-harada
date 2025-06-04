@@ -302,3 +302,4 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
   console.log('⏰ デジタル時計:', document.getElementById('current-time') ? '✓' : '✗');
   console.log('📜 先祖の手紙:', document.getElementById('letter-modal') ? '✓' : '✗');
 }
+
