@@ -18,7 +18,7 @@
 
 /* === タウンページ専用背景 === */
 body.town-page {
-background: linear-gradient(135deg, var(–yakisugi-brown) 0%, #1A1A1A 100%);
+background: linear-gradient(135deg, var(-yakisugi-brown) 0%, #1A1A1A 100%);
 min-height: 100vh;
 color: var(–stone-white);
 }
@@ -48,13 +48,13 @@ animation: darkTexture 40s ease-in-out infinite;
 
 /* === 電光掲示板ヘッダー === */
 .digital-clock {
-background: var(–soot-brown);
-color: var(–digital-orange);
+background: var(-soot-brown);
+color: var(-digital-orange);
 font-family: ‘Courier New’, monospace;
 font-size: 1.2rem;
 padding: 1rem;
 text-align: center;
-border-bottom: 3px solid var(–wood-brown);
+border-bottom: 3px solid var(-wood-brown);
 box-shadow: inset 0 0 20px rgba(255, 140, 0, 0.2);
 animation: digitalFlicker 2s infinite;
 position: sticky;
