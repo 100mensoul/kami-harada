@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FACE OF HANADA｜SAVE POINT 上原田</title>
+  <link rel="stylesheet" href="../top/style.css" />
+  <style>
+    /* マリメッコ風デザイン */
+    :root {
+      --marimekko-red: #FF4B4B;
+      --marimekko-orange: #FF8A00;
+      --marimekko-yellow: #FFD600;
+      --marimekko-green: #00C853;
+      --marimekko-blue: #2196F3;
+      --marimekko-purple: #9C27B0;
+      --marimekko-pink: #E91E63;
+      --marimekko-dark: #1A1A1A;
+    }
+    
+    .face-hero {
+      background: linear-gradient(135deg, var(--marimekko-orange), var(--marimekko-red)), 
+                  url('kami-harada/images/top.jpg') no-repeat center center / cover;
+      background-blend-mode: overlay;
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    
+    .face-hero h1 {
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+    }
+    
+    .face-hero .subtitle {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      font-weight: 600;
+    }
+    
+    .roadmap-section {
+      background: linear-gradient(45deg, var(--marimekko-yellow), var(--marimekko-orange));
+      padding: 3rem 2rem;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .roadmap-section h2 {
+      color: var(--marimekko-dark);
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      font-weight: 900;
+    }
+    
+    .activity-card {
+      background: white;
+      max-width: 500px;
+      margin: 2rem auto;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 4px solid var(--marimekko-green);
+    }
+    
+    .activity-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+    }
+    
+    .card-header {
+      background: linear-gradient(135deg, var(--marimekko-green), var(--marimekko-blue));
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .card-header h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 800;
+    }
+    
+    .card-header .date {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .next-schedule {
+      background: linear-gradient(135deg, var(--marimekko-purple), var(--marimekko-pink));
+      color: white;
+      padding: 3rem 2rem;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .next-schedule h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+    }
+    
+    .schedule-highlight {
+      background: rgba(255,255,255,0.2);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin: 1.5rem auto;
+      max-width: 600px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .legends-section {
+      background: linear-gradient(45deg, var(--marimekko-blue), var(--marimekko-green));
+      color: white;
+      padding: 3rem 2rem;
+      margin: 0;
+      text-align: center;
+    }
+    
+    .legends-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+    
+    .legends-link {
+      display: inline-block;
+      background: white;
+      color: var(--marimekko-blue);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 1rem;
+      transition: transform 0.3s ease;
+    }
+    
+    .legends-link:hover {
+      transform: scale(1.05);
+    }
+    
+    .seasons-section {
+      background: linear-gradient(135deg, var(--marimekko-red), var(--marimekko-orange));
+      color: white;
+      padding: 3rem 2rem;
+      margin: 0;
+    }
+    
+    .seasons-section h2 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      font-weight: 800;
+    }
+    
+    .seasons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .season-card {
+      background: rgba(255,255,255,0.15);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .season-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    
+    .description-section {
+      background: var(--marimekko-dark);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+    
+    /* モーダルスタイル */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .modal-content {
+      background-color: #fefef5;
+      margin: 5% auto;
+      padding: 0;
+      border: none;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: white;
+      z-index: 1000;
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--marimekko-green), var(--marimekko-blue));
+      padding: 2rem;
+      color: white;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+    }
+    
+    .modal-header h3 {
+      font-size: 1.5rem;
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .modal-body {
+      padding: 2rem;
+      text-align: left;
+      line-height: 1.6;
+    }
+    
+    .modal-body h4 {
+      color: var(--marimekko-green);
+      margin: 1.5rem 0 0.5rem 0;
+      font-weight: 700;
+    }
+
+    .thumbnail {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+    
+    .memo-box {
+      background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      border-left: 4px solid var(--marimekko-orange);
+      font-style: italic;
+    }
+    
+    @media (max-width: 768px) {
+      .face-hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .roadmap-section h2,
+      .next-schedule h2,
+      .legends-section h2,
+      .seasons-section h2 {
+        font-size: 1.8rem;
+      }
+      
+      .seasons-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="face-hero">
+    <div>
+      <h1>FACE OF HANADA</h1>
+      <p class="subtitle">〜 城見街道に花を添える自治会の仕事 〜</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="roadmap-section">
+      <h2>2025年度 ロードマップ</h2>
+      
+      <div class="activity-card" onclick="openModal('activity-modal')">
+        <div class="card-header">
+          <h3>花の植え替え作業</h3>
+          <p class="date">2025年6月4日（水）実施完了</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="next-schedule">
+      <h2>🌻 次回予定</h2>
+      <div class="schedule-highlight">
+        📅 2025年6月7日 - 夏の花の苗植え予定
+      </div>
+      <p>土づくりが完了し、夏の花の植付けに向けた準備が整いました。</p>
+    </section>
+
+    <section class="legends-section">
+      <h2>🏆 レジェンズについてはコチラ</h2>
+      <p>上原田の「ローカルレジェンズ」たちの詳しい紹介は専用ページで。</p>
+      <a href="https://100mensoul.github.io/kami-harada/member/index.html" class="legends-link" target="_blank">
+        ヒーロー名鑑を見る
+      </a>
+    </section>
+
+    <section class="seasons-section">
+      <h2>🌸 上原田の四季の顔ぶれ</h2>
+      <div class="seasons-grid">
+        <div class="season-card">
+          <h3>🌸 春（3-5月）</h3>
+          <p>パンジー、ビオラなどの春の花</p>
+        </div>
+        <div class="season-card">
+          <h3>🌻 夏（6-8月）</h3>
+          <p>マリーゴールド、サルビアなどの夏の花</p>
+        </div>
+        <div class="season-card">
+          <h3>🍂 秋（9-11月）</h3>
+          <p>コスモス、菊などの秋の花</p>
+        </div>
+        <div class="season-card">
+          <h3>❄️ 冬（12-2月）</h3>
+          <p>パンジー、葉牡丹などの冬の花</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- モーダル：活動記録 -->
+    <div id="activity-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('activity-modal')">✖️</span>
+        <div class="modal-header">
+          <h3>花の植え替え作業 完了記録</h3>
+        </div>
+        <div class="modal-body">
+          <img src="../images/kadan-work.jpg" alt="花壇整備作業の様子" class="thumbnail">
+          
+          <h4>📍 整備した場所</h4>
+          <p>上原田交差点花壇（県道372号線 城見通り沿い）</p>
+          
+          <h4>👥 参加者</h4>
+          <p>上原田自治会メンバー 10数名</p>
+          
+          <h4>🔧 作業内容</h4>
+          <ul>
+            <li>古くなったパンジーの撤去</li>
+            <li>花壇の清掃・雑草除去</li>
+            <li>ISEKI製耕運機による土づくり</li>
+          </ul>
+          
+          <h4>📸 活動写真</h4>
+          <p>コアメンバーが耕運機で丁寧に土を耕している様子を記録</p>
+          
+          <h4>📝 簡単な作業記録</h4>
+          <p>春から咲き続けたパンジーを撤去し、夏の花のための土づくりを実施。青いISEKI製耕運機を使用して、ふかふかの土に仕上げました。</p>
+          
+          <div class="memo-box">
+            💡 <strong>一言メモ：</strong><br>
+            花田交差点付近で道路工事があり上原田交差点付近も渋滞の中、多くの沿道客に見守られての作業でした。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="nav-links" style="background: white; padding: 2rem; text-align: center;">
+      <p><a href="../top/index.html" style="color: var(--marimekko-blue); font-weight: bold; font-size: 1.1rem;">トップページに戻る</a></p>
+    </section>
+  </main>
+
+  <section class="description-section">
+    <p>このページでは、姫路市街地へ通る県道372号線（城見通り）を彩る花田の景観を作っている上原田「ローカルレジェンズ」の整備作業を記録します。</p>
+  </section>
+
+  <footer>
+    <p>© 2025 上原田自治会 - SAVE POINT 上原田</p>
+  </footer>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'block';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    
+    // モーダル外クリックで閉じる
+    window.onclick = function(event) {
+      const modals = document.getElementsByClassName('modal');
+      for (let modal of modals) {
+        if (event.target === modal) {
+          modal.style.display = 'none';
+        }
+      }
+    }
+  </script>
+</body>
+</html>
