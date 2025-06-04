@@ -18,7 +18,7 @@
 
 /* === タウンページ専用背景 === */
 body.town-page {
-  background: linear-gradient(135deg, var(--yakisugi-brown) 0%, #1A1A1A 100%);
+  background:  transparent;
   min-height: 100vh;
   color:   transparent;
 }
@@ -288,7 +288,6 @@ body.town-page::before {
   box-shadow:
     0 5px 15px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  border: 2px solid var(--wood-brown);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
@@ -308,13 +307,13 @@ body.town-page::before {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, var(--wood-brown), var(--earth-yellow));
+  background:  transparent;
   border-radius: 17px;
   z-index: -1;
 }
 
 .content-card h3 {
-  color: var(--wood-brown);
+  color: #1a1a1a;
   margin-top: 0;
   font-size: 1.3rem;
   border-bottom: 2px solid var(--earth-yellow);
@@ -324,7 +323,7 @@ body.town-page::before {
 
 .content-card p {
   line-height: 1.6;
-  color: var(--soot-brown);
+  color: #1a1a1a;
   margin-bottom: 1rem;
 }
 
