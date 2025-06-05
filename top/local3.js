@@ -156,9 +156,12 @@ function initializeModal() {
 
 // === ナビゲーション機能 === //
 function initializeNavigation() {
-  // ニュースティッカーのホバー制御
+  // ニュースティッカーの動作確認とホバー制御
   const newsTicker = document.querySelector('.news-ticker-content');
   if (newsTicker) {
+    // 強制的にアニメーションを開始
+    newsTicker.style.animation = 'newsFlowContinuous 60s linear infinite';
+    
     newsTicker.addEventListener('mouseenter', function() {
       this.style.animationPlayState = 'paused';
     });
@@ -166,6 +169,11 @@ function initializeNavigation() {
     newsTicker.addEventListener('mouseleave', function() {
       this.style.animationPlayState = 'running';
     });
+    
+    // デバッグ用
+    console.log('ニュースティッカー初期化完了:', newsTicker);
+  } else {
+    console.log('ニュースティッカーが見つかりません');
   }
   
   // 道路ナビゲーションのツールチップ制御
