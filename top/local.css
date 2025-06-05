@@ -18,21 +18,11 @@
 
 /* === タウンページ専用背景 === */
 body.town-page {
-  background:  #2e8b57;
+  background:  #006400;
   min-height: 100vh;
   color:   transparent;
 }
 
-/* 古民家背景テクスチャ */
-body.town-page::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #111;
-}
 
 /* === 電光掲示板ヘッダー === */
 .digital-clock {
