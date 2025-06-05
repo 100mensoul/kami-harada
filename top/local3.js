@@ -156,29 +156,29 @@ function initializeModal() {
 
 // === ナビゲーション機能 === //
 function initializeNavigation() {
-  // ニュースティッカーの動作確認とホバー制御
+  // ニュースティッカーのホバー制御
   const newsTicker = document.querySelector('.news-ticker-content');
   if (newsTicker) {
-    // 強制的にアニメーションを開始
-    newsTicker.style.animation = 'newsFlowContinuous 60s linear infinite';
+    console.log('ニュースティッカー見つかりました:', newsTicker);
     
     newsTicker.addEventListener('mouseenter', function() {
+      console.log('ホバー開始 - アニメーション一時停止');
       this.style.animationPlayState = 'paused';
     });
     
     newsTicker.addEventListener('mouseleave', function() {
+      console.log('ホバー終了 - アニメーション再開');
       this.style.animationPlayState = 'running';
     });
-    
-    // デバッグ用
-    console.log('ニュースティッカー初期化完了:', newsTicker);
   } else {
     console.log('ニュースティッカーが見つかりません');
   }
   
   // 道路ナビゲーションのツールチップ制御
   const roadNavItems = document.querySelectorAll('.road-nav-item');
-  roadNavItems.forEach(item => {
+  console.log('道路ナビアイテム数:', roadNavItems.length);
+  
+  roadNavItems.forEach((item, index) => {
     const button = item.querySelector('.road-nav-button');
     const tooltip = item.querySelector('.road-nav-tooltip');
     
