@@ -272,7 +272,7 @@ body.town-page {
   top: 0;
   height: 100vh;
   width: 80px;
-  background: #ff1a00;
+  background: #666;
   display: flex;
   flex-direction: column;
   align-items: center;
