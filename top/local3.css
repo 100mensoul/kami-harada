@@ -207,7 +207,7 @@ body.town-page {
   position: relative;
   z-index: 2;
   gap: 1rem;
-  animation: navItemsFlow 20s linear infinite;
+  animation: navItemsFlow 60s linear infinite;
   width: max-content;
 }
 
