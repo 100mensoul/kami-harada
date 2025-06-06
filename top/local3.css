@@ -213,9 +213,6 @@ body.town-page {
   position: relative;
 }
 
-.nav-scroll-container:hover .nav-items {
-  animation-play-state: paused;
-}
 
 .nav-items {
   display: flex;
