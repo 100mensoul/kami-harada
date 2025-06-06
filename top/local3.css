@@ -277,7 +277,7 @@ body.town-page {
   position: fixed;
   left: 0;
   top: 0;
-  height: calc(100vh - 100px); /* ← フッターの高さを正確に引く */
+  bottom: 96px; /* フッターの高さ分を下から引く */
   width: 80px;
   background: #666;
   display: flex;
@@ -602,4 +602,6 @@ body.town-page {
   padding: 1.5rem 1rem;
   font-size: 0.9rem;
   color: #fff;
+  height: 96px; /* 固定の高さを設定 */
+  box-sizing: border-box; /* paddingを含む高さに */
 }
