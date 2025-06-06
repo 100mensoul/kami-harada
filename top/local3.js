@@ -1,322 +1,522 @@
-/**
- * SAVE POINT 上原田 - タウンページ専用JavaScript
- * town-page.js
- */
+/* === タウンページ専用スタイル === */
+/* 既存のstyle.cssと統合して使用 */
 
-// === グローバル変数 === //
-let clockInterval;
-let shishimaiMessages = [
-  "過去と未来をつなぐ案内役です。\n何かお困りのことはありませんか？",
-  "水路の流れに沿って、\n各ページを巡ってみてください。",
-  "先祖からの手紙を\nまだ読んでいませんね？",
-  "花田ICは時空の結合点。\n多くの物語が交差しています。",
-  "上原田の水は\n全てのページをつないでいます。"
-];
+/* カラーパレット */
+:root {
+  --earth-yellow: #D4C4A8;
+  --soot-brown: #3A2F2A;
+  --wood-brown: #8B5A3C;
+  --doma-gray: #6B6B6B;
+  --water-blue: #2C5282;
+  --deep-blue: #1A365D;
+  --shishimai-red: #C62D42;
+  --aged-white: #F5F3E7;
+  --stone-white: #F7F5F0;
+  --digital-orange: #FF8C00;
+  --yakisugi-brown: #2D1B1B;
+}
 
-// === 初期化 === //
-document.addEventListener('DOMContentLoaded', function() {
-  initializeClock();
-  initializeShishimai();
-  initializeModal();
-  initializeNavigation();
-  addPageLoadAnimation();
-});
+/* === 余白をリセット、高さ指定の補助 === */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-// === 時計機能 === //
-function updateTime() {
-  const now = new Date();
-  const timeString = formatDateTime(now);
-  const clockElement = document.getElementById('current-time');
-  
-  if (clockElement) {
-    clockElement.textContent = timeString;
+/* === 全体の骨格 === */
+body.town-page {
+  background: #758492;
+  color: transparent;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-left: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* === ヘッダー === */
+.digital-clock {
+  background: #1a1a1a;
+  color: var(--digital-orange);
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  padding: 0.4rem 1rem;
+  text-align: center;
+  box-shadow: inset 0 0 20px rgba(255, 140, 0, 0.2);
+  animation: digitalFlicker 2s infinite;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  width: 100%;
+  box-sizing: border-box;
+  height: 45px;
+}
+
+@keyframes digitalFlicker {
+  0%, 98% { opacity: 1; }
+  99% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+/* === メインエリアのラッパー === */
+.main-layout-wrapper {
+  display: flex;
+  flex-grow: 1;
+}
+
+/* === road（縦ナビゲーションバー） === */
+.road-navigation {
+  width: 80px;
+  background: #666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  flex-shrink: 0;
+  position: fixed;
+  top: 45px;
+  left: 0;
+  bottom: 0;
+  height: auto;
+  justify-content: flex-start;
+  padding: 1rem 0;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.road-navigation::-webkit-scrollbar {
+  display: none;
+}
+
+.road-nav-item {
+  margin: 1rem 0;
+  position: relative;
+}
+
+.road-nav-button {
+  transform: none;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  background: var(--doma-gray);
+  padding: 0.4rem 0.2rem;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.road-nav-button:hover {
+  background: var(--shishimai-red);
+}
+
+.road-nav-tooltip {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateX(10px) translateY(-50%);
+  background: #ffffffcc;
+  color: black;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+.road-nav-item:hover .road-nav-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.2s;
+}
+
+/* === メインコンテンツエリア === */
+.town-hall {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: transparent;
+  flex-grow: 1;
+  min-width: 0;
+  margin-left: 80px;
+  margin-top: 45px;
+}
+
+/* === タイトルエリア === */
+.town-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.town-title h1 {
+  font-size: 3rem;
+  color: var(--stone-white);
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.15em;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+}
+
+.town-title .subtitle {
+  font-size: 1.2rem;
+  color: var(--stone-white);
+  margin-top: 0.5rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* === water（水路ナビゲーション） === */
+.water-navigation {
+  background: linear-gradient(90deg, var(--deep-blue), #2A4A6B, var(--deep-blue));
+  padding: 1rem 0;
+  margin: 2rem 0;
+  box-shadow: 
+    inset 0 2px 10px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(26, 54, 93, 0.4);
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+  margin-left: calc(-80px - 2rem);
+}
+
+.water-navigation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: waterFlowSlow 8s linear infinite;
+}
+
+@keyframes waterFlowSlow {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ニュースティッカー */
+.news-ticker {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  background: none;
+  padding: 0.5rem;
+}
+
+.news-ticker-content {
+  display: inline-block;
+  animation: ticker-scroll 45s linear infinite;
+  will-change: transform;
+  animation-play-state: running !important;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(10%); }
+  100% { transform: translateX(-100%); }
+}
+
+a.news-item {
+  display: inline-block;
+  margin-right: 4rem;
+  color: var(--aged-white);
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a.news-item:hover {
+  color: var(--earth-yellow);
+  cursor: pointer;
+}
+
+/* === コンテンツ縦一覧に === */
+.content-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.content-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--aged-white);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 
+    0 5px 15px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.content-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+.content-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--wood-brown), var(--earth-yellow));
+  border-radius: 17px;
+  z-index: -1;
+}
+.content-card h3 {
+  color: var(--wood-brown);
+  margin-top: 0;
+  font-size: 1.3rem;
+  border-bottom: 2px solid var(--earth-yellow);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+.content-card p {
+  line-height: 1.6;
+  color: var(--soot-brown);
+  margin-bottom: 1rem;
+}
+.content-card a {
+  color: var(--water-blue);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+.content-card a:hover {
+  color: var(--shishimai-red);
+  text-decoration: underline;
+}
+
+/* === 先祖からの手紙 === */
+.ancestor-letter {
+  background: var(--aged-white);
+  border: 3px solid var(--wood-brown);
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 3rem 0;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.ancestor-letter::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(139, 90, 60, 0.1) 0%, transparent 70%);
+  transform: rotate(45deg);
+  transition: transform 0.5s ease;
+}
+.ancestor-letter:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+.ancestor-letter:hover::before {
+  transform: rotate(90deg);
+}
+.letter-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+.letter-text {
+  font-size: 1.1rem;
+  color: var(--soot-brown);
+  font-style: italic;
+  position: relative;
+  z-index: 2;
+}
+
+/* === モーダル === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(3px);
+}
+.modal-content {
+  background: var(--aged-white);
+  margin: 5% auto;
+  padding: 2rem;
+  border: 3px solid var(--wood-brown);
+  border-radius: 15px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: modalAppear 0.3s ease-out;
+}
+@keyframes modalAppear {
+  from { opacity: 0; transform: scale(0.8) translateY(-50px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.close {
+  color: var(--soot-brown);
+  float: right;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+.close:hover {
+  color: var(--shishimai-red);
+  transform: scale(1.1);
+}
+.letter-content {
+  font-family: 'serif';
+  line-height: 1.8;
+  color: var(--soot-brown);
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+.signature {
+  text-align: right;
+  margin-top: 2rem;
+  font-style: italic;
+  color: var(--wood-brown);
+  font-weight: bold;
+}
+
+/* === フッター === */
+.footer {
+  background-color: #A9D18E;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.9rem;
+  color: #fff;
+  box-sizing: border-box;
+  margin-left: 0;
+  width: 100vw;
+}
+
+/* === 獅子舞ナビゲーター === */
+.shishimai-guide {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  background: var(--shishimai-red);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  animation: shishimaiFloat 3s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(198, 45, 66, 0.4);
+  border: 3px solid var(--aged-white);
+  transition: transform 0.3s ease;
+}
+.shishimai-guide:hover {
+  transform: scale(1.1);
+}
+.shishimai-guide::before {
+  content: '🦁';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  animation: shishimaiBlink 2s infinite;
+}
+@keyframes shishimaiFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+@keyframes shishimaiBlink { 0%, 90% { opacity: 1; } 95% { opacity: 0.7; } 100% { opacity: 1; } }
+
+/* === レスポンシブ === */
+@media (max-width: 768px) {
+  body.town-page {
+    padding-left: 0;
+  }
+  .digital-clock {
+    position: relative;
+    margin-left: 0;
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+  .footer {
+    margin-left: 0;
+    width: 100%;
+  }
+  .main-layout-wrapper {
+    flex-direction: column;
+  }
+  .road-navigation {
+    position: relative;
+    width: 100%;
+    left: 0;
+    top: 0;
+    bottom: auto;
+    height: auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.5rem;
+  }
+  .road-nav-item {
+    margin: 0 0.5rem;
+    flex-shrink: 0;
+  }
+  .water-navigation {
+    width: 100%;
+    margin-left: 0;
+  }
+  .town-hall {
+    padding: 1rem;
+    margin-left: 0;
+    margin-top: 0;
+  }
+  .town-title h1 {
+    font-size: 2rem;
+  }
+  .shishimai-guide {
+    width: 60px;
+    height: 60px;
+    bottom: 15px;
+    right: 15px;
+  }
+  .shishimai-guide::before {
+    font-size: 1.5rem;
+  }
+  .modal-content {
+    width: 90%;
+    margin: 10% auto;
+    padding: 1.5rem;
   }
 }
 
-function formatDateTime(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-  
-  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
-}
-
-function initializeClock() {
-  updateTime(); // 即座に表示
-  clockInterval = setInterval(updateTime, 1000);
-}
-
-// === 獅子舞ナビゲーター === //
-function showGuide() {
-  const randomIndex = Math.floor(Math.random() * shishimaiMessages.length);
-  const message = shishimaiMessages[randomIndex];
-  
-  // カスタムアラート風モーダルを作成
-  showCustomAlert("獅子舞ナビゲーター", message);
-}
-
-function showCustomAlert(title, message) {
-  // 既存のカスタムアラートがあれば削除
-  const existingAlert = document.getElementById('custom-alert');
-  if (existingAlert) {
-    existingAlert.remove();
+@media (max-width: 480px) {
+  .town-title h1 {
+    font-size: 1.5rem;
   }
-  
-  // カスタムアラートHTML作成
-  const alertHtml = `
-    <div id="custom-alert" class="modal" style="display: block;">
-      <div class="modal-content" style="max-width: 400px; text-align: center;">
-        <span class="close" onclick="closeCustomAlert()">&times;</span>
-        <h3 style="color: var(--shishimai-red); margin-bottom: 1rem;">
-          🦁 ${title}
-        </h3>
-        <p style="line-height: 1.6; white-space: pre-line;">${message}</p>
-        <button onclick="closeCustomAlert()" style="
-          background: var(--shishimai-red);
-          color: white;
-          border: none;
-          padding: 0.5rem 1.5rem;
-          border-radius: 20px;
-          cursor: pointer;
-          margin-top: 1rem;
-          font-weight: bold;
-        ">了解</button>
-      </div>
-    </div>
-  `;
-  
-  document.body.insertAdjacentHTML('beforeend', alertHtml);
-}
-
-function closeCustomAlert() {
-  const alert = document.getElementById('custom-alert');
-  if (alert) {
-    alert.style.animation = 'modalDisappear 0.3s ease-out';
-    setTimeout(() => alert.remove(), 300);
+  .content-card, .ancestor-letter {
+    padding: 1.5rem;
   }
-}
-
-function initializeShishimai() {
-  const shishimai = document.querySelector('.shishimai-guide');
-  if (shishimai) {
-    // ランダムな間隔で微妙に動かす
-    setInterval(() => {
-      if (Math.random() < 0.3) { // 30%の確率で動く
-        shishimai.style.transform = `translateY(${Math.random() * 10 - 5}px)`;
-        setTimeout(() => {
-          shishimai.style.transform = '';
-        }, 500);
-      }
-    }, 3000);
+  .letter-icon {
+    font-size: 2rem;
   }
-}
-
-// === モーダル機能 === //
-function openLetter() {
-  const modal = document.getElementById('letter-modal');
-  if (modal) {
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // スクロール防止
-  }
-}
-
-function closeLetter() {
-  const modal = document.getElementById('letter-modal');
-  if (modal) {
-    modal.style.display = 'none';
-    document.body.style.overflow = ''; // スクロール復活
-  }
-}
-
-function initializeModal() {
-  // モーダル外クリックで閉じる
-  window.addEventListener('click', function(event) {
-    const modal = document.getElementById('letter-modal');
-    const customAlert = document.getElementById('custom-alert');
-    
-    if (event.target === modal) {
-      closeLetter();
-    }
-    if (event.target === customAlert) {
-      closeCustomAlert();
-    }
-  });
-  
-  // ESCキーでモーダルを閉じる
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape') {
-      closeLetter();
-      closeCustomAlert();
-    }
-  });
-}
-
-// === ナビゲーション機能 === //
-function initializeNavigation() {
-  // ニュースティッカーのホバー制御
-  const newsTicker = document.querySelector('.news-ticker-content');
-  if (newsTicker) {
-    console.log('ニュースティッカー見つかりました:', newsTicker);
-    
-    newsTicker.addEventListener('mouseenter', function() {
-      console.log('ホバー開始 - アニメーション一時停止');
-      this.style.animationPlayState = 'paused';
-    });
-    
-    newsTicker.addEventListener('mouseleave', function() {
-      console.log('ホバー終了 - アニメーション再開');
-      this.style.animationPlayState = 'running';
-    });
-  } else {
-    console.log('ニュースティッカーが見つかりません');
-  }
-  
-  // 道路ナビゲーションのツールチップ制御
-  const roadNavItems = document.querySelectorAll('.road-nav-item');
-  console.log('道路ナビアイテム数:', roadNavItems.length);
-  
-  roadNavItems.forEach((item, index) => {
-    const button = item.querySelector('.road-nav-button');
-    const tooltip = item.querySelector('.road-nav-tooltip');
-    
-    if (button && tooltip) {
-      button.addEventListener('mouseenter', function() {
-        tooltip.style.opacity = '1';
-        tooltip.style.visibility = 'visible';
-        tooltip.style.transform = 'translateX(0)';
-      });
-      
-      button.addEventListener('mouseleave', function() {
-        tooltip.style.opacity = '0';
-        tooltip.style.visibility = 'hidden';
-        tooltip.style.transform = 'translateX(10px)';
-      });
-    }
-  });
-}
-
-function createWaterRipple(element) {
-  const ripple = document.createElement('div');
-  ripple.style.cssText = `
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    transform: scale(0);
-    animation: ripple 0.6s linear;
-    pointer-events: none;
-  `;
-  
-  const rect = element.getBoundingClientRect();
-  const size = Math.max(rect.width, rect.height);
-  ripple.style.width = ripple.style.height = size + 'px';
-  ripple.style.left = (rect.width - size) / 2 + 'px';
-  ripple.style.top = (rect.height - size) / 2 + 'px';
-  
-  element.style.position = 'relative';
-  element.appendChild(ripple);
-  
-  setTimeout(() => ripple.remove(), 600);
-}
-
-// === ページロードアニメーション === //
-function addPageLoadAnimation() {
-  const contentCards = document.querySelectorAll('.content-card');
-  
-  // カードを順次表示
-  contentCards.forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(20px)';
-    
-    setTimeout(() => {
-      card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-      card.style.opacity = '1';
-      card.style.transform = 'translateY(0)';
-    }, index * 200);
-  });
-}
-
-// === ユーティリティ関数 === //
-function getRandomShishimaiMessage() {
-  return shishimaiMessages[Math.floor(Math.random() * shishimaiMessages.length)];
-}
-
-function formatTime(date) {
-  return date.toLocaleTimeString('ja-JP', {
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  });
-}
-
-// === 水路アニメーション制御 === //
-function pauseWaterFlow() {
-  const waterNav = document.querySelector('.water-navigation::before');
-  if (waterNav) {
-    waterNav.style.animationPlayState = 'paused';
-  }
-}
-
-function resumeWaterFlow() {
-  const waterNav = document.querySelector('.water-navigation::before');
-  if (waterNav) {
-    waterNav.style.animationPlayState = 'running';
-  }
-}
-
-// === クリーンアップ === //
-window.addEventListener('beforeunload', function() {
-  if (clockInterval) {
-    clearInterval(clockInterval);
-  }
-});
-
-// === CSS動的追加（リップルエフェクト用） === //
-const rippleStyle = document.createElement('style');
-rippleStyle.textContent = `
-  @keyframes ripple {
-    to {
-      transform: scale(4);
-      opacity: 0;
-    }
-  }
-  
-  @keyframes modalDisappear {
-    from {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-    to {
-      opacity: 0;
-      transform: scale(0.8) translateY(-50px);
-    }
-  }
-`;
-document.head.appendChild(rippleStyle);
-
-// ページの読み込みとウィンドウサイズ変更時に実行
-window.addEventListener('load', setFooterHeight);
-window.addEventListener('resize', setFooterHeight);
-
-function setFooterHeight() {
-  // フッター要素を取得
-  const footer = document.querySelector('.footer');
-  
-  if (footer) {
-    // フッターの高さを取得
-    const footerHeight = footer.offsetHeight;
-    
-    // HTMLのルート要素（<html>）にCSSカスタムプロパティ（変数）を設定
-    document.documentElement.style.setProperty('--footer-height', `${footerHeight}px`);
-  }
-}
-
-// === デバッグ用（開発時のみ） === //
-if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-  console.log('🦁 SAVE POINT 上原田 - タウンページが読み込まれました');
-  console.log('🌊 水路ナビゲーション:', document.querySelector('.water-navigation') ? '✓' : '✗');
-  console.log('⏰ デジタル時計:', document.getElementById('current-time') ? '✓' : '✗');
-  console.log('📜 先祖の手紙:', document.getElementById('letter-modal') ? '✓' : '✗');
 }
