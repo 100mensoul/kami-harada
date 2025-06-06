@@ -52,6 +52,12 @@ body.town-page {
   100% { opacity: 1; }
 }
 
+/* === 新しいレイアウト構造のためのスタイル === */
+.main-layout-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
 /* === メインコンテンツエリア === */
 .town-hall {
   max-width: 1200px;
@@ -62,7 +68,9 @@ body.town-page {
     inset 0 0 50px rgba(139, 90, 60, 0.1),
     0 10px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 120px); /* フッターなどを考慮した高さ */
+  flex-grow: 1; /* 残りの幅をすべて使う */
+  min-width: 0; /* flexレイアウトのバグ回避 */
 }
 
 /* === タイトルエリア === */
@@ -274,10 +282,6 @@ body.town-page {
 
 /* 縦ナビゲーションバー（道路風） */
 .road-navigation {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: calc(100vh - 96px); /* ← この行を追加 */
   width: 80px;
   background: #666;
   display: flex;
@@ -286,13 +290,12 @@ body.town-page {
   justify-content: flex-start;
   padding-top: 2rem;
   z-index: 10;
-}
-
-@media (max-width: 768px) {
-  .road-navigation {
-    left: 8px;
-    height: calc(100vh - 96px); /* ← この部分を修正 */
-  }
+  flex-shrink: 0; /* コンテンツに押されて縮まないようにする */
+  
+  position: sticky; /* スクロールしても画面に貼り付くように変更 */
+  /* ヘッダーの高さ（約45px）に合わせて、その下から開始するように設定 */
+  top: 45px; 
+  height: calc(100vh - 45px); /* 高さは「画面の高さ - topの値」 */
 }
 
 .road-nav-item {
@@ -344,10 +347,7 @@ body.town-page {
 .content-card {
   width: 100%;
   max-width: 800px;
-  margin: 0 auto; /* ← 中央寄せにする */
-}
-
-.content-card {
+  margin: 0 auto;
   background: var(--aged-white);
   border-radius: 15px;
   padding: 2rem;
@@ -527,6 +527,35 @@ body.town-page {
 
 /* === レスポンシブ === */
 @media (max-width: 768px) {
+  /* スマホ表示ではレイアウトを縦積みに変更 */
+  .main-layout-wrapper {
+    flex-direction: column;
+  }
+  
+  /* スマホ表示ではナビゲーションバーを横並び＆横スクロールに変更 */
+  .road-navigation {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    overflow-x: auto;
+    top: 45px; /* ヘッダーの高さに合わせて調整 */
+    
+    /* スクロールバー非表示 */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .road-navigation::-webkit-scrollbar {
+    display: none;
+  }
+
+  .road-nav-item {
+    margin: 0 0.5rem;
+    flex-shrink: 0;
+  }
+  
   .town-title h1 {
     font-size: 2rem;
   }
@@ -540,15 +569,8 @@ body.town-page {
     width: 100%;
     text-align: center;
   }
-
-  .road-navigation {
-    left: 8px;
-    height: calc(100vh - 96px);
-  }
-
   
   .content-grid {
-    grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   
@@ -603,6 +625,6 @@ body.town-page {
   padding: 1.5rem 1rem;
   font-size: 0.9rem;
   color: #fff;
-  height: 96px; /* 固定の高さを設定 */
-  box-sizing: border-box; /* paddingを含む高さに */
+  height: 96px;
+  box-sizing: border-box;
 }
