@@ -79,7 +79,7 @@ body.town-page {
   position: fixed;
   top: 45px;
   left: 0;
-  bottom: var(--footer-height, 70px); /* JSから高さを取得。失敗時は70px */
+  bottom: 0;
   height: auto;
   justify-content: flex-start;
   padding: 1rem 0;
@@ -127,7 +127,8 @@ body.town-page {
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s;
-  z-index: 20;
+  z-index: 1001;
+  pointer-events: none;
 }
 
 .road-nav-item:hover .road-nav-tooltip {
