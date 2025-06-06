@@ -296,6 +296,23 @@ rippleStyle.textContent = `
 `;
 document.head.appendChild(rippleStyle);
 
+// ページの読み込みとウィンドウサイズ変更時に実行
+window.addEventListener('load', setFooterHeight);
+window.addEventListener('resize', setFooterHeight);
+
+function setFooterHeight() {
+  // フッター要素を取得
+  const footer = document.querySelector('.footer');
+  
+  if (footer) {
+    // フッターの高さを取得
+    const footerHeight = footer.offsetHeight;
+    
+    // HTMLのルート要素（<html>）にCSSカスタムプロパティ（変数）を設定
+    document.documentElement.style.setProperty('--footer-height', `${footerHeight}px`);
+  }
+}
+
 // === デバッグ用（開発時のみ） === //
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
   console.log('🦁 SAVE POINT 上原田 - タウンページが読み込まれました');
