@@ -23,16 +23,19 @@ html, body {
   height: 100%;
 }
 
-/* === タウンページ専用背景 === */
+/* === 全体の骨格 === */
 body.town-page {
   background:  #758492;
   color:  transparent;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-left: 30px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-/* === 電光掲示板ヘッダー === */
+/* === ヘッダー === */
 .digital-clock {
   background: #1a1a1a;
   color: var(--digital-orange);
@@ -44,7 +47,9 @@ body.town-page {
   animation: digitalFlicker 2s infinite;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
+  margin-left: -30px;
+  width: 100vw;
 }
 
 @keyframes digitalFlicker {
@@ -53,242 +58,13 @@ body.town-page {
   100% { opacity: 1; }
 }
 
-/* === 新しいレイアウト構造のためのスタイル === */
+/* === メインエリアのラッパー === */
 .main-layout-wrapper {
   display: flex;
   flex-grow: 1;
-    padding-left: 30px; /* roadと画面左端の間の隙間はここで作る */
 }
 
-/* === メインコンテンツエリア === */
-.town-content-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  background: transparent;
-  box-shadow:
-    inset 0 0 50px rgba(139, 90, 60, 0.1),
-    0 10px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  flex-grow: 1;
-  min-width: 0;
-}
-
-/* === タイトルエリア === */
-.town-title {
-  text-align: center;
-  margin-bottom: 3rem;
-  position: relative;
-}
-
-.town-title h1 {
-  font-size: 3rem;
-  color: var(--stone-white);
-  margin: 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  letter-spacing: 0.15em;
-  font-weight: bold;
-  font-family: 'Arial', sans-serif;
-}
-
-.town-title .subtitle {
-  font-size: 1.2rem;
-  color: var(--stone-white);
-  margin-top: 0.5rem;
-  font-style: italic;
-  opacity: 0.9;
-}
-
-/* === 獅子舞ナビゲーター === */
-.shishimai-guide {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 80px;
-  height: 80px;
-  background: var(--shishimai-red);
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1000;
-  animation: shishimaiFloat 3s ease-in-out infinite;
-  box-shadow: 0 5px 15px rgba(198, 45, 66, 0.4);
-  border: 3px solid var(--aged-white);
-  transition: transform 0.3s ease;
-}
-
-.shishimai-guide:hover {
-  transform: scale(1.1);
-}
-
-.shishimai-guide::before {
-  content: '🦁';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-  animation: shishimaiBlink 2s infinite;
-}
-
-@keyframes shishimaiFloat {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes shishimaiBlink {
-  0%, 90% { opacity: 1; }
-  95% { opacity: 0.7; }
-  100% { opacity: 1; }
-}
-
-/* === water（水路ナビゲーション） === */
-.water-navigation {
-  background: linear-gradient(90deg, var(--deep-blue), #2A4A6B, var(--deep-blue));
-  padding: 1rem 0;
-  margin: 2rem 0;
-  box-shadow: 
-    inset 0 2px 10px rgba(0, 0, 0, 0.3),
-    0 5px 15px rgba(26, 54, 93, 0.4);
-  width: 100vw;
-  position: relative;
-  z-index: 1; /* roadより背面に配置 */
-  margin-left: calc(-50vw + 50% - 30px); /* 30pxはbodyのpadding-leftと同じ値 */
-}
-
-.water-navigation::before {
-  content: '';
-  position: absolute; /* 親要素を基準に配置 */
-  top: 0;
-  left: -100%;
-  width: auto; /* 幅を自動に戻す */
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: waterFlowSlow 8s linear infinite;
-  margin-left: -110px; /* road(80px) + wrapperのpadding(30px) 分、左にずらす */
-  padding-left: 110px; /* ずらした分、中身が左に寄らないように内側に余白を作る */
-}
-
-@keyframes waterFlowSlow {
-  0% { left: -100%; }
-  100% { left: 100%; }
-}
-
-.nav-container {
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-  display: flex;
-  align-items: center;
-}
-
-.nav-control {
-  background: rgba(135, 206, 235, 0.7);
-  border: none;
-  color: white;
-  font-size: 1.5rem;
-  padding: 0.5rem;
-  cursor: pointer;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.nav-control:hover {
-  background: rgba(135, 206, 235, 1);
-  transform: scale(1.1);
-}
-
-.nav-control:active {
-  transform: scale(0.95);
-}
-
-.nav-scroll-container {
-  flex: 1;
-  overflow: hidden;
-  margin: 0 1rem;
-  position: relative;
-}
-
-
-.nav-items {
-  display: flex;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-  gap: 1rem;
-  animation: navItemsFlow 60s linear infinite;
-  width: max-content;
-}
-
-@keyframes navItemsFlow {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
-}
-
-.nav-item {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-  font-weight: bold;
-  font-size: 0.9rem;
-  white-space: nowrap;
-}
-
-.nav-item:hover {
-  background: rgba(255, 255, 255, 0.4);
-  transform: scale(1.05);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* ニュースティッカー（横スクロール） */
-.news-ticker {
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
-  background: none;
-  padding: 0.5rem;
-}
-
-.news-ticker-content {
-  display: inline-block;
-  animation: ticker-scroll 60s linear infinite;
-  will-change: transform;
-}
-
-@keyframes ticker-scroll {
-  0% {
-    transform: translateX(10%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-.news-item {
-  display: inline-block;
-  margin-right: 4rem;
-  color: var(--aged-white);
-  font-weight: bold;
-  text-decoration: none; /* 下線を消す */
-  transition: color 0.3s ease; /* 色が滑らかに変わるようにする */
-}
-
-/* マウスを乗せた時のスタイルを追加 */
-.news-item:hover {
-  color: var(--earth-yellow); /* 色を少し明るくして、クリックできることを示す */
-  cursor: pointer; /* カーソルを指の形にする */
-}
-
-/* road（縦ナビゲーションバー） */
+/* === road（縦ナビゲーションバー） === */
 .road-navigation {
   width: 80px;
   background: #666;
@@ -298,26 +74,21 @@ body.town-page {
   z-index: 10;
   flex-shrink: 0;
   position: sticky;
-  top: 0; /* 親要素の先頭に固定。ヘッダーの高さは考慮不要になる */
-  height: 100vh; /* 親要素の高さに追従させるためvh指定に戻す */
-  overflow-y: auto; /* ボタンがはみ出たら縦スクロール */
-  justify-content: space-around; /* ボタンを均等に配置 */
+  top: 45px;
+  height: calc(100vh - 45px);
+  justify-content: flex-start;
   padding: 1rem 0;
   box-sizing: border-box;
-    /* ▼▼▼ ここからが重要な変更点 ▼▼▼ */
-  justify-content: flex-start; /* 上寄せに戻す */
-  padding: 1rem 0; /* 上下の余白 */
-  
-  
-  /* スクロールバーの見た目を整える（任意）*/
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .road-navigation::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
+
 .road-nav-item {
-  margin: 1rem 0; /* 元の間隔に戻す */
+  margin: 1rem 0;
   position: relative;
 }
 
@@ -354,6 +125,110 @@ body.town-page {
   z-index: 20;
 }
 
+.road-nav-item:hover .road-nav-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.2s;
+}
+
+/* === メインコンテンツエリア === */
+.town-hall { /* クラス名を元に戻しました */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: transparent;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+/* === タイトルエリア === */
+.town-title {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.town-title h1 {
+  font-size: 3rem;
+  color: var(--stone-white);
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 0.15em;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+}
+
+.town-title .subtitle {
+  font-size: 1.2rem;
+  color: var(--stone-white);
+  margin-top: 0.5rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* === water（水路ナビゲーション） === */
+.water-navigation {
+  background: linear-gradient(90deg, var(--deep-blue), #2A4A6B, var(--deep-blue));
+  padding: 1rem 0;
+  margin: 2rem 0;
+  box-shadow: 
+    inset 0 2px 10px rgba(0, 0, 0, 0.3),
+    0 5px 15px rgba(26, 54, 93, 0.4);
+  position: relative;
+  z-index: 1;
+  width: calc(100% + 110px);
+  margin-left: -110px;
+}
+
+.water-navigation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: waterFlowSlow 8s linear infinite;
+}
+
+@keyframes waterFlowSlow {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ニュースティッカー */
+.news-ticker {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  background: none;
+  padding: 0.5rem;
+}
+
+.news-ticker-content {
+  display: inline-block;
+  animation: ticker-scroll 60s linear infinite;
+  will-change: transform;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(10%); }
+  100% { transform: translateX(-100%); }
+}
+
+a.news-item {
+  display: inline-block;
+  margin-right: 4rem;
+  color: var(--aged-white);
+  font-weight: bold;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a.news-item:hover {
+  color: var(--earth-yellow);
+  cursor: pointer;
+}
 
 /* === コンテンツ縦一覧に === */
 .content-grid {
@@ -376,14 +251,12 @@ body.town-page {
   position: relative;
   overflow: hidden;
 }
-
 .content-card:hover {
   transform: translateY(-5px);
   box-shadow: 
     0 8px 25px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
-
 .content-card::before {
   content: '';
   position: absolute;
@@ -395,7 +268,6 @@ body.town-page {
   border-radius: 17px;
   z-index: -1;
 }
-
 .content-card h3 {
   color: var(--wood-brown);
   margin-top: 0;
@@ -404,13 +276,11 @@ body.town-page {
   padding-bottom: 0.5rem;
   margin-bottom: 1rem;
 }
-
 .content-card p {
   line-height: 1.6;
   color: var(--soot-brown);
   margin-bottom: 1rem;
 }
-
 .content-card a {
   color: var(--water-blue);
   text-decoration: none;
@@ -421,7 +291,6 @@ body.town-page {
   color: var(--shishimai-red);
   text-decoration: underline;
 }
-
 
 /* === 先祖からの手紙 === */
 .ancestor-letter {
@@ -437,7 +306,6 @@ body.town-page {
   position: relative;
   overflow: hidden;
 }
-
 .ancestor-letter::before {
   content: '';
   position: absolute;
@@ -449,16 +317,13 @@ body.town-page {
   transform: rotate(45deg);
   transition: transform 0.5s ease;
 }
-
 .ancestor-letter:hover {
   transform: scale(1.02);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
-
 .ancestor-letter:hover::before {
   transform: rotate(90deg);
 }
-
 .letter-icon {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -466,7 +331,6 @@ body.town-page {
   position: relative;
   z-index: 2;
 }
-
 .letter-text {
   font-size: 1.1rem;
   color: var(--soot-brown);
@@ -487,7 +351,6 @@ body.town-page {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(3px);
 }
-
 .modal-content {
   background: var(--aged-white);
   margin: 5% auto;
@@ -500,18 +363,10 @@ body.town-page {
   position: relative;
   animation: modalAppear 0.3s ease-out;
 }
-
 @keyframes modalAppear {
-  from {
-    opacity: 0;
-    transform: scale(0.8) translateY(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+  from { opacity: 0; transform: scale(0.8) translateY(-50px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
-
 .close {
   color: var(--soot-brown);
   float: right;
@@ -521,12 +376,10 @@ body.town-page {
   line-height: 1;
   transition: color 0.3s ease;
 }
-
 .close:hover {
   color: var(--shishimai-red);
   transform: scale(1.1);
 }
-
 .letter-content {
   font-family: 'serif';
   line-height: 1.8;
@@ -534,7 +387,6 @@ body.town-page {
   margin-top: 1rem;
   font-size: 1.1rem;
 }
-
 .signature {
   text-align: right;
   margin-top: 2rem;
@@ -551,77 +403,88 @@ body.town-page {
   font-size: 0.9rem;
   color: #fff;
   box-sizing: border-box;
+  margin-left: -30px;
+  width: 100vw;
 }
+
+/* === 獅子舞ナビゲーター === */
+.shishimai-guide {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  background: var(--shishimai-red);
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  animation: shishimaiFloat 3s ease-in-out infinite;
+  box-shadow: 0 5px 15px rgba(198, 45, 66, 0.4);
+  border: 3px solid var(--aged-white);
+  transition: transform 0.3s ease;
+}
+.shishimai-guide:hover {
+  transform: scale(1.1);
+}
+.shishimai-guide::before {
+  content: '🦁';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  animation: shishimaiBlink 2s infinite;
+}
+@keyframes shishimaiFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+@keyframes shishimaiBlink { 0%, 90% { opacity: 1; } 95% { opacity: 0.7; } 100% { opacity: 1; } }
 
 /* === レスポンシブ === */
 @media (max-width: 768px) {
-  /* スマホ表示ではレイアウトを縦積みに変更 */
+  body.town-page {
+    padding-left: 0;
+  }
+  .digital-clock, .footer {
+    margin-left: 0;
+    width: 100%;
+  }
   .main-layout-wrapper {
     flex-direction: column;
-    margin-left: 0; /* 左の余白をリセット */
   }
-  
-  /* スマホ表示ではナビゲーションバーを横並び＆横スクロールに変更 */
   .road-navigation {
     width: 100%;
     height: auto;
     flex-direction: row;
     justify-content: flex-start;
     padding: 0.5rem;
-    overflow-x: auto;
-    top: 45px; /* ヘッダーの高さに合わせて調整 */
-    
-    /* スクロールバー非表示 */
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    top: 45px;
   }
-  .road-navigation::-webkit-scrollbar {
-    display: none;
-  }
-
   .road-nav-item {
     margin: 0 0.5rem;
     flex-shrink: 0;
   }
-  
-  .town-title h1 {
-    font-size: 2rem;
-  }
-  
-  .nav-items {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  .nav-item {
+  .water-navigation {
     width: 100%;
-    text-align: center;
+    margin-left: 0;
   }
-  
-  .content-grid {
-    gap: 1.5rem;
-  }
-  
   .town-hall {
     padding: 1rem;
   }
-  
+  .town-title h1 {
+    font-size: 2rem;
+  }
   .digital-clock {
     font-size: 1rem;
     padding: 0.8rem;
   }
-  
   .shishimai-guide {
     width: 60px;
     height: 60px;
     bottom: 15px;
     right: 15px;
   }
-  
   .shishimai-guide::before {
     font-size: 1.5rem;
   }
-  
   .modal-content {
     width: 90%;
     margin: 10% auto;
@@ -633,15 +496,9 @@ body.town-page {
   .town-title h1 {
     font-size: 1.5rem;
   }
-  
-  .content-card {
+  .content-card, .ancestor-letter {
     padding: 1.5rem;
   }
-  
-  .ancestor-letter {
-    padding: 1.5rem;
-  }
-  
   .letter-icon {
     font-size: 2rem;
   }
