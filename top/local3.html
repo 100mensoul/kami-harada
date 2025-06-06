@@ -12,17 +12,16 @@
 </head>
 <body class="town-page">
   <!-- 電光掲示板 -->
-  <header class="digital-clock"> <!-- headerタグに変更するとより良いです -->
+  <header class="digital-clock">
     <span id="current-time">2025/06/04 23:45:32</span>
     <span style="margin-left: 2rem;">[ TIME GATE OPEN ]</span>
   </header>
 
-  <!-- ▼▼▼▼▼ 構造変更箇所 ▼▼▼▼▼ -->
-  <!-- 新しいラッパーを追加して、ナビゲーションとメインコンテンツを囲みます -->
+  <!-- 新しいラッパー要素でナビゲーションとメインコンテンツを囲む -->
   <div class="main-layout-wrapper">
 
-    <!-- 縦の道路バーナビゲーション（main-layout-wrapperの直下に移動） -->
-    <aside class="road-navigation"> <!-- divからasideに変更 -->
+    <!-- 縦の道路バーナビゲーション -->
+    <aside class="road-navigation">
       <div class="road-nav-item">
         <a href="../sp/indexday3.html" class="road-nav-button">SAVE</a>
         <div class="road-nav-tooltip">上原田のセーブポイント。今を記録しますか？</div>
@@ -69,8 +68,8 @@
       </div>
     </aside>
 
-    <!-- メインコンテンツ（main-layout-wrapperの直下に移動） -->
-    <main class="town-hall"> <!-- divからmainに変更 -->
+    <!-- メインコンテンツ -->
+    <main class="town-hall">
       <!-- タイトル -->
       <div class="town-title">
         <h1>+ Hara ← Kami → Hana +</h1>
@@ -123,19 +122,31 @@
       </div>
     </main>
   </div>
-  <!-- ▲▲▲▲▲ 構造変更箇所ここまで ▲▲▲▲▲ -->
 
   <!-- 獅子舞ナビゲーター -->
   <div class="shishimai-guide" onclick="showGuide()"></div>
 
   <!-- モーダル：先祖からの手紙 -->
   <div id="letter-modal" class="modal">
-    <!-- モーダルの内容は変更なし -->
-    ...
+    <div class="modal-content">
+      <span class="close" onclick="closeLetter()">×</span>
+      <h2 style="color: var(--wood-brown); text-align: center;">先祖からの手紙</h2>
+      <div class="letter-content">
+        <p>この地で生まれた者よ、</p>
+        <p>たとえ大人になって外の世界へ出ようとも、ここが故郷であることは変わりない。</p>
+        <p>原風景を過ごした最初のセーブポイントは、ここ姫路市花田町上原田なのだから。</p>
+        <p>水は流れ、季節は巡り、人は移ろいゆく。しかし、この土地に刻まれた記憶と、そこに息づく営みは永遠に続いていく。</p>
+        <p>君たちが歩む未来が、どうか豊かなものでありますように。</p>
+        <div class="signature">
+          近代の先祖代表<br>
+          町内会長 F.S より
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- フッター -->
-  <footer class="footer"> <!-- フッターもclassを付けておくと管理しやすいです -->
+  <footer class="footer">
     <p>© 2025 上原田自治会 - SAVE POINT 上原田</p>
   </footer>
 
