@@ -279,6 +279,14 @@ body.town-page {
   margin-right: 4rem;
   color: var(--aged-white);
   font-weight: bold;
+  text-decoration: none; /* 下線を消す */
+  transition: color 0.3s ease; /* 色が滑らかに変わるようにする */
+}
+
+/* マウスを乗せた時のスタイルを追加 */
+.news-item:hover {
+  color: var(--earth-yellow); /* 色を少し明るくして、クリックできることを示す */
+  cursor: pointer; /* カーソルを指の形にする */
 }
 
 /* road（縦ナビゲーションバー） */
