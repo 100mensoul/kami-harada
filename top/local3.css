@@ -277,7 +277,7 @@ body.town-page {
   position: fixed;
   left: 0;
   top: 0;
-  height: 100%;
+  height: calc(100vh - 96px); /* ← フッター分を引く */
   width: 80px;
   background: #666;
   display: flex;
@@ -539,6 +539,12 @@ body.town-page {
     width: 100%;
     text-align: center;
   }
+
+  .road-navigation {
+    left: 8px;
+    height: calc(100vh - 96px);
+  }
+
   
   .content-grid {
     grid-template-columns: 1fr;
@@ -588,4 +594,12 @@ body.town-page {
   .letter-icon {
     font-size: 2rem;
   }
+}
+
+.footer {
+  background-color: #A9D18E;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: 0.9rem;
+  color: #fff;
 }
