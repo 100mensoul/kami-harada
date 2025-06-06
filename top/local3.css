@@ -20,20 +20,17 @@
 html, body {
   margin: 0;
   padding: 0;
-  min-height: 100%;
+  height: 100%;
 }
 
 /* === タウンページ専用背景 === */
 body.town-page {
   background:  #758492;
   color:   transparent;
-
-    /* ▼▼▼▼▼ ここから追加 ▼▼▼▼▼ */
-  display: grid; /* Gridレイアウトを適用 */
-  grid-template-rows: auto 1fr auto; /* ヘッダー(auto), メイン(1fr), フッター(auto) の3行構成 */
-  grid-template-columns: 100%; /* 列は1つ */
-  min-height: 100vh; /* 最小の高さを画面の高さに */
-  /* ▲▲▲▲▲ ここまで追加 ▲▲▲▲▲ */
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100%;
+  min-height: 100vh;
 }
 
 /* === 電光掲示板ヘッダー === */
@@ -49,10 +46,7 @@ body.town-page {
   position: sticky;
   top: 0;
   z-index: 100;
-
- /* ▼▼▼▼▼ ここから追加 ▼▼▼▼▼ */
-  grid-row: 1; /* Gridの1行目に配置 */
-  /* ▲▲▲▲▲ ここまで追加 ▲▲▲▲▲ */
+  grid-row: 1;
 }
 
 @keyframes digitalFlicker {
@@ -65,11 +59,8 @@ body.town-page {
 .main-layout-wrapper {
   display: flex;
   align-items: flex-start;
-
-  /* ▼▼▼▼▼ ここから追加 ▼▼▼▼▼ */
-  grid-row: 2; /* Gridの2行目に配置 */
-  overflow-y: auto; /* コンテンツがはみ出た場合にスクロールさせる */
-  /* ▲▲▲▲▲ ここまで追加 ▲▲▲▲▲ */
+  grid-row: 2;
+  overflow-y: auto;
 }
 
 /* === メインコンテンツエリア === */
@@ -82,9 +73,9 @@ body.town-page {
     inset 0 0 50px rgba(139, 90, 60, 0.1),
     0 10px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
-  min-height: calc(100vh - 120px); /* フッターなどを考慮した高さ */
-  flex-grow: 1; /* 残りの幅をすべて使う */
-  min-width: 0; /* flexレイアウトのバグ回避 */
+  min-height: calc(100vh - 120px);
+  flex-grow: 1;
+  min-width: 0;
 }
 
 /* === タイトルエリア === */
@@ -304,19 +295,10 @@ body.town-page {
   justify-content: flex-start;
   padding-top: 2rem;
   z-index: 10;
-  flex-shrink: 0; /* コンテンツに押されて縮まないようにする */
-
-  /* ▼▼▼▼▼ ここから修正 ▼▼▼▼▼ */
-  position: sticky; /* 親要素(.main-layout-wrapper)内で追従 */
-  top: 0; /* 親要素の先頭に貼り付く */
-  height: 100vh; /* 高さを画面の高さに合わせる */
-  /* ▲▲▲▲▲ ここまで修正 ▲▲▲▲▲ */
-}
-  
-  position: sticky; /* スクロールしても画面に貼り付くように変更 */
-  /* ヘッダーの高さ（約45px）に合わせて、その下から開始するように設定 */
-  top: 45px; 
-  height: calc(100vh - 45px); /* 高さは「画面の高さ - topの値」 */
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
 }
 
 .road-nav-item {
@@ -646,14 +628,8 @@ body.town-page {
   padding: 1.5rem 1rem;
   font-size: 0.9rem;
   color: #fff;
-  height: 96px;
   box-sizing: border-box;
-  
-  /* ▼▼▼▼▼ ここから追加 ▼▼▼▼▼ */
-  grid-row: 3; /* Gridの3行目に配置 */
-  position: relative; /* z-indexを効かせるため */
-  z-index: 50; /* ナビバーより手前に来るように */
-  /* ▲▲▲▲▲ ここまで追加 ▲▲▲▲▲ */
-  
+  grid-row: 3;
+  position: relative;
+  z-index: 50;
 }
-
