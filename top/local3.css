@@ -30,6 +30,7 @@ body.town-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-left: 30px; /* ページ全体を右にずらす。この値はお好みで */
 }
 
 /* === 電光掲示板ヘッダー === */
@@ -57,7 +58,6 @@ body.town-page {
 .main-layout-wrapper {
   display: flex;
   flex-grow: 1;
-  margin-left: 30px; /* 左側の余白 */
 }
 
 /* === メインコンテンツエリア === */
@@ -146,13 +146,13 @@ body.town-page {
   background: linear-gradient(90deg, var(--deep-blue), #2A4A6B, var(--deep-blue));
   padding: 1rem 0;
   margin: 2rem 0;
-  position: relative;
-  z-index: 1; /* roadより背面に配置 */
   box-shadow: 
     inset 0 2px 10px rgba(0, 0, 0, 0.3),
     0 5px 15px rgba(26, 54, 93, 0.4);
   width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  position: relative;
+  z-index: 1; /* roadより背面に配置 */
+  margin-left: calc(-50vw + 50% - 30px); /* 30pxはbodyのpadding-leftと同じ値 */
 }
 
 .water-navigation::before {
@@ -300,13 +300,24 @@ body.town-page {
   flex-shrink: 0;
   position: sticky;
   top: 45px; /* ヘッダーの高さ分、下げる */
+  height: calc(100vh - 45px); /* 高さは画面の高さに固定 */
   justify-content: space-around; /* ボタンを均等に配置 */
   padding: 1rem 0;
   box-sizing: border-box;
+    /* ▼▼▼ ここからが重要な変更点 ▼▼▼ */
+  justify-content: flex-start; /* 上寄せに戻す */
+  padding: 1rem 0; /* 上下の余白 */
+  overflow-y: auto; /* ボタンがはみ出たら縦スクロール */
+  
+  /* スクロールバーの見た目を整える（任意）*/
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
-
+.road-navigation::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
 .road-nav-item {
-  margin: 0;
+  margin: 1rem 0; /* 元の間隔に戻す */
   position: relative;
 }
 
