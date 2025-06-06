@@ -83,8 +83,7 @@ body.town-page {
   position: fixed; /* sticky から fixed に変更 */
   top: 45px; /* ヘッダーの高さと隙間なしで接続 */
   left: 30px; /* body の padding-left と合わせる */
-  bottom: 0; /* フッター直前まで */
-  height: auto; /* 自動高さに変更 */
+  height: calc(100vh - 45px - 60px); /* ヘッダーとフッターの高さを引く */
   justify-content: flex-start;
   padding: 1rem 0;
   box-sizing: border-box;
@@ -214,18 +213,23 @@ body.town-page {
 }
 
 /* ニュースティッカー */
+/* ニュースティッカーのアニメーションを常に継続 */
 .news-ticker {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
   background: none;
   padding: 0.5rem;
+  /* ホバー時でもアニメーションを停止させない */
 }
+
 
 .news-ticker-content {
   display: inline-block;
   animation: ticker-scroll 60s linear infinite;
   will-change: transform;
+  /* ホバー時でもアニメーションを継続 */
+  animation-play-state: running !important;
 }
 
 @keyframes ticker-scroll {
@@ -233,6 +237,7 @@ body.town-page {
   100% { transform: translateX(-100%); }
 }
 
+/* ニュースアイテムのホバー効果（アニメーションは継続） */
 a.news-item {
   display: inline-block;
   margin-right: 4rem;
@@ -240,11 +245,13 @@ a.news-item {
   font-weight: bold;
   text-decoration: none;
   transition: color 0.3s ease;
+  /* アニメーションに影響しないホバー効果のみ */
 }
 
 a.news-item:hover {
   color: var(--earth-yellow);
   cursor: pointer;
+  /* アニメーションは止めない */
 }
 
 /* === コンテンツ縦一覧に === */
