@@ -277,7 +277,7 @@ body.town-page {
   position: fixed;
   left: 0;
   top: 0;
-  height: calc(100vh - 96px); /* ← フッター分を引く */
+  height: calc(100vh - 100px); /* ← フッターの高さを正確に引く */
   width: 80px;
   background: #666;
   display: flex;
