@@ -79,7 +79,7 @@ body.town-page {
   position: fixed;
   top: 45px;
   left: 0;
-  bottom: 70px;
+  bottom: var(--footer-height, 70px); /* JSから高さを取得。失敗時は70px */
   height: auto;
   justify-content: flex-start;
   padding: 1rem 0;
