@@ -56,7 +56,6 @@ body.town-page {
 /* === 新しいレイアウト構造のためのスタイル === */
 .main-layout-wrapper {
   display: flex;
-  align-items: flex-start;
   flex-grow: 1;
   margin-left: 30px; /* 左側の余白 */
 }
@@ -73,7 +72,6 @@ body.town-page {
   backdrop-filter: blur(5px);
   flex-grow: 1;
   min-width: 0;
-  overflow: hidden; /* water-navigationのはみ出しを許可 */
 }
 
 /* === タイトルエリア === */
@@ -294,7 +292,6 @@ body.town-page {
   flex-shrink: 0;
   position: sticky;
   top: 45px; /* ヘッダーの高さ分、下げる */
-  height: calc(100vh - 45px); /* 高さは画面の高さに固定し、スクロールに追従 */
   justify-content: space-around; /* ボタンを均等に配置 */
   padding: 1rem 0;
   box-sizing: border-box;
@@ -401,11 +398,11 @@ body.town-page {
   font-weight: bold;
   transition: color 0.3s ease;
 }
-
 .content-card a:hover {
   color: var(--shishimai-red);
   text-decoration: underline;
 }
+
 
 /* === 先祖からの手紙 === */
 .ancestor-letter {
