@@ -70,7 +70,6 @@ body.town-page {
   flex-grow: 1;
 }
 
-/* === road（縦ナビゲーションバー） === */
 /* 縦ナビゲーションバーの位置調整 */
 .road-navigation {
   width: 80px;
@@ -82,8 +81,9 @@ body.town-page {
   flex-shrink: 0;
   position: fixed; /* sticky から fixed に変更 */
   top: 45px; /* ヘッダーの高さと隙間なしで接続 */
-  left: 30px; /* body の padding-left と合わせる */
-  height: calc(100vh - 45px - 60px); /* ヘッダーとフッターの高さを引く */
+  left: 0; /* 左端に移動 */
+  bottom: 60px; /* フッターの高さ分空ける */
+  height: auto; /* bottomで制御するためautoに戻す */
   justify-content: flex-start;
   padding: 1rem 0;
   box-sizing: border-box;
@@ -152,7 +152,7 @@ body.town-page {
   background: transparent;
   flex-grow: 1;
   min-width: 0;
-  margin-left: 110px; /* 縦ナビ分のマージンを追加 */
+  margin-left: 80px; /* 縦ナビ幅に合わせて調整 */
   margin-top: 45px; /* ヘッダー分のマージンを追加 */
 }
 
@@ -193,7 +193,7 @@ body.town-page {
   position: relative;
   z-index: 1;
   width: 100vw; /* 画面全幅に設定 */
-  margin-left: calc(-110px - 2rem); /* 左マージンとpaddingを相殺 */
+  margin-left: calc(-80px - 2rem); /* 縦ナビ幅とpaddingを相殺 */
 }
 
 .water-navigation::before {
@@ -226,7 +226,7 @@ body.town-page {
 
 .news-ticker-content {
   display: inline-block;
-  animation: ticker-scroll 60s linear infinite;
+  animation: ticker-scroll 45s linear infinite;
   will-change: transform;
   /* ホバー時でもアニメーションを継続 */
   animation-play-state: running !important;
