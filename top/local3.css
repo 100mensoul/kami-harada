@@ -26,11 +26,10 @@ html, body {
 /* === タウンページ専用背景 === */
 body.town-page {
   background:  #758492;
-  color:   transparent;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: 100%;
-  min-height: 100vh;
+  color:  transparent;
+  display: flex; /* Flexboxレイアウトに変更 */
+  flex-direction: column; /* 縦積みに */
+  min-height: 100vh; /* 最小の高さを画面の高さに */
 }
 
 /* === 電光掲示板ヘッダー === */
@@ -59,10 +58,8 @@ body.town-page {
 .main-layout-wrapper {
   display: flex;
   align-items: flex-start;
-  grid-row: 2;
-  overflow-y: auto;
-    /* ▼▼▼ この一行を追加 ▼▼▼ */
-  margin-left: 20px; /* 左側に20pxの余白を追加。この数値はお好みで調整してください */
+  flex-grow: 1; /* 残りの高さをすべて使う */
+  margin-left: 30px; /* 左側に20pxの余白を追加。この数値はお好みで調整してください */
 }
 
 /* === メインコンテンツエリア === */
@@ -163,13 +160,14 @@ body.town-page {
 
 .water-navigation::before {
   content: '';
-  position: absolute;
+  position: relative; /* z-indexを効かせるため */
   top: 0;
   left: -100%;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   animation: waterFlowSlow 8s linear infinite;
+  z-index: 1; /* roadより背面に配置 */
 }
 
 @keyframes waterFlowSlow {
@@ -294,17 +292,19 @@ body.town-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 2rem;
   z-index: 10;
   flex-shrink: 0;
   position: sticky;
-  top: 0;
-  height: 100vh;
+  top: 45px; /* ヘッダーの高さ分、下げる */
+  height: calc(100vh - 45px); /* 高さは画面の高さに固定し、スクロールに追従 */
+  /* ▼▼▼ ボタンを均等配置するためのスタイル ▼▼▼ */
+  justify-content: space-around; /* ボタンを均等に配置 */
+  padding: 1rem 0;
+  box-sizing: border-box;
 }
 
 .road-nav-item {
-  margin: 1rem 0;
+  margin: 0; /* 上下のマージンを削除 */
   position: relative;
 }
 
@@ -581,6 +581,7 @@ body.town-page {
   
   .town-hall {
     padding: 1rem;
+    overflow: hidden; /* waterがはみ出すのを許可 */
   }
   
   .digital-clock {
