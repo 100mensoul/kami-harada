@@ -291,6 +291,7 @@ body.town-page {
 @media (max-width: 768px) {
   .road-navigation {
     left: 8px;
+    height: calc(100vh - 96px); /* ← この部分を修正 */
   }
 }
 
