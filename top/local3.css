@@ -16,6 +16,13 @@
   --yakisugi-brown: #2D1B1B;
 }
 
+/* === 余白をリセット、高さ指定の補助 === */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
 /* === タウンページ専用背景 === */
 body.town-page {
   background:  #758492;
@@ -270,7 +277,7 @@ body.town-page {
   position: fixed;
   left: 0;
   top: 0;
-  height: 100vh;
+  height: 100%;
   width: 80px;
   background: #666;
   display: flex;
