@@ -61,6 +61,8 @@ body.town-page {
   align-items: flex-start;
   grid-row: 2;
   overflow-y: auto;
+    /* ▼▼▼ この一行を追加 ▼▼▼ */
+  margin-left: 20px; /* 左側に20pxの余白を追加。この数値はお好みで調整してください */
 }
 
 /* === メインコンテンツエリア === */
