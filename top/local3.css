@@ -53,6 +53,7 @@ body.town-page {
   z-index: 200;
   width: 100%; /* 100vw から 100% に変更 */
   box-sizing: border-box; /* 追加 */
+  height: 45px; /* 高さを明示的に指定 */
 }
 
 
@@ -80,9 +81,10 @@ body.town-page {
   z-index: 10;
   flex-shrink: 0;
   position: fixed; /* sticky から fixed に変更 */
-  top: 45px; /* ヘッダーの高さ分だけオフセット（調整が必要かもしれません） */
+  top: 45px; /* ヘッダーの高さと隙間なしで接続 */
   left: 30px; /* body の padding-left と合わせる */
-  height: calc(100vh - 45px);
+  bottom: 0; /* フッター直前まで */
+  height: auto; /* 自動高さに変更 */
   justify-content: flex-start;
   padding: 1rem 0;
   box-sizing: border-box;
@@ -181,6 +183,7 @@ body.town-page {
 }
 
 /* === water（水路ナビゲーション） === */
+/* 水路ナビゲーションを画面全幅に拡張 */
 .water-navigation {
   background: linear-gradient(90deg, var(--deep-blue), #2A4A6B, var(--deep-blue));
   padding: 1rem 0;
@@ -190,8 +193,8 @@ body.town-page {
     0 5px 15px rgba(26, 54, 93, 0.4);
   position: relative;
   z-index: 1;
-  width: calc(100% + 110px);
-  margin-left: -110px;
+  width: 100vw; /* 画面全幅に設定 */
+  margin-left: calc(-110px - 2rem); /* 左マージンとpaddingを相殺 */
 }
 
 .water-navigation::before {
