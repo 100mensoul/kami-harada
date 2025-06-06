@@ -12,33 +12,17 @@
 </head>
 <body class="town-page">
   <!-- 電光掲示板 -->
-  <div class="digital-clock">
+  <header class="digital-clock"> <!-- headerタグに変更するとより良いです -->
     <span id="current-time">2025/06/04 23:45:32</span>
     <span style="margin-left: 2rem;">[ TIME GATE OPEN ]</span>
-  </div>
+  </header>
 
-  <!-- メインコンテンツ -->
-  <div class="town-hall">
-    <!-- タイトル -->
-    <div class="town-title">
-      <h1>+ Hara ← Kami → Hana +</h1>
-      <p class="subtitle">This is Field, where you conect </p>
-    </div>
+  <!-- ▼▼▼▼▼ 構造変更箇所 ▼▼▼▼▼ -->
+  <!-- 新しいラッパーを追加して、ナビゲーションとメインコンテンツを囲みます -->
+  <div class="main-layout-wrapper">
 
-    <!-- 水路ナビゲーション（ニュース表示） -->
-    <div class="water-navigation">
-      <div class="news-ticker">
-        <div class="news-ticker-content">
-          <span class="news-item">【花壇整備完了】2025年6月4日に上原田交差点の花壇整備が完了しました。春の花から夏の花への植え替え作業を、地域のローカルレジェンズたちが行いました</span>
-          <span class="news-item">【田植え無事完了】今年もそれぞれの田んぼで苗が元気に育っています。秋の収穫が楽しみです</span>
-          <span class="news-item">【水路点検実施】上原田地区の水路点検が完了。安定した水の供給が確保されています</span>
-          <span class="news-item">【獅子舞練習開始】秋祭りに向けて獅子舞の練習が始まりました。新しいメンバーも募集中です</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 縦の道路バーナビゲーション -->
-    <nav class="road-navigation">
+    <!-- 縦の道路バーナビゲーション（main-layout-wrapperの直下に移動） -->
+    <aside class="road-navigation"> <!-- divからasideに変更 -->
       <div class="road-nav-item">
         <a href="../sp/indexday3.html" class="road-nav-button">SAVE</a>
         <div class="road-nav-tooltip">上原田のセーブポイント。今を記録しますか？</div>
@@ -83,66 +67,75 @@
         <a href="../water/index.html" class="road-nav-button">水</a>
         <div class="road-nav-tooltip">生命の源・水。水路システムと水の記憶</div>
       </div>
-    </nav>
+    </aside>
 
-    <!-- コンテンツグリッド -->
-    <div class="content-grid">
-      <div class="content-card">
-        <h3>🌸 最新の活動</h3>
-        <p>2025年6月4日に上原田交差点の花壇整備が始めました。春の花から夏の花への植え替えのため、メンバーで花引きを行いました。</p>
-        <p><a href="../flower/index.html">詳細を見る →</a></p>
+    <!-- メインコンテンツ（main-layout-wrapperの直下に移動） -->
+    <main class="town-hall"> <!-- divからmainに変更 -->
+      <!-- タイトル -->
+      <div class="town-title">
+        <h1>+ Hara ← Kami → Hana +</h1>
+        <p class="subtitle">This is Field, where you conect </p>
       </div>
 
-      <div class="content-card">
-        <h3>🌾 田植え2025</h3>
-        <p>今年の田植えは5月28日に無事完了。新しい田植機の素晴らしい技術と共に、キヌヒカリの苗が元気に育っています。秋の収穫が楽しみです。</p>
-        <p><a href="../taue/index.html">記録を見る →</a></p>
+      <!-- 水路ナビゲーション（ニュース表示） -->
+      <div class="water-navigation">
+        <div class="news-ticker">
+          <div class="news-ticker-content">
+            <span class="news-item">【花壇整備完了】2025年6月4日に上原田交差点の花壇整備が完了しました。春の花から夏の花への植え替え作業を、地域のローカルレジェンズたちが行いました</span>
+            <span class="news-item">【田植え無事完了】今年もそれぞれの田んぼで苗が元気に育っています。秋の収穫が楽しみです</span>
+            <span class="news-item">【水路点検実施】上原田地区の水路点検が完了。安定した水の供給が確保されています</span>
+            <span class="news-item">【獅子舞練習開始】秋祭りに向けて獅子舞の練習が始まりました。新しいメンバーも募集中です</span>
+          </div>
+        </div>
       </div>
 
-      <div class="content-card">
-        <h3>💧 水の記憶</h3>
-        <p>上原田を潤す水路は、昔から地域の生活を支えてきました。市川から引く用水システム（花田井）が、この里の繁栄の基盤となっています。</p>
-        <p><a href="../history/index.html">歴史を学ぶ →</a></p>
+      <!-- コンテンツグリッド -->
+      <div class="content-grid">
+        <div class="content-card">
+          <h3>🌸 最新の活動</h3>
+          <p>2025年6月4日に上原田交差点の花壇整備が始めました。春の花から夏の花への植え替えのため、メンバーで花引きを行いました。</p>
+          <p><a href="../flower/index.html">詳細を見る →</a></p>
+        </div>
+
+        <div class="content-card">
+          <h3>🌾 田植え2025</h3>
+          <p>今年の田植えは5月28日に無事完了。新しい田植機の素晴らしい技術と共に、キヌヒカリの苗が元気に育っています。秋の収穫が楽しみです。</p>
+          <p><a href="../taue/index.html">記録を見る →</a></p>
+        </div>
+
+        <div class="content-card">
+          <h3>💧 水の記憶</h3>
+          <p>上原田を潤す水路は、昔から地域の生活を支えてきました。市川から引く用水システム（花田井）が、この里の繁栄の基盤となっています。</p>
+          <p><a href="../history/index.html">歴史を学ぶ →</a></p>
+        </div>
+
+        <div class="content-card">
+          <h3>⏰ 時空の結合点</h3>
+          <p>花田ICは単なる高速道路の連絡口ではありません。過去・現在・未来をつなぐタイムポートとして、多くの人々の人生に関わってきました。</p>
+          <p><a href="../about/index.html">詳しく知る →</a></p>
+        </div>
       </div>
 
-      <div class="content-card">
-        <h3>⏰ 時空の結合点</h3>
-        <p>花田ICは単なる高速道路の連絡口ではありません。過去・現在・未来をつなぐタイムポートとして、多くの人々の人生に関わってきました。</p>
-        <p><a href="../about/index.html">詳しく知る →</a></p>
+      <!-- 先祖からの手紙 -->
+      <div class="ancestor-letter" onclick="openLetter()">
+        <span class="letter-icon">📜</span>
+        <p class="letter-text">なにやら古い手紙がある。読んでみますか？</p>
       </div>
-    </div>
-
-    <!-- 先祖からの手紙 -->
-    <div class="ancestor-letter" onclick="openLetter()">
-      <span class="letter-icon">📜</span>
-      <p class="letter-text">なにやら古い手紙がある。読んでみますか？</p>
-    </div>
+    </main>
   </div>
+  <!-- ▲▲▲▲▲ 構造変更箇所ここまで ▲▲▲▲▲ -->
 
   <!-- 獅子舞ナビゲーター -->
   <div class="shishimai-guide" onclick="showGuide()"></div>
 
   <!-- モーダル：先祖からの手紙 -->
   <div id="letter-modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeLetter()">&times;</span>
-      <h2 style="color: var(--wood-brown); text-align: center;">先祖からの手紙</h2>
-      <div class="letter-content">
-        <p>この地で生まれた者よ、</p>
-        <p>たとえ大人になって外の世界へ出ようとも、ここが故郷であることは変わりない。</p>
-        <p>原風景を過ごした最初のセーブポイントは、ここ姫路市花田町上原田なのだから。</p>
-        <p>水は流れ、季節は巡り、人は移ろいゆく。しかし、この土地に刻まれた記憶と、そこに息づく営みは永遠に続いていく。</p>
-        <p>君たちが歩む未来が、どうか豊かなものでありますように。</p>
-        <div class="signature">
-          近代の先祖代表<br>
-          町内会長 F.S より
-        </div>
-      </div>
-    </div>
+    <!-- モーダルの内容は変更なし -->
+    ...
   </div>
 
   <!-- フッター -->
-  <footer>
+  <footer class="footer"> <!-- フッターもclassを付けておくと管理しやすいです -->
     <p>© 2025 上原田自治会 - SAVE POINT 上原田</p>
   </footer>
 
