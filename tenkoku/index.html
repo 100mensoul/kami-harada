@@ -235,7 +235,7 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -257,24 +257,24 @@
         .seal-image-container {
             position: relative;
             width: 100%;
-            padding-top: 100%;
-            background: #f8f6f0;
+            height: 350px;
+            background: #fafafa;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .seal-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
+            object-position: center bottom;
             transition: transform 0.3s ease;
         }
 
         .seal-card:hover .seal-image {
-            transform: translate(-50%, -50%) scale(1.05);
+            transform: scale(1.05);
         }
 
         .seal-info {
@@ -446,24 +446,76 @@
                 font-size: 2rem;
             }
 
-            .nav-menu {
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .nav-container {
                 flex-direction: column;
                 gap: 1rem;
             }
 
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-input {
+                border-radius: 5px;
+            }
+
+            .search-button {
+                border-radius: 5px;
+                width: 100%;
+            }
+
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
                 gap: 1.5rem;
+            }
+
+            .seal-image-container {
+                height: 300px;
             }
 
             .modal-body {
                 grid-template-columns: 1fr;
             }
 
+            .modal-image {
+                max-height: 50vh;
+            }
+
             .tabs {
                 justify-content: flex-start;
                 overflow-x: auto;
                 padding: 0 1rem;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .seal-image-container {
+                height: 280px;
+            }
+
+            .tab {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
             }
         }
     </style>
@@ -573,54 +625,438 @@
     </footer>
 
     <script>
-        // サンプルデータ（後で実際のデータに置き換え）
+        // 実際の作品データ
         const sealData = [
             {
                 id: 1,
-                title: "心",
-                category: "name",
-                image: "./images/sample1.jpg",
-                description: "「心」の一文字に込められた深い意味を表現した作品。",
-                inmon: "心",
-                size: "3cm × 3cm",
-                material: "青田石",
-                year: "2020年",
-                isNew: true
+                title: "一陽来復",
+                category: "phrase",
+                image: "./images/001_一陽来復.jpg",
+                description: "冬が去り春が来ること。悪いことが続いたのがようやく回復して善い方に向かうこと。",
+                inmon: "一陽来復",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年2月",
+                isNew: false
             },
             {
                 id: 2,
-                title: "静寂",
+                title: "文武両道",
                 category: "phrase",
-                image: "./images/sample2.jpg",
-                description: "静かな心の状態を表す成語印。",
-                inmon: "静寂",
+                image: "./images/002_文武両道.jpg",
+                description: "学問（文道）と武芸（武道：スポーツ）の両方に優れていること。勉学と運動の両立を表す言葉。",
+                inmon: "文武両道",
                 size: "4cm × 4cm",
-                material: "寿山石",
-                year: "2021年",
-                isNew: true
+                material: "青田石",
+                year: "令和3年2月",
+                isNew: false
             },
             {
                 id: 3,
-                title: "春風秋月",
-                category: "poetry",
-                image: "./images/sample3.jpg",
-                description: "季節の移ろいを詠んだ詩句を刻んだ作品。",
-                inmon: "春風秋月",
-                size: "5cm × 5cm",
-                material: "鶏血石",
-                year: "2019年",
+                title: "油断大敵",
+                category: "phrase",
+                image: "./images/003_油断大敵.jpg",
+                description: "注意を怠ることは失敗を招く最も大きな敵であるということ。",
+                inmon: "油断大敵",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
                 isNew: false
             },
             {
                 id: 4,
-                title: "福",
-                category: "picture",
-                image: "./images/sample4.jpg",
-                description: "福の字に縁起の良い図案を組み合わせた絵入印。",
-                inmon: "福",
+                title: "初志貫徹",
+                category: "phrase",
+                image: "./images/004_初志貫徹.jpg",
+                description: "初めに決めた志を最後まで貫き通すこと。",
+                inmon: "初志貫徹",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 5,
+                title: "不撓不屈",
+                category: "phrase",
+                image: "./images/005_不撓不屈.jpg",
+                description: "どんな困難にあってもひるまず、くじけないこと。",
+                inmon: "不撓不屈",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 6,
+                title: "質実剛健",
+                category: "phrase",
+                image: "./images/006_質実剛健.jpg",
+                description: "飾り気がなく真面目で、心身ともに強くたくましいこと。",
+                inmon: "質実剛健",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 7,
+                title: "温故知新",
+                category: "phrase",
+                image: "./images/007_温故知新.jpg",
+                description: "古いことを学んで、そこから新しい知識や見解を得ること。",
+                inmon: "温故知新",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 8,
+                title: "切磋琢磨",
+                category: "phrase",
+                image: "./images/008_切磋琢磨.jpg",
+                description: "学問や人徳をより一層磨き上げること。仲間同士が互いに励まし合い競争し合って、共に向上すること。",
+                inmon: "切磋琢磨",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 9,
+                title: "七転八起",
+                category: "phrase",
+                image: "./images/009_七転八起.jpg",
+                description: "何度失敗してもくじけず、立ち上がって努力すること。",
+                inmon: "七転八起",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 10,
+                title: "日進月歩",
+                category: "phrase",
+                image: "./images/010_日進月歩.jpg",
+                description: "日に日に、絶えず進歩すること。",
+                inmon: "日進月歩",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 11,
+                title: "一期一会",
+                category: "phrase",
+                image: "./images/011_一期一会.jpg",
+                description: "一生に一度だけの機会。生涯に一度限りであること。",
+                inmon: "一期一会",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 12,
+                title: "自然体",
+                category: "phrase",
+                image: "./images/012_自然体.jpg",
+                description: "気負いのない、自然な態度や姿勢。",
+                inmon: "自然体",
                 size: "3.5cm × 3.5cm",
-                material: "巴林石",
-                year: "2022年",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 13,
+                title: "和而不同",
+                category: "phrase",
+                image: "./images/013_和而不同.jpg",
+                description: "人と協調はするが、むやみに同調しないこと。",
+                inmon: "和而不同",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 14,
+                title: "行雲流水",
+                category: "phrase",
+                image: "./images/014_行雲流水.jpg",
+                description: "空行く雲や流れる水のように、一事に執着せず、自然に任せて行動すること。",
+                inmon: "行雲流水",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 15,
+                title: "明鏡止水",
+                category: "phrase",
+                image: "./images/015_明鏡止水.jpg",
+                description: "一点の曇りもない鏡と波立たない静かな水。心が澄み切って落ち着いていること。",
+                inmon: "明鏡止水",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 16,
+                title: "一意専心",
+                category: "phrase",
+                image: "./images/016_一意専心.jpg",
+                description: "他に心を向けず、ひたすら一つのことに心を集中すること。",
+                inmon: "一意専心",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 17,
+                title: "臨機応変",
+                category: "phrase",
+                image: "./images/017_臨機応変.jpg",
+                description: "その時その場に応じて、適切な手段をとること。",
+                inmon: "臨機応変",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 18,
+                title: "花鳥風月",
+                category: "poetry",
+                image: "./images/018_花鳥風月.jpg",
+                description: "自然の美しい風景。また、それを題材とした詩歌や絵画などを楽しむこと。",
+                inmon: "花鳥風月",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 19,
+                title: "無我夢中",
+                category: "phrase",
+                image: "./images/019_無我夢中.jpg",
+                description: "我を忘れて、ある事に熱中すること。",
+                inmon: "無我夢中",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 20,
+                title: "勇往邁進",
+                category: "phrase",
+                image: "./images/020_勇往邁進.jpg",
+                description: "目標に向かって、勇敢に前進すること。",
+                inmon: "勇往邁進",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 21,
+                title: "春夏秋冬",
+                category: "poetry",
+                image: "./images/021_春夏秋冬.jpg",
+                description: "四季。一年を通じての季節の移り変わり。",
+                inmon: "春夏秋冬",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 22,
+                title: "心機一転",
+                category: "phrase",
+                image: "./images/022_心機一転.jpg",
+                description: "何かをきっかけとして、心持ちをすっかり変えること。",
+                inmon: "心機一転",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 23,
+                title: "風林火山",
+                category: "phrase",
+                image: "./images/023_風林火山.jpg",
+                description: "武田信玄の旗印。孫子の兵法の一節から取られた言葉。",
+                inmon: "風林火山",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 24,
+                title: "福徳円満",
+                category: "phrase",
+                image: "./images/024_福徳円満.jpg",
+                description: "幸福と利益が満ち足りていること。",
+                inmon: "福徳円満",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 25,
+                title: "感謝",
+                category: "other",
+                image: "./images/025_感謝.jpg",
+                description: "ありがたいと思う気持ち。",
+                inmon: "感謝",
+                size: "3cm × 3cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: true
+            },
+            {
+                id: 26,
+                title: "希望",
+                category: "other",
+                image: "./images/026_希望.jpg",
+                description: "未来に対する明るい見通し。",
+                inmon: "希望",
+                size: "3cm × 3cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: true
+            },
+            {
+                id: 27,
+                title: "平和",
+                category: "other",
+                image: "./images/027_平和.jpg",
+                description: "争いがなく、穏やかな状態。",
+                inmon: "平和",
+                size: "3cm × 3cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: true
+            },
+            {
+                id: 28,
+                title: "夢",
+                category: "other",
+                image: "./images/028_夢.jpg",
+                description: "将来実現させたいと思っている事柄。",
+                inmon: "夢",
+                size: "2.5cm × 2.5cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: true
+            },
+            {
+                id: 29,
+                title: "愛",
+                category: "other",
+                image: "./images/029_愛.jpg",
+                description: "人や物を大切に思う心。",
+                inmon: "愛",
+                size: "2.5cm × 2.5cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: true
+            },
+            {
+                id: 30,
+                title: "幸",
+                category: "other",
+                image: "./images/030_幸.jpg",
+                description: "しあわせ。幸福。",
+                inmon: "幸",
+                size: "2.5cm × 2.5cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 31,
+                title: "誠",
+                category: "other",
+                image: "./images/031_誠.jpg",
+                description: "まこと。偽りのない心。",
+                inmon: "誠",
+                size: "2.5cm × 2.5cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 32,
+                title: "和",
+                category: "other",
+                image: "./images/032_和.jpg",
+                description: "やわらぐこと。仲良くすること。",
+                inmon: "和",
+                size: "2.5cm × 2.5cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 33,
+                title: "忍",
+                category: "other",
+                image: "./images/033_忍.jpg",
+                description: "たえしのぶこと。我慢すること。",
+                inmon: "忍",
+                size: "2.5cm × 2.5cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 34,
+                title: "天網恢恢",
+                category: "phrase",
+                image: "./images/034_天網恢恢.jpg",
+                description: "天の網は広大で、悪人は必ず捕らえられるということ。",
+                inmon: "天網恢恢",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 35,
+                title: "不易流行",
+                category: "phrase",
+                image: "./images/035_不易流行.jpg",
+                description: "永遠に変わらないものと、時代に応じて変わるものの両方を大切にすること。",
+                inmon: "不易流行",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "令和3年",
+                isNew: false
+            },
+            {
+                id: 36,
+                title: "千載一遇",
+                category: "phrase",
+                image: "./images/036_千載一遇.jpg",
+                description: "千年に一度しか会えないような、きわめて稀な機会。",
+                inmon: "千載一遇",
+                size: "4cm × 4cm",
+                material: "青田石",
+                year: "令和3年",
                 isNew: false
             }
         ];
