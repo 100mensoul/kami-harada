@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>篆刻の世界 - 福本正 篆刻作品集</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Kaku Gothic Pro', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.6;
+            color: #2c1810;
+            background: linear-gradient(135deg, #f8f6f0 0%, #ede7d9 100%);
+            min-height: 100vh;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            height: 70vh;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+        }
+
+        .hero-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.1;
+        }
+
+        .hero-decoration::before,
+        .hero-decoration::after {
+            content: "印";
+            position: absolute;
+            font-size: 20rem;
+            font-weight: bold;
+            color: white;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .hero-decoration::before {
+            top: -100px;
+            left: -100px;
+        }
+
+        .hero-decoration::after {
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        /* ナビゲーション */
+        .navbar {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #8b4513;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #2c1810;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 300;
+        }
+
+        .nav-link:hover {
+            color: #8b4513;
+        }
+
+        /* 作品情報セクション */
+        .intro-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .intro-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .intro-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #8b4513;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #5a4a3a;
+            margin-bottom: 2rem;
+        }
+
+        /* 検索・フィルタセクション */
+        .filter-section {
+            padding: 2rem 0;
+            background: #f8f6f0;
+            border-top: 1px solid #e0d5c7;
+            border-bottom: 1px solid #e0d5c7;
+        }
+
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .search-button {
+            padding: 1rem 2rem;
+            background: #8b4513;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: #a0522d;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 1px solid #e0d5c7;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover,
+        .tab.active {
+            background: #8b4513;
+            color: white;
+            border-color: #8b4513;
+        }
+
+        /* ギャラリーセクション */
+        .gallery-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .seal-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .seal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .seal-image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 100%;
+            background: #f8f6f0;
+            overflow: hidden;
+        }
+
+        .seal-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .seal-card:hover .seal-image {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .seal-info {
+            padding: 1.5rem;
+        }
+
+        .seal-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #2c1810;
+            font-weight: 400;
+        }
+
+        .seal-details {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .seal-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #d2691e;
+            color: white;
+            font-size: 0.8rem;
+            border-radius: 3px;
+            margin-top: 0.5rem;
+        }
+
+        /* モーダル */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 10px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow: auto;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid #e0d5c7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #2c1810;
+            font-weight: 400;
+        }
+
+        .modal-close {
+            font-size: 2rem;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #2c1810;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .modal-image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f6f0;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .modal-image {
+            max-width: 100%;
+            max-height: 60vh;
+            object-fit: contain;
+        }
+
+        .modal-info {
+            padding: 1rem;
+        }
+
+        .modal-info h3 {
+            color: #8b4513;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .modal-info p {
+            margin-bottom: 1rem;
+            color: #5a4a3a;
+            line-height: 1.8;
+        }
+
+        .modal-details {
+            background: #f8f6f0;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .modal-details dt {
+            font-weight: 600;
+            color: #8b4513;
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-details dd {
+            margin-bottom: 1rem;
+            color: #5a4a3a;
+        }
+
+        /* フッター */
+        .footer {
+            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .modal-body {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="hero-decoration"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">福本正 篆刻作品集</h1>
+            <p class="hero-subtitle">印影に込められた美と思い</p>
+        </div>
+    </section>
+
+    <!-- ナビゲーション -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">篆刻の世界</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link">ホーム</a></li>
+                <li><a href="#gallery" class="nav-link">作品集</a></li>
+                <li><a href="../hotoke/index.html" class="nav-link">写仏画ギャラリー</a></li>
+                <li><a href="#about" class="nav-link">作者について</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 作品情報セクション -->
+    <section class="intro-section">
+        <div class="container">
+            <div class="intro-content">
+                <h2 class="intro-title">篆刻の芸術</h2>
+                <p class="intro-text">
+                    篆刻は、石や木に文字を刻む東洋の伝統芸術です。<br>
+                    一つ一つの印には、作者の思いと技が込められています。<br>
+                    福本正が生涯をかけて制作した篆刻作品の数々をご覧ください。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 検索・フィルタセクション -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="作品名や印文で検索...">
+                <button class="search-button">検索</button>
+            </div>
+            <div class="tabs">
+                <div class="tab active" data-category="all">すべて</div>
+                <div class="tab" data-category="name">雅号印</div>
+                <div class="tab" data-category="phrase">成語印</div>
+                <div class="tab" data-category="poetry">詩句印</div>
+                <div class="tab" data-category="picture">絵入印</div>
+                <div class="tab" data-category="other">その他</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ギャラリーセクション -->
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <h2 class="intro-title" style="text-align: center; margin-bottom: 2rem;">作品ギャラリー</h2>
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- 作品カードはJavaScriptで動的に生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- モーダル -->
+    <div class="modal" id="sealModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">作品タイトル</h2>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image-container">
+                    <img src="" alt="" class="modal-image" id="modalImage">
+                </div>
+                <div class="modal-info">
+                    <h3>作品詳細</h3>
+                    <p id="modalDescription">作品の説明がここに入ります。</p>
+                    <dl class="modal-details">
+                        <dt>印文</dt>
+                        <dd id="modalInmon">-</dd>
+                        <dt>サイズ</dt>
+                        <dd id="modalSize">-</dd>
+                        <dt>材質</dt>
+                        <dd id="modalMaterial">-</dd>
+                        <dt>制作年</dt>
+                        <dd id="modalYear">-</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">プライバシーポリシー</a>
+            <a href="#">お問い合わせ</a>
+            <a href="../hotoke/index.html">写仏画ギャラリーへ</a>
+        </div>
+        <p class="copyright">&copy; 2025 福本正 篆刻作品集. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // サンプルデータ（後で実際のデータに置き換え）
+        const sealData = [
+            {
+                id: 1,
+                title: "心",
+                category: "name",
+                image: "./images/sample1.jpg",
+                description: "「心」の一文字に込められた深い意味を表現した作品。",
+                inmon: "心",
+                size: "3cm × 3cm",
+                material: "青田石",
+                year: "2020年",
+                isNew: true
+            },
+            {
+                id: 2,
+                title: "静寂",
+                category: "phrase",
+                image: "./images/sample2.jpg",
+                description: "静かな心の状態を表す成語印。",
+                inmon: "静寂",
+                size: "4cm × 4cm",
+                material: "寿山石",
+                year: "2021年",
+                isNew: true
+            },
+            {
+                id: 3,
+                title: "春風秋月",
+                category: "poetry",
+                image: "./images/sample3.jpg",
+                description: "季節の移ろいを詠んだ詩句を刻んだ作品。",
+                inmon: "春風秋月",
+                size: "5cm × 5cm",
+                material: "鶏血石",
+                year: "2019年",
+                isNew: false
+            },
+            {
+                id: 4,
+                title: "福",
+                category: "picture",
+                image: "./images/sample4.jpg",
+                description: "福の字に縁起の良い図案を組み合わせた絵入印。",
+                inmon: "福",
+                size: "3.5cm × 3.5cm",
+                material: "巴林石",
+                year: "2022年",
+                isNew: false
+            }
+        ];
+
+        // 現在のフィルター状態
+        let currentCategory = 'all';
+        let searchTerm = '';
+
+        // ギャラリーの初期化
+        function initGallery() {
+            renderGallery();
+            setupEventListeners();
+        }
+
+        // イベントリスナーの設定
+        function setupEventListeners() {
+            // タブクリック
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentCategory = this.dataset.category;
+                    renderGallery();
+                });
+            });
+
+            // 検索
+            document.querySelector('.search-button').addEventListener('click', performSearch);
+            document.querySelector('.search-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') performSearch();
+            });
+
+            // モーダル外クリックで閉じる
+            document.getElementById('sealModal').addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+        }
+
+        // 検索実行
+        function performSearch() {
+            searchTerm = document.querySelector('.search-input').value.toLowerCase();
+            renderGallery();
+        }
+
+        // ギャラリー描画
+        function renderGallery() {
+            const gallery = document.getElementById('galleryGrid');
+            gallery.innerHTML = '';
+
+            const filteredData = sealData.filter(seal => {
+                const matchesCategory = currentCategory === 'all' || seal.category === currentCategory;
+                const matchesSearch = !searchTerm || 
+                    seal.title.toLowerCase().includes(searchTerm) ||
+                    seal.inmon.toLowerCase().includes(searchTerm) ||
+                    seal.description.toLowerCase().includes(searchTerm);
+                return matchesCategory && matchesSearch;
+            });
+
+            filteredData.forEach(seal => {
+                const card = createSealCard(seal);
+                gallery.appendChild(card);
+            });
+
+            if (filteredData.length === 0) {
+                gallery.innerHTML = '<p style="text-align: center; color: #999; grid-column: 1/-1;">該当する作品が見つかりませんでした。</p>';
+            }
+        }
+
+        // 作品カード作成
+        function createSealCard(seal) {
+            const card = document.createElement('div');
+            card.className = 'seal-card';
+            card.onclick = () => openModal(seal);
+
+            card.innerHTML = `
+                <div class="seal-image-container">
+                    <img src="${seal.image}" alt="${seal.title}" class="seal-image" 
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23f8f6f0"/%3E%3Ctext x="100" y="100" font-family="serif" font-size="60" fill="%238b4513" text-anchor="middle" dominant-baseline="middle"%3E${seal.inmon}%3C/text%3E%3C/svg%3E'">
+                </div>
+                <div class="seal-info">
+                    <h3 class="seal-title">${seal.title}</h3>
+                    <p class="seal-details">
+                        印文: ${seal.inmon}<br>
+                        ${seal.size} / ${seal.material}
+                    </p>
+                    ${seal.isNew ? '<span class="seal-badge">NEW</span>' : ''}
+                </div>
+            `;
+
+            return card;
+        }
+
+        // モーダルを開く
+        function openModal(seal) {
+            const modal = document.getElementById('sealModal');
+            document.getElementById('modalTitle').textContent = seal.title;
+            document.getElementById('modalImage').src = seal.image;
+            document.getElementById('modalImage').alt = seal.title;
+            document.getElementById('modalDescription').textContent = seal.description;
+            document.getElementById('modalInmon').textContent = seal.inmon;
+            document.getElementById('modalSize').textContent = seal.size;
+            document.getElementById('modalMaterial').textContent = seal.material;
+            document.getElementById('modalYear').textContent = seal.year;
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // モーダルを閉じる
+        function closeModal() {
+            document.getElementById('sealModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // ページ読み込み時に初期化
+        document.addEventListener('DOMContentLoaded', initGallery);
+    </script>
+</body>
+</html>
