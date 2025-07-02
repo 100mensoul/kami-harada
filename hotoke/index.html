@@ -521,7 +521,7 @@
             <div class="hero-slider" id="heroSlider">
                 <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
                 <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
-                <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/kannon.jpg')"></div>
                 <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
                 <div class="hero-slide" style="background-image: url('./images/hero1.jpg')"></div>
             </div>
@@ -831,6 +831,22 @@
             document.body.style.overflow = 'auto';
         }
 
+        // 詳細トグル機能
+        function toggleDetails() {
+            const detailsContent = document.getElementById('detailsContent');
+            const toggleBtn = event.target;
+            
+            detailsContent.classList.toggle('open');
+            
+            if (detailsContent.classList.contains('open')) {
+                toggleBtn.textContent = '詳細を閉じる';
+                // スクロール可能にする
+                detailsContent.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                toggleBtn.textContent = '詳細を表示';
+            }
+        }
+
         // モーダル外クリックで閉じる
         document.getElementById('modal').addEventListener('click', function(e) {
             if (e.target === this) {
@@ -856,5 +872,12 @@
             });
         });
     </script>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2024 福本正 写仏画の世界. All Rights Reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
