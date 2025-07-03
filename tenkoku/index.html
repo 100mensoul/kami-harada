@@ -595,297 +595,20 @@
     </footer>
 
     <script>
-        // 篆刻データ
-        const tenkokuData = [
-        {
-                "id": "001",
-                "title": "一陽来復",
-                "reading": "いちようらいふく",
-                "category": "yojijukugo",
-                "description": "悪い事が続いた後に、やっと良い方向に向かうこと。",
-                "date": "2021.02"
-        },
-        {
-                "id": "002",
-                "title": "文武両道",
-                "reading": "ぶんぶりょうどう",
-                "category": "yojijukugo",
-                "description": "学問と武道の両方に優れていること。",
-                "date": "2021.03"
-        },
-        {
-                "id": "003",
-                "title": "油断大敵",
-                "reading": "ゆだんたいてき",
-                "category": "yojijukugo",
-                "description": "気を抜いて注意を怠ることは大きな失敗のもと。",
-                "date": "2021.04"
-        },
-        {
-                "id": "004",
-                "title": "初志貫徹",
-                "reading": "しょしかんてつ",
-                "category": "yojijukugo",
-                "description": "最初に立てた志を最後まで貫き通すこと。",
-                "date": "2021.05"
-        },
-        {
-                "id": "005",
-                "title": "不撓不屈",
-                "reading": "ふとうふくつ",
-                "category": "yojijukugo",
-                "description": "どんな困難にも屈せず、たゆまない精神。",
-                "date": "2021.06"
-        },
-        {
-                "id": "006",
-                "title": "質実剛健",
-                "reading": "しつじつごうけん",
-                "category": "yojijukugo",
-                "description": "飾り気がなく真面目で、心身ともに強くたくましいこと。",
-                "date": "2021.07"
-        },
-        {
-                "id": "007",
-                "title": "温故知新",
-                "reading": "おんこちしん",
-                "category": "yojijukugo",
-                "description": "昔の事を研究して、新しい知識や見解を得ること。",
-                "date": "2021.08"
-        },
-        {
-                "id": "008",
-                "title": "切磋琢磨",
-                "reading": "せっさたくま",
-                "category": "yojijukugo",
-                "description": "仲間同士で励まし合い、向上すること。",
-                "date": "2021.09"
-        },
-        {
-                "id": "009",
-                "title": "七転八起",
-                "reading": "しちてんはっき",
-                "category": "yojijukugo",
-                "description": "何度失敗しても諦めずに立ち上がること。",
-                "date": "2021.10"
-        },
-        {
-                "id": "010",
-                "title": "日進月歩",
-                "reading": "にっしんげっぽ",
-                "category": "yojijukugo",
-                "description": "日に日に絶えず進歩すること。",
-                "date": "2021.11"
-        },
-        {
-                "id": "011",
-                "title": "一期一会",
-                "reading": "いちごいちえ",
-                "category": "yojijukugo",
-                "description": "一生に一度だけの機会。",
-                "date": "2021.12"
-        },
-        {
-                "id": "012",
-                "title": "自然体",
-                "reading": "しぜんたい",
-                "category": "sanjijukugo",
-                "description": "ありのままの姿。",
-                "date": "2022.01"
-        },
-        {
-                "id": "013",
-                "title": "和而不同",
-                "reading": "わじふどう",
-                "category": "yojijukugo",
-                "description": "人と和らぎ親しんでも、むやみに同調しないこと。",
-                "date": "2022.02"
-        },
-        {
-                "id": "014",
-                "title": "行雲流水",
-                "reading": "こううんりゅうすい",
-                "category": "yojijukugo",
-                "description": "雲や水のように自然に任せて行動すること。",
-                "date": "2022.03"
-        },
-        {
-                "id": "015",
-                "title": "明鏡止水",
-                "reading": "めいきょうしすい",
-                "category": "yojijukugo",
-                "description": "邪念がなく、澄み切って落ち着いた心。",
-                "date": "2022.04"
-        },
-        {
-                "id": "016",
-                "title": "一意専心",
-                "reading": "いちいせんしん",
-                "category": "yojijukugo",
-                "description": "他の事を考えずに、一つのことに集中すること。",
-                "date": "2022.05"
-        },
-        {
-                "id": "017",
-                "title": "臨機応変",
-                "reading": "りんきおうへん",
-                "category": "yojijukugo",
-                "description": "状況に応じて適切な対応をすること。",
-                "date": "2022.06"
-        },
-        {
-                "id": "018",
-                "title": "花鳥風月",
-                "reading": "かちょうふうげつ",
-                "category": "yojijukugo",
-                "description": "自然の美しい風物。",
-                "date": "2022.07"
-        },
-        {
-                "id": "019",
-                "title": "無我夢中",
-                "reading": "むがむちゅう",
-                "category": "yojijukugo",
-                "description": "我を忘れて何かに熱中すること。",
-                "date": "2022.08"
-        },
-        {
-                "id": "020",
-                "title": "勇往邁進",
-                "reading": "ゆうおうまいしん",
-                "category": "yojijukugo",
-                "description": "勇気を持って前へ進むこと。",
-                "date": "2022.09"
-        },
-        {
-                "id": "021",
-                "title": "春夏秋冬",
-                "reading": "しゅんかしゅうとう",
-                "category": "yojijukugo",
-                "description": "四季。一年。",
-                "date": "2022.10"
-        },
-        {
-                "id": "022",
-                "title": "心機一転",
-                "reading": "しんきいってん",
-                "category": "yojijukugo",
-                "description": "気持ちを新たにすること。",
-                "date": "2022.11"
-        },
-        {
-                "id": "023",
-                "title": "風林火山",
-                "reading": "ふうりんかざん",
-                "category": "yojijukugo",
-                "description": "戦いにおける四つの心構え。",
-                "date": "2022.12"
-        },
-        {
-                "id": "024",
-                "title": "福徳円満",
-                "reading": "ふくとくえんまん",
-                "category": "yojijukugo",
-                "description": "幸福と徳が満ち足りていること。",
-                "date": "2023.01"
-        },
-        {
-                "id": "025",
-                "title": "感謝",
-                "reading": "かんしゃ",
-                "category": "ichimoji",
-                "description": "ありがたく思う心。",
-                "date": "2023.02"
-        },
-        {
-                "id": "026",
-                "title": "希望",
-                "reading": "きぼう",
-                "category": "ichimoji",
-                "description": "願い望むこと。",
-                "date": "2023.03"
-        },
-        {
-                "id": "027",
-                "title": "平和",
-                "reading": "へいわ",
-                "category": "ichimoji",
-                "description": "穏やかで和らぐこと。",
-                "date": "2023.04"
-        },
-        {
-                "id": "028",
-                "title": "夢",
-                "reading": "ゆめ",
-                "category": "ichimoji",
-                "description": "将来実現させたいと思うこと。",
-                "date": "2023.05"
-        },
-        {
-                "id": "029",
-                "title": "愛",
-                "reading": "あい",
-                "category": "ichimoji",
-                "description": "いつくしみの心。",
-                "date": "2023.06"
-        },
-        {
-                "id": "030",
-                "title": "幸",
-                "reading": "さち",
-                "category": "ichimoji",
-                "description": "しあわせ。",
-                "date": "2023.07"
-        },
-        {
-                "id": "031",
-                "title": "誠",
-                "reading": "まこと",
-                "category": "ichimoji",
-                "description": "真実の心。",
-                "date": "2023.08"
-        },
-        {
-                "id": "032",
-                "title": "和",
-                "reading": "わ",
-                "category": "ichimoji",
-                "description": "仲良くすること。",
-                "date": "2023.09"
-        },
-        {
-                "id": "033",
-                "title": "忍",
-                "reading": "にん",
-                "category": "ichimoji",
-                "description": "耐え忍ぶこと。",
-                "date": "2023.10"
-        },
-        {
-                "id": "034",
-                "title": "天網恢恢",
-                "reading": "てんもうかいかい",
-                "category": "yojijukugo",
-                "description": "天の網は広大で、悪は必ず捕らえられる。",
-                "date": "2024.11"
-        },
-        {
-                "id": "035",
-                "title": "不易流行",
-                "reading": "ふえきりゅうこう",
-                "category": "yojijukugo",
-                "description": "永遠に変わらないものと、時代と共に変化するもの。",
-                "date": "2024.12"
-        },
-        {
-                "id": "036",
-                "title": "千載一遇",
-                "reading": "せんざいいちぐう",
-                "category": "yojijukugo",
-                "description": "千年に一度しかない貴重な機会。",
-                "date": "2025.01"
+        // 篆刻データをJSONファイルから読み込む
+        let tenkokuData = [];
+
+        // 日付形式を変換（令和○年○月 → YYYY.MM）
+        function convertDate(dateStr) {
+            const match = dateStr.match(/令和(\d+)年(\d+)月/);
+            if (match) {
+                const reiwaYear = parseInt(match[1]);
+                const month = parseInt(match[2]);
+                const year = 2018 + reiwaYear; // 令和元年 = 2019年
+                return `${year}.${month.toString().padStart(2, '0')}`;
+            }
+            return dateStr;
         }
-];
 
         // ギャラリー表示
         function displayGallery(items = tenkokuData) {
@@ -893,7 +616,8 @@
             grid.innerHTML = '';
             
             items.forEach((item, index) => {
-                const isNew = new Date(item.date.replace('.', '-') + '-01') > new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
+                const convertedDate = convertDate(item.date);
+                const isNew = new Date(convertedDate.replace('.', '-') + '-01') > new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
                 
                 const card = document.createElement('div');
                 card.className = 'tenkoku-card';
@@ -902,7 +626,7 @@
                 
                 card.innerHTML = `
                     <div class="card-image" style="background-image: url('./images/${item.id}_${item.title}.jpg')">
-                        <div class="card-date">${item.date}</div>
+                        <div class="card-date">${convertedDate}</div>
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">
@@ -1049,8 +773,17 @@
             }
         });
 
-        // 初期表示
-        displayGallery();
+        // JSONファイルからデータを読み込む
+        fetch('./data/works.json')
+            .then(response => response.json())
+            .then(data => {
+                tenkokuData = data;
+                // 初期表示
+                displayGallery();
+            })
+            .catch(error => {
+                console.error('データの読み込みに失敗しました:', error);
+            });
     </script>
 </body>
 </html>
