@@ -300,6 +300,23 @@
             font-weight: 500;
         }
 
+        .multiple-images-indicator {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: #8b4513;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
         .card-content {
             padding: 1.5rem;
         }
@@ -382,6 +399,46 @@
             background-position: center;
             background-repeat: no-repeat;
             background-color: #f8f6f0;
+            position: relative;
+        }
+
+        .image-navigation {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+        }
+
+        .image-nav-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .image-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .image-counter {
+            color: white;
+            font-size: 0.9rem;
+            min-width: 60px;
+            text-align: center;
         }
 
         .modal-info {
@@ -624,9 +681,15 @@
                 card.setAttribute('data-category', item.category);
                 card.onclick = () => openModal(index);
                 
+                // 画像URLを決定（複数画像対応）
+                const imageUrl = item.images 
+                    ? `./images/${item.images[0]}` 
+                    : `./images/${item.id}_${item.title}.jpg`;
+                
                 card.innerHTML = `
-                    <div class="card-image" style="background-image: url('./images/${item.id}_${item.title}.jpg')">
+                    <div class="card-image" style="background-image: url('${imageUrl}')">
                         <div class="card-date">${convertedDate}</div>
+                        ${item.images && item.images.length > 1 ? '<div class="multiple-images-indicator">+' + (item.images.length - 1) + '</div>' : ''}
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">
@@ -674,13 +737,20 @@
         }
 
         // モーダル
+        let currentImageIndex = 0;
+        let currentModalItem = null;
+
         function openModal(index) {
             const item = tenkokuData[index];
+            currentModalItem = item;
+            currentImageIndex = 0;
             const modal = document.getElementById('modal');
             const modalImage = document.getElementById('modalImage');
             const modalInfo = document.getElementById('modalInfo');
             
-            modalImage.style.backgroundImage = `url('./images/${item.id}_${item.title}.jpg')`;
+            // 画像の表示を更新
+            updateModalImage();
+            
             modalInfo.innerHTML = `
                 <h2>${item.title}</h2>
                 <p class="reading">${item.reading}</p>
@@ -690,6 +760,46 @@
             
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+        }
+
+        function updateModalImage() {
+            const modalImage = document.getElementById('modalImage');
+            const imageUrl = currentModalItem.images 
+                ? `./images/${currentModalItem.images[currentImageIndex]}` 
+                : `./images/${currentModalItem.id}_${currentModalItem.title}.jpg`;
+            
+            modalImage.style.backgroundImage = `url('${imageUrl}')`;
+            
+            // 複数画像の場合、ナビゲーションを表示
+            if (currentModalItem.images && currentModalItem.images.length > 1) {
+                const existingNav = document.querySelector('.image-navigation');
+                if (!existingNav) {
+                    const nav = document.createElement('div');
+                    nav.className = 'image-navigation';
+                    nav.innerHTML = `
+                        <button class="image-nav-btn prev" onclick="navigateImage(-1)">‹</button>
+                        <span class="image-counter">${currentImageIndex + 1} / ${currentModalItem.images.length}</span>
+                        <button class="image-nav-btn next" onclick="navigateImage(1)">›</button>
+                    `;
+                    modalImage.appendChild(nav);
+                } else {
+                    existingNav.querySelector('.image-counter').textContent = 
+                        `${currentImageIndex + 1} / ${currentModalItem.images.length}`;
+                }
+            }
+        }
+
+        function navigateImage(direction) {
+            if (!currentModalItem.images) return;
+            
+            currentImageIndex += direction;
+            if (currentImageIndex < 0) {
+                currentImageIndex = currentModalItem.images.length - 1;
+            } else if (currentImageIndex >= currentModalItem.images.length) {
+                currentImageIndex = 0;
+            }
+            
+            updateModalImage();
         }
 
         function closeModal() {
