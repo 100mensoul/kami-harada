@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>篆刻の世界 - 福本正 篆刻作品集</title>
+    <title>篆刻の世界 - 福本正 篆刻作品ギャラリー</title>
     <style>
         * {
             margin: 0;
@@ -24,98 +24,141 @@
             height: 70vh;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
         }
 
-        .hero-content {
-            text-align: center;
-            color: white;
-            z-index: 2;
-            animation: fadeIn 1.5s ease-in;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            opacity: 0.9;
-        }
-
-        .hero-decoration {
-            position: absolute;
+        .hero-container {
+            position: relative;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            opacity: 0.1;
         }
 
-        .hero-decoration::before,
-        .hero-decoration::after {
-            content: "印";
+        .hero-slider {
+            position: relative;
+            width: 500%;
+            height: 100%;
+            display: flex;
+            transition: transform 1.2s ease-in-out;
+        }
+
+        .hero-slide {
+            width: 20%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+        }
+
+        .hero-overlay {
             position: absolute;
-            font-size: 20rem;
-            font-weight: bold;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
             color: white;
-            animation: float 20s infinite ease-in-out;
+            z-index: 2;
         }
 
-        .hero-decoration::before {
-            top: -100px;
-            left: -100px;
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
 
-        .hero-decoration::after {
-            bottom: -100px;
-            right: -100px;
-            animation-delay: 10s;
+        .hero-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(10deg); }
+        .hero-prev {
+            left: 2rem;
+        }
+
+        .hero-next {
+            right: 2rem;
+        }
+
+        .hero-arrow {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #8b4513;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-arrow:hover {
+            background: rgba(255, 255, 255, 0.95);
+            transform: scale(1.1);
+        }
+
+        .hero-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 3;
+        }
+
+        .hero-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .hero-dot.active {
+            background: white;
         }
 
         /* ナビゲーション */
-        .navbar {
-            background: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .nav-logo {
+        .logo {
             font-size: 1.5rem;
-            font-weight: 300;
+            font-weight: bold;
             color: #8b4513;
-            text-decoration: none;
-            letter-spacing: 0.1em;
         }
 
         .nav-menu {
@@ -124,184 +167,171 @@
             list-style: none;
         }
 
-        .nav-link {
-            color: #2c1810;
+        .nav-menu a {
             text-decoration: none;
-            transition: color 0.3s ease;
-            font-weight: 300;
+            color: #2c1810;
+            transition: color 0.3s;
+            font-weight: 500;
         }
 
-        .nav-link:hover {
+        .nav-menu a:hover {
             color: #8b4513;
         }
 
-        /* 作品情報セクション */
-        .intro-section {
-            padding: 4rem 0;
-            background: white;
-        }
-
-        .container {
+        /* 検索バー */
+        .search-container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 2rem auto;
             padding: 0 2rem;
         }
 
-        .intro-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .intro-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #8b4513;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-        }
-
-        .intro-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #5a4a3a;
-            margin-bottom: 2rem;
-        }
-
-        /* 検索・フィルタセクション */
-        .filter-section {
-            padding: 2rem 0;
-            background: #f8f6f0;
-            border-top: 1px solid #e0d5c7;
-            border-bottom: 1px solid #e0d5c7;
-        }
-
-        .search-box {
+        .search-bar {
             display: flex;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            gap: 1rem;
+            align-items: center;
+            background: white;
+            padding: 1rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .search-input {
             flex: 1;
-            padding: 1rem 1.5rem;
-            border: none;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             font-size: 1rem;
-            background: white;
         }
 
-        .search-button {
-            padding: 1rem 2rem;
+        .search-btn {
+            padding: 0.8rem 2rem;
             background: #8b4513;
             color: white;
             border: none;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: background 0.3s;
+            font-weight: bold;
         }
 
-        .search-button:hover {
+        .search-btn:hover {
             background: #a0522d;
         }
 
+        /* タブセクション */
         .tabs {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .tab-buttons {
             display: flex;
-            justify-content: center;
             gap: 1rem;
-            flex-wrap: wrap;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
         }
 
-        .tab {
-            padding: 0.75rem 1.5rem;
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
             background: white;
-            border: 1px solid #e0d5c7;
-            border-radius: 5px;
+            border: none;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-weight: 500;
         }
 
-        .tab:hover,
-        .tab.active {
+        .tab-btn.active {
             background: #8b4513;
             color: white;
-            border-color: #8b4513;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #f0e6d2;
         }
 
         /* ギャラリーセクション */
-        .gallery-section {
-            padding: 4rem 0;
-            background: white;
+        .gallery {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
         }
 
-        .seal-card {
+        .tenkoku-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
         }
 
-        .seal-card:hover {
+        .tenkoku-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
 
-        .seal-image-container {
+        .card-image {
+            width: 100%;
+            height: 280px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f8f6f0;
             position: relative;
-            width: 100%;
-            height: 350px;
-            background: #fafafa;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .seal-image {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center bottom;
-            transition: transform 0.3s ease;
+        .card-date {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
-        .seal-card:hover .seal-image {
-            transform: scale(1.05);
-        }
-
-        .seal-info {
+        .card-content {
             padding: 1.5rem;
         }
 
-        .seal-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+        .card-title {
+            font-size: 1.3rem;
             color: #2c1810;
-            font-weight: 400;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .seal-details {
+        .card-reading {
             font-size: 0.9rem;
             color: #666;
-            line-height: 1.5;
+            margin-bottom: 0.8rem;
         }
 
-        .seal-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: #d2691e;
+        .card-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .new-badge {
+            background: #ff4444;
             color: white;
-            font-size: 0.8rem;
-            border-radius: 3px;
-            margin-top: 0.5rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
         }
 
         /* モーダル */
@@ -312,142 +342,109 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.8);
             z-index: 1000;
-            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
         }
 
         .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
+            max-width: 900px;
+            margin: 2rem auto;
             background: white;
-            border-radius: 10px;
-            max-width: 90%;
-            max-height: 90vh;
-            overflow: auto;
-            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
-        }
-
-        .modal-header {
-            padding: 2rem;
-            border-bottom: 1px solid #e0d5c7;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            color: #2c1810;
-            font-weight: 400;
+            border-radius: 20px;
+            overflow: hidden;
         }
 
         .modal-close {
-            font-size: 2rem;
-            color: #999;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
             cursor: pointer;
-            line-height: 1;
-            transition: color 0.3s ease;
+            z-index: 10;
+            transition: background 0.3s;
         }
 
         .modal-close:hover {
-            color: #2c1810;
-        }
-
-        .modal-body {
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .modal-image-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f8f6f0;
-            padding: 2rem;
-            border-radius: 10px;
+            background: white;
         }
 
         .modal-image {
-            max-width: 100%;
-            max-height: 60vh;
-            object-fit: contain;
+            width: 100%;
+            height: 500px;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #f8f6f0;
         }
 
         .modal-info {
-            padding: 1rem;
+            padding: 2rem;
         }
 
-        .modal-info h3 {
-            color: #8b4513;
-            margin-bottom: 1rem;
-            font-weight: 400;
+        .modal-info h2 {
+            font-size: 2rem;
+            color: #2c1810;
+            margin-bottom: 0.5rem;
         }
 
-        .modal-info p {
+        .modal-info .reading {
+            font-size: 1.1rem;
+            color: #666;
             margin-bottom: 1rem;
-            color: #5a4a3a;
+        }
+
+        .modal-info .description {
+            font-size: 1.1rem;
+            color: #444;
             line-height: 1.8;
-        }
-
-        .modal-details {
-            background: #f8f6f0;
-            padding: 1rem;
-            border-radius: 5px;
-            margin-top: 1rem;
-        }
-
-        .modal-details dt {
-            font-weight: 600;
-            color: #8b4513;
-            margin-bottom: 0.25rem;
-        }
-
-        .modal-details dd {
             margin-bottom: 1rem;
-            color: #5a4a3a;
+        }
+
+        .modal-info .date {
+            color: #999;
+            font-size: 0.9rem;
         }
 
         /* フッター */
-        .footer {
-            background: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+        footer {
+            background: #2c1810;
             color: white;
-            padding: 3rem 0 2rem;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             text-align: center;
         }
 
-        .footer-links {
-            margin-bottom: 2rem;
+        .footer-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            transition: opacity 0.3s ease;
+        .footer-text {
+            color: #ccc;
+            line-height: 1.8;
         }
 
-        .footer-links a:hover {
-            opacity: 0.8;
-        }
-
-        .copyright {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* レスポンシブ対応 */
+        /* レスポンシブ */
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2rem;
+            .hero {
+                height: 50vh;
             }
 
-            .hero-subtitle {
-                font-size: 1rem;
+            .hero-title {
+                font-size: 1.5rem;
             }
 
             .nav-container {
@@ -455,67 +452,25 @@
                 gap: 1rem;
             }
 
-            .nav-menu {
+            .search-bar {
                 flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-
-            .search-box {
-                flex-direction: column;
-            }
-
-            .search-input {
-                border-radius: 5px;
-            }
-
-            .search-button {
-                border-radius: 5px;
-                width: 100%;
             }
 
             .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
                 gap: 1.5rem;
             }
 
-            .seal-image-container {
-                height: 300px;
-            }
-
-            .modal-body {
-                grid-template-columns: 1fr;
+            .modal-content {
+                margin: 0;
+                border-radius: 0;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
             }
 
             .modal-image {
-                max-height: 50vh;
-            }
-
-            .tabs {
-                justify-content: flex-start;
-                overflow-x: auto;
-                padding: 0 1rem;
-                -webkit-overflow-scrolling: touch;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 1.5rem;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-                padding: 0 1rem;
-            }
-
-            .seal-image-container {
-                height: 280px;
-            }
-
-            .tab {
-                font-size: 0.9rem;
-                padding: 0.5rem 1rem;
+                height: 50vh;
             }
         }
     </style>
@@ -523,656 +478,579 @@
 <body>
     <!-- ヒーローセクション -->
     <section class="hero">
-        <div class="hero-decoration"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">福本正 篆刻作品集</h1>
-            <p class="hero-subtitle">印影に込められた美と思い</p>
+        <div class="hero-container">
+            <div class="hero-slider" id="heroSlider">
+                <!-- クローン用の最後のスライド -->
+                <div class="hero-slide" style="background-image: url('./images/works_processed/023_風林火山.jpg')"></div>
+                
+                <!-- 実際のスライド -->
+                <div class="hero-slide" style="background-image: url('./images/works_processed/001_一陽来復.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/works_processed/011_一期一会.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/works_processed/015_明鏡止水.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/works_processed/023_風林火山.jpg')"></div>
+                
+                <!-- クローン用の最初のスライド -->
+                <div class="hero-slide" style="background-image: url('./images/works_processed/001_一陽来復.jpg')"></div>
+            </div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">福本正 篆刻作品ギャラリー</h1>
+            </div>
+            <div class="hero-controls hero-prev">
+                <button class="hero-arrow" id="prevBtn">‹</button>
+            </div>
+            <div class="hero-controls hero-next">
+                <button class="hero-arrow" id="nextBtn">›</button>
+            </div>
+            <div class="hero-dots">
+                <button class="hero-dot active" data-slide="1"></button>
+                <button class="hero-dot" data-slide="2"></button>
+                <button class="hero-dot" data-slide="3"></button>
+                <button class="hero-dot" data-slide="4"></button>
+            </div>
         </div>
     </section>
 
     <!-- ナビゲーション -->
-    <nav class="navbar">
+    <nav class="nav">
         <div class="nav-container">
-            <a href="#" class="nav-logo">篆刻の世界</a>
+            <div class="logo">篆刻の世界</div>
             <ul class="nav-menu">
-                <li><a href="#" class="nav-link">ホーム</a></li>
-                <li><a href="#gallery" class="nav-link">作品集</a></li>
-                <li><a href="../hotoke/index.html" class="nav-link">写仏画ギャラリー</a></li>
-                <li><a href="#about" class="nav-link">作者について</a></li>
+                <li><a href="#gallery">作品一覧</a></li>
+                <li><a href="#about">作者について</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- 作品情報セクション -->
-    <section class="intro-section">
-        <div class="container">
-            <div class="intro-content">
-                <h2 class="intro-title">篆刻の芸術</h2>
-                <p class="intro-text">
-                    篆刻は、石や木に文字を刻む東洋の伝統芸術です。<br>
-                    一つ一つの印には、作者の思いと技が込められています。<br>
-                    福本正が生涯をかけて制作した篆刻作品の数々をご覧ください。
-                </p>
-            </div>
+    <!-- 検索セクション -->
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="篆刻作品を検索（例：一期一会、感謝、平和など）" id="searchInput">
+            <button class="search-btn" onclick="searchTenkoku()">検索</button>
         </div>
-    </section>
+    </div>
 
-    <!-- 検索・フィルタセクション -->
-    <section class="filter-section">
-        <div class="container">
-            <div class="search-box">
-                <input type="text" class="search-input" placeholder="作品名や印文で検索...">
-                <button class="search-button">検索</button>
-            </div>
-            <div class="tabs">
-                <div class="tab active" data-category="all">すべて</div>
-                <div class="tab" data-category="name">雅号印</div>
-                <div class="tab" data-category="phrase">成語印</div>
-                <div class="tab" data-category="poetry">詩句印</div>
-                <div class="tab" data-category="picture">絵入印</div>
-                <div class="tab" data-category="other">その他</div>
-            </div>
+    <!-- タブセクション -->
+    <div class="tabs">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="filterByCategory('all')">すべて</button>
+            <button class="tab-btn" onclick="filterByCategory('yojijukugo')">四字熟語</button>
+            <button class="tab-btn" onclick="filterByCategory('ichimoji')">一文字・二文字</button>
+            <button class="tab-btn" onclick="filterByCategory('sanjijukugo')">三文字</button>
         </div>
-    </section>
+    </div>
 
     <!-- ギャラリーセクション -->
-    <section class="gallery-section" id="gallery">
-        <div class="container">
-            <h2 class="intro-title" style="text-align: center; margin-bottom: 2rem;">作品ギャラリー</h2>
-            <div class="gallery-grid" id="galleryGrid">
-                <!-- 作品カードはJavaScriptで動的に生成 -->
+    <section class="gallery" id="gallery">
+        <div class="gallery-grid" id="galleryGrid">
+            <!-- 動的に生成される -->
+        </div>
+    </section>
+
+    <!-- 作者について -->
+    <section id="about" style="background: white; padding: 4rem 0;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <h2 style="text-align: center; font-size: 2.5rem; color: #8b4513; margin-bottom: 3rem; font-weight: 300;">作者について</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+                <div>
+                    <h3 style="color: #8b4513; font-size: 1.5rem; margin-bottom: 1.5rem;">福本正</h3>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem;">
+                        篆刻は古代中国から伝わる伝統的な芸術です。一つ一つの印には、文字の持つ意味と形の美しさが込められています。
+                        これらの作品は、2021年から2025年にかけて制作されたもので、四字熟語から一文字のものまで、様々な言葉を篆刻で表現しています。
+                    </p>
+                    <p style="color: #666; line-height: 1.8; font-size: 1.1rem; margin-top: 1rem;">
+                        農閑期の静かな時間に、一彫り一彫り心を込めて制作しました。それぞれの印が持つ意味を感じながら、ごゆっくりご覧ください。
+                    </p>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="width: 100%; height: 300px; background: linear-gradient(135deg, #f8f6f0, #ede7d9); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #8b4513; font-size: 1.2rem;">
+                        福本正 篆刻作品集<br>2021-2025
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- モーダル -->
-    <div class="modal" id="sealModal">
+    <div class="modal" id="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">作品タイトル</h2>
-                <span class="modal-close" onclick="closeModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <div class="modal-image-container">
-                    <img src="" alt="" class="modal-image" id="modalImage">
-                </div>
-                <div class="modal-info">
-                    <h3>作品詳細</h3>
-                    <p id="modalDescription">作品の説明がここに入ります。</p>
-                    <dl class="modal-details">
-                        <dt>印文</dt>
-                        <dd id="modalInmon">-</dd>
-                        <dt>サイズ</dt>
-                        <dd id="modalSize">-</dd>
-                        <dt>材質</dt>
-                        <dd id="modalMaterial">-</dd>
-                        <dt>制作年</dt>
-                        <dd id="modalYear">-</dd>
-                    </dl>
-                </div>
-            </div>
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <div class="modal-image" id="modalImage"></div>
+            <div class="modal-info" id="modalInfo"></div>
         </div>
     </div>
 
     <!-- フッター -->
-    <footer class="footer">
-        <div class="footer-links">
-            <a href="#">プライバシーポリシー</a>
-            <a href="#">お問い合わせ</a>
-            <a href="../hotoke/index.html">写仏画ギャラリーへ</a>
+    <footer id="contact">
+        <div class="footer-content">
+            <h3 class="footer-title">福本正 篆刻作品ギャラリー</h3>
+            <p class="footer-text">
+                お問い合わせ: example@email.com<br>
+                &copy; 2025 Fukumoto Tadashi. All rights reserved.
+            </p>
         </div>
-        <p class="copyright">&copy; 2025 福本正 篆刻作品集. All rights reserved.</p>
     </footer>
 
     <script>
-        // 実際の作品データ
-        const sealData = [
-            {
-                id: 1,
-                title: "一陽来復",
-                category: "phrase",
-                image: "./images/001_一陽来復.jpg",
-                description: "冬が去り春が来ること。悪いことが続いたのがようやく回復して善い方に向かうこと。",
-                inmon: "一陽来復",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年2月",
-                isNew: false
-            },
-            {
-                id: 2,
-                title: "文武両道",
-                category: "phrase",
-                image: "./images/002_文武両道.jpg",
-                description: "学問（文道）と武芸（武道：スポーツ）の両方に優れていること。勉学と運動の両立を表す言葉。",
-                inmon: "文武両道",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年2月",
-                isNew: false
-            },
-            {
-                id: 3,
-                title: "油断大敵",
-                category: "phrase",
-                image: "./images/003_油断大敵.jpg",
-                description: "注意を怠ることは失敗を招く最も大きな敵であるということ。",
-                inmon: "油断大敵",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 4,
-                title: "初志貫徹",
-                category: "phrase",
-                image: "./images/004_初志貫徹.jpg",
-                description: "初めに決めた志を最後まで貫き通すこと。",
-                inmon: "初志貫徹",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 5,
-                title: "不撓不屈",
-                category: "phrase",
-                image: "./images/005_不撓不屈.jpg",
-                description: "どんな困難にあってもひるまず、くじけないこと。",
-                inmon: "不撓不屈",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 6,
-                title: "質実剛健",
-                category: "phrase",
-                image: "./images/006_質実剛健.jpg",
-                description: "飾り気がなく真面目で、心身ともに強くたくましいこと。",
-                inmon: "質実剛健",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 7,
-                title: "温故知新",
-                category: "phrase",
-                image: "./images/007_温故知新.jpg",
-                description: "古いことを学んで、そこから新しい知識や見解を得ること。",
-                inmon: "温故知新",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 8,
-                title: "切磋琢磨",
-                category: "phrase",
-                image: "./images/008_切磋琢磨.jpg",
-                description: "学問や人徳をより一層磨き上げること。仲間同士が互いに励まし合い競争し合って、共に向上すること。",
-                inmon: "切磋琢磨",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 9,
-                title: "七転八起",
-                category: "phrase",
-                image: "./images/009_七転八起.jpg",
-                description: "何度失敗してもくじけず、立ち上がって努力すること。",
-                inmon: "七転八起",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 10,
-                title: "日進月歩",
-                category: "phrase",
-                image: "./images/010_日進月歩.jpg",
-                description: "日に日に、絶えず進歩すること。",
-                inmon: "日進月歩",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 11,
-                title: "一期一会",
-                category: "phrase",
-                image: "./images/011_一期一会.jpg",
-                description: "一生に一度だけの機会。生涯に一度限りであること。",
-                inmon: "一期一会",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 12,
-                title: "自然体",
-                category: "phrase",
-                image: "./images/012_自然体.jpg",
-                description: "気負いのない、自然な態度や姿勢。",
-                inmon: "自然体",
-                size: "3.5cm × 3.5cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 13,
-                title: "和而不同",
-                category: "phrase",
-                image: "./images/013_和而不同.jpg",
-                description: "人と協調はするが、むやみに同調しないこと。",
-                inmon: "和而不同",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 14,
-                title: "行雲流水",
-                category: "phrase",
-                image: "./images/014_行雲流水.jpg",
-                description: "空行く雲や流れる水のように、一事に執着せず、自然に任せて行動すること。",
-                inmon: "行雲流水",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 15,
-                title: "明鏡止水",
-                category: "phrase",
-                image: "./images/015_明鏡止水.jpg",
-                description: "一点の曇りもない鏡と波立たない静かな水。心が澄み切って落ち着いていること。",
-                inmon: "明鏡止水",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 16,
-                title: "一意専心",
-                category: "phrase",
-                image: "./images/016_一意専心.jpg",
-                description: "他に心を向けず、ひたすら一つのことに心を集中すること。",
-                inmon: "一意専心",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 17,
-                title: "臨機応変",
-                category: "phrase",
-                image: "./images/017_臨機応変.jpg",
-                description: "その時その場に応じて、適切な手段をとること。",
-                inmon: "臨機応変",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 18,
-                title: "花鳥風月",
-                category: "poetry",
-                image: "./images/018_花鳥風月.jpg",
-                description: "自然の美しい風景。また、それを題材とした詩歌や絵画などを楽しむこと。",
-                inmon: "花鳥風月",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 19,
-                title: "無我夢中",
-                category: "phrase",
-                image: "./images/019_無我夢中.jpg",
-                description: "我を忘れて、ある事に熱中すること。",
-                inmon: "無我夢中",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 20,
-                title: "勇往邁進",
-                category: "phrase",
-                image: "./images/020_勇往邁進.jpg",
-                description: "目標に向かって、勇敢に前進すること。",
-                inmon: "勇往邁進",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 21,
-                title: "春夏秋冬",
-                category: "poetry",
-                image: "./images/021_春夏秋冬.jpg",
-                description: "四季。一年を通じての季節の移り変わり。",
-                inmon: "春夏秋冬",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 22,
-                title: "心機一転",
-                category: "phrase",
-                image: "./images/022_心機一転.jpg",
-                description: "何かをきっかけとして、心持ちをすっかり変えること。",
-                inmon: "心機一転",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 23,
-                title: "風林火山",
-                category: "phrase",
-                image: "./images/023_風林火山.jpg",
-                description: "武田信玄の旗印。孫子の兵法の一節から取られた言葉。",
-                inmon: "風林火山",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 24,
-                title: "福徳円満",
-                category: "phrase",
-                image: "./images/024_福徳円満.jpg",
-                description: "幸福と利益が満ち足りていること。",
-                inmon: "福徳円満",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 25,
-                title: "感謝",
-                category: "other",
-                image: "./images/025_感謝.jpg",
-                description: "ありがたいと思う気持ち。",
-                inmon: "感謝",
-                size: "3cm × 3cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: true
-            },
-            {
-                id: 26,
-                title: "希望",
-                category: "other",
-                image: "./images/026_希望.jpg",
-                description: "未来に対する明るい見通し。",
-                inmon: "希望",
-                size: "3cm × 3cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: true
-            },
-            {
-                id: 27,
-                title: "平和",
-                category: "other",
-                image: "./images/027_平和.jpg",
-                description: "争いがなく、穏やかな状態。",
-                inmon: "平和",
-                size: "3cm × 3cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: true
-            },
-            {
-                id: 28,
-                title: "夢",
-                category: "other",
-                image: "./images/028_夢.jpg",
-                description: "将来実現させたいと思っている事柄。",
-                inmon: "夢",
-                size: "2.5cm × 2.5cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: true
-            },
-            {
-                id: 29,
-                title: "愛",
-                category: "other",
-                image: "./images/029_愛.jpg",
-                description: "人や物を大切に思う心。",
-                inmon: "愛",
-                size: "2.5cm × 2.5cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: true
-            },
-            {
-                id: 30,
-                title: "幸",
-                category: "other",
-                image: "./images/030_幸.jpg",
-                description: "しあわせ。幸福。",
-                inmon: "幸",
-                size: "2.5cm × 2.5cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 31,
-                title: "誠",
-                category: "other",
-                image: "./images/031_誠.jpg",
-                description: "まこと。偽りのない心。",
-                inmon: "誠",
-                size: "2.5cm × 2.5cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 32,
-                title: "和",
-                category: "other",
-                image: "./images/032_和.jpg",
-                description: "やわらぐこと。仲良くすること。",
-                inmon: "和",
-                size: "2.5cm × 2.5cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 33,
-                title: "忍",
-                category: "other",
-                image: "./images/033_忍.jpg",
-                description: "たえしのぶこと。我慢すること。",
-                inmon: "忍",
-                size: "2.5cm × 2.5cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 34,
-                title: "天網恢恢",
-                category: "phrase",
-                image: "./images/034_天網恢恢.jpg",
-                description: "天の網は広大で、悪人は必ず捕らえられるということ。",
-                inmon: "天網恢恢",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 35,
-                title: "不易流行",
-                category: "phrase",
-                image: "./images/035_不易流行.jpg",
-                description: "永遠に変わらないものと、時代に応じて変わるものの両方を大切にすること。",
-                inmon: "不易流行",
-                size: "4cm × 4cm",
-                material: "寿山石",
-                year: "令和3年",
-                isNew: false
-            },
-            {
-                id: 36,
-                title: "千載一遇",
-                category: "phrase",
-                image: "./images/036_千載一遇.jpg",
-                description: "千年に一度しか会えないような、きわめて稀な機会。",
-                inmon: "千載一遇",
-                size: "4cm × 4cm",
-                material: "青田石",
-                year: "令和3年",
-                isNew: false
-            }
-        ];
-
-        // 現在のフィルター状態
-        let currentCategory = 'all';
-        let searchTerm = '';
-
-        // ギャラリーの初期化
-        function initGallery() {
-            renderGallery();
-            setupEventListeners();
+        // 篆刻データ
+        const tenkokuData = [
+        {
+                "id": "001",
+                "title": "一陽来復",
+                "reading": "いちようらいふく",
+                "category": "yojijukugo",
+                "description": "悪い事が続いた後に、やっと良い方向に向かうこと。",
+                "date": "2021.02"
+        },
+        {
+                "id": "002",
+                "title": "文武両道",
+                "reading": "ぶんぶりょうどう",
+                "category": "yojijukugo",
+                "description": "学問と武道の両方に優れていること。",
+                "date": "2021.03"
+        },
+        {
+                "id": "003",
+                "title": "油断大敵",
+                "reading": "ゆだんたいてき",
+                "category": "yojijukugo",
+                "description": "気を抜いて注意を怠ることは大きな失敗のもと。",
+                "date": "2021.04"
+        },
+        {
+                "id": "004",
+                "title": "初志貫徹",
+                "reading": "しょしかんてつ",
+                "category": "yojijukugo",
+                "description": "最初に立てた志を最後まで貫き通すこと。",
+                "date": "2021.05"
+        },
+        {
+                "id": "005",
+                "title": "不撓不屈",
+                "reading": "ふとうふくつ",
+                "category": "yojijukugo",
+                "description": "どんな困難にも屈せず、たゆまない精神。",
+                "date": "2021.06"
+        },
+        {
+                "id": "006",
+                "title": "質実剛健",
+                "reading": "しつじつごうけん",
+                "category": "yojijukugo",
+                "description": "飾り気がなく真面目で、心身ともに強くたくましいこと。",
+                "date": "2021.07"
+        },
+        {
+                "id": "007",
+                "title": "温故知新",
+                "reading": "おんこちしん",
+                "category": "yojijukugo",
+                "description": "昔の事を研究して、新しい知識や見解を得ること。",
+                "date": "2021.08"
+        },
+        {
+                "id": "008",
+                "title": "切磋琢磨",
+                "reading": "せっさたくま",
+                "category": "yojijukugo",
+                "description": "仲間同士で励まし合い、向上すること。",
+                "date": "2021.09"
+        },
+        {
+                "id": "009",
+                "title": "七転八起",
+                "reading": "しちてんはっき",
+                "category": "yojijukugo",
+                "description": "何度失敗しても諦めずに立ち上がること。",
+                "date": "2021.10"
+        },
+        {
+                "id": "010",
+                "title": "日進月歩",
+                "reading": "にっしんげっぽ",
+                "category": "yojijukugo",
+                "description": "日に日に絶えず進歩すること。",
+                "date": "2021.11"
+        },
+        {
+                "id": "011",
+                "title": "一期一会",
+                "reading": "いちごいちえ",
+                "category": "yojijukugo",
+                "description": "一生に一度だけの機会。",
+                "date": "2021.12"
+        },
+        {
+                "id": "012",
+                "title": "自然体",
+                "reading": "しぜんたい",
+                "category": "sanjijukugo",
+                "description": "ありのままの姿。",
+                "date": "2022.01"
+        },
+        {
+                "id": "013",
+                "title": "和而不同",
+                "reading": "わじふどう",
+                "category": "yojijukugo",
+                "description": "人と和らぎ親しんでも、むやみに同調しないこと。",
+                "date": "2022.02"
+        },
+        {
+                "id": "014",
+                "title": "行雲流水",
+                "reading": "こううんりゅうすい",
+                "category": "yojijukugo",
+                "description": "雲や水のように自然に任せて行動すること。",
+                "date": "2022.03"
+        },
+        {
+                "id": "015",
+                "title": "明鏡止水",
+                "reading": "めいきょうしすい",
+                "category": "yojijukugo",
+                "description": "邪念がなく、澄み切って落ち着いた心。",
+                "date": "2022.04"
+        },
+        {
+                "id": "016",
+                "title": "一意専心",
+                "reading": "いちいせんしん",
+                "category": "yojijukugo",
+                "description": "他の事を考えずに、一つのことに集中すること。",
+                "date": "2022.05"
+        },
+        {
+                "id": "017",
+                "title": "臨機応変",
+                "reading": "りんきおうへん",
+                "category": "yojijukugo",
+                "description": "状況に応じて適切な対応をすること。",
+                "date": "2022.06"
+        },
+        {
+                "id": "018",
+                "title": "花鳥風月",
+                "reading": "かちょうふうげつ",
+                "category": "yojijukugo",
+                "description": "自然の美しい風物。",
+                "date": "2022.07"
+        },
+        {
+                "id": "019",
+                "title": "無我夢中",
+                "reading": "むがむちゅう",
+                "category": "yojijukugo",
+                "description": "我を忘れて何かに熱中すること。",
+                "date": "2022.08"
+        },
+        {
+                "id": "020",
+                "title": "勇往邁進",
+                "reading": "ゆうおうまいしん",
+                "category": "yojijukugo",
+                "description": "勇気を持って前へ進むこと。",
+                "date": "2022.09"
+        },
+        {
+                "id": "021",
+                "title": "春夏秋冬",
+                "reading": "しゅんかしゅうとう",
+                "category": "yojijukugo",
+                "description": "四季。一年。",
+                "date": "2022.10"
+        },
+        {
+                "id": "022",
+                "title": "心機一転",
+                "reading": "しんきいってん",
+                "category": "yojijukugo",
+                "description": "気持ちを新たにすること。",
+                "date": "2022.11"
+        },
+        {
+                "id": "023",
+                "title": "風林火山",
+                "reading": "ふうりんかざん",
+                "category": "yojijukugo",
+                "description": "戦いにおける四つの心構え。",
+                "date": "2022.12"
+        },
+        {
+                "id": "024",
+                "title": "福徳円満",
+                "reading": "ふくとくえんまん",
+                "category": "yojijukugo",
+                "description": "幸福と徳が満ち足りていること。",
+                "date": "2023.01"
+        },
+        {
+                "id": "025",
+                "title": "感謝",
+                "reading": "かんしゃ",
+                "category": "ichimoji",
+                "description": "ありがたく思う心。",
+                "date": "2023.02"
+        },
+        {
+                "id": "026",
+                "title": "希望",
+                "reading": "きぼう",
+                "category": "ichimoji",
+                "description": "願い望むこと。",
+                "date": "2023.03"
+        },
+        {
+                "id": "027",
+                "title": "平和",
+                "reading": "へいわ",
+                "category": "ichimoji",
+                "description": "穏やかで和らぐこと。",
+                "date": "2023.04"
+        },
+        {
+                "id": "028",
+                "title": "夢",
+                "reading": "ゆめ",
+                "category": "ichimoji",
+                "description": "将来実現させたいと思うこと。",
+                "date": "2023.05"
+        },
+        {
+                "id": "029",
+                "title": "愛",
+                "reading": "あい",
+                "category": "ichimoji",
+                "description": "いつくしみの心。",
+                "date": "2023.06"
+        },
+        {
+                "id": "030",
+                "title": "幸",
+                "reading": "さち",
+                "category": "ichimoji",
+                "description": "しあわせ。",
+                "date": "2023.07"
+        },
+        {
+                "id": "031",
+                "title": "誠",
+                "reading": "まこと",
+                "category": "ichimoji",
+                "description": "真実の心。",
+                "date": "2023.08"
+        },
+        {
+                "id": "032",
+                "title": "和",
+                "reading": "わ",
+                "category": "ichimoji",
+                "description": "仲良くすること。",
+                "date": "2023.09"
+        },
+        {
+                "id": "033",
+                "title": "忍",
+                "reading": "にん",
+                "category": "ichimoji",
+                "description": "耐え忍ぶこと。",
+                "date": "2023.10"
+        },
+        {
+                "id": "034",
+                "title": "天網恢恢",
+                "reading": "てんもうかいかい",
+                "category": "yojijukugo",
+                "description": "天の網は広大で、悪は必ず捕らえられる。",
+                "date": "2024.11"
+        },
+        {
+                "id": "035",
+                "title": "不易流行",
+                "reading": "ふえきりゅうこう",
+                "category": "yojijukugo",
+                "description": "永遠に変わらないものと、時代と共に変化するもの。",
+                "date": "2024.12"
+        },
+        {
+                "id": "036",
+                "title": "千載一遇",
+                "reading": "せんざいいちぐう",
+                "category": "yojijukugo",
+                "description": "千年に一度しかない貴重な機会。",
+                "date": "2025.01"
         }
+];
 
-        // イベントリスナーの設定
-        function setupEventListeners() {
-            // タブクリック
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    currentCategory = this.dataset.category;
-                    renderGallery();
-                });
-            });
-
-            // 検索
-            document.querySelector('.search-button').addEventListener('click', performSearch);
-            document.querySelector('.search-input').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') performSearch();
-            });
-
-            // モーダル外クリックで閉じる
-            document.getElementById('sealModal').addEventListener('click', function(e) {
-                if (e.target === this) closeModal();
+        // ギャラリー表示
+        function displayGallery(items = tenkokuData) {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                const isNew = new Date(item.date.replace('.', '-') + '-01') > new Date(Date.now() - 60 * 24 * 60 * 60 * 1000);
+                
+                const card = document.createElement('div');
+                card.className = 'tenkoku-card';
+                card.setAttribute('data-category', item.category);
+                card.onclick = () => openModal(index);
+                
+                card.innerHTML = `
+                    <div class="card-image" style="background-image: url('./images/works_processed/${item.id}_${item.title}.jpg')">
+                        <div class="card-date">${item.date}</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">
+                            ${item.title}
+                            ${isNew ? '<span class="new-badge">NEW!</span>' : ''}
+                        </h3>
+                        <p class="card-reading">${item.reading}</p>
+                        <p class="card-description">${item.description}</p>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
             });
         }
 
-        // 検索実行
-        function performSearch() {
-            searchTerm = document.querySelector('.search-input').value.toLowerCase();
-            renderGallery();
-        }
-
-        // ギャラリー描画
-        function renderGallery() {
-            const gallery = document.getElementById('galleryGrid');
-            gallery.innerHTML = '';
-
-            const filteredData = sealData.filter(seal => {
-                const matchesCategory = currentCategory === 'all' || seal.category === currentCategory;
-                const matchesSearch = !searchTerm || 
-                    seal.title.toLowerCase().includes(searchTerm) ||
-                    seal.inmon.toLowerCase().includes(searchTerm) ||
-                    seal.description.toLowerCase().includes(searchTerm);
-                return matchesCategory && matchesSearch;
-            });
-
-            filteredData.forEach(seal => {
-                const card = createSealCard(seal);
-                gallery.appendChild(card);
-            });
-
-            if (filteredData.length === 0) {
-                gallery.innerHTML = '<p style="text-align: center; color: #999; grid-column: 1/-1;">該当する作品が見つかりませんでした。</p>';
+        // カテゴリーフィルター
+        function filterByCategory(category) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (category === 'all') {
+                displayGallery();
+            } else {
+                const filtered = tenkokuData.filter(item => item.category === category);
+                displayGallery(filtered);
             }
         }
 
-        // 作品カード作成
-        function createSealCard(seal) {
-            const card = document.createElement('div');
-            card.className = 'seal-card';
-            card.onclick = () => openModal(seal);
+        // 検索機能
+        function searchTenkoku() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (!searchTerm) {
+                displayGallery();
+                return;
+            }
+            
+            const filtered = tenkokuData.filter(item => 
+                item.title.includes(searchTerm) || 
+                item.reading.includes(searchTerm) ||
+                item.description.includes(searchTerm)
+            );
+            
+            displayGallery(filtered);
+        }
 
-            card.innerHTML = `
-                <div class="seal-image-container">
-                    <img src="${seal.image}" alt="${seal.title}" class="seal-image" 
-                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"%3E%3Crect width="200" height="200" fill="%23f8f6f0"/%3E%3Ctext x="100" y="100" font-family="serif" font-size="60" fill="%238b4513" text-anchor="middle" dominant-baseline="middle"%3E${seal.inmon}%3C/text%3E%3C/svg%3E'">
-                </div>
-                <div class="seal-info">
-                    <h3 class="seal-title">${seal.title}</h3>
-                    <p class="seal-details">
-                        印文: ${seal.inmon}<br>
-                        ${seal.size} / ${seal.material}
-                    </p>
-                    ${seal.isNew ? '<span class="seal-badge">NEW</span>' : ''}
-                </div>
+        // モーダル
+        function openModal(index) {
+            const item = tenkokuData[index];
+            const modal = document.getElementById('modal');
+            const modalImage = document.getElementById('modalImage');
+            const modalInfo = document.getElementById('modalInfo');
+            
+            modalImage.style.backgroundImage = `url('./images/works_processed/${item.id}_${item.title}.jpg')`;
+            modalInfo.innerHTML = `
+                <h2>${item.title}</h2>
+                <p class="reading">${item.reading}</p>
+                <p class="description">${item.description}</p>
+                <p class="date">制作: ${item.date}</p>
             `;
-
-            return card;
-        }
-
-        // モーダルを開く
-        function openModal(seal) {
-            const modal = document.getElementById('sealModal');
-            document.getElementById('modalTitle').textContent = seal.title;
-            document.getElementById('modalImage').src = seal.image;
-            document.getElementById('modalImage').alt = seal.title;
-            document.getElementById('modalDescription').textContent = seal.description;
-            document.getElementById('modalInmon').textContent = seal.inmon;
-            document.getElementById('modalSize').textContent = seal.size;
-            document.getElementById('modalMaterial').textContent = seal.material;
-            document.getElementById('modalYear').textContent = seal.year;
             
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
 
-        // モーダルを閉じる
         function closeModal() {
-            document.getElementById('sealModal').style.display = 'none';
-            document.body.style.overflow = '';
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
 
-        // ページ読み込み時に初期化
-        document.addEventListener('DOMContentLoaded', initGallery);
+        // ヒーロースライダー
+        let currentSlide = 1;
+        const totalSlides = 4;
+        const slider = document.getElementById('heroSlider');
+        const dots = document.querySelectorAll('.hero-dot');
+
+        slider.style.transform = `translateX(-20%)`;
+
+        function updateSlider(animated = true) {
+            if (!animated) {
+                slider.style.transition = 'none';
+            } else {
+                slider.style.transition = 'transform 1.2s ease-in-out';
+            }
+            
+            const offset = currentSlide * 20;
+            slider.style.transform = `translateX(-${offset}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === (currentSlide - 1) % totalSlides);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            updateSlider();
+            
+            if (currentSlide > totalSlides) {
+                setTimeout(() => {
+                    currentSlide = 1;
+                    updateSlider(false);
+                }, 1200);
+            }
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            updateSlider();
+            
+            if (currentSlide < 1) {
+                setTimeout(() => {
+                    currentSlide = totalSlides;
+                    updateSlider(false);
+                }, 1200);
+            }
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', nextSlide);
+        document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index + 1;
+                updateSlider();
+            });
+        });
+
+        // 自動スライド
+        setInterval(nextSlide, 10000);
+
+        // Enterキーで検索
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchTenkoku();
+            }
+        });
+
+        // モーダル外クリックで閉じる
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('modal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // 初期表示
+        displayGallery();
     </script>
 </body>
 </html>
