@@ -481,16 +481,16 @@
         <div class="hero-container">
             <div class="hero-slider" id="heroSlider">
                 <!-- クローン用の最後のスライド -->
-                <div class="hero-slide" style="background-image: url('./images/works_processed/023_風林火山.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/023_風林火山.jpg')"></div>
                 
                 <!-- 実際のスライド -->
-                <div class="hero-slide" style="background-image: url('./images/works_processed/001_一陽来復.jpg')"></div>
-                <div class="hero-slide" style="background-image: url('./images/works_processed/011_一期一会.jpg')"></div>
-                <div class="hero-slide" style="background-image: url('./images/works_processed/015_明鏡止水.jpg')"></div>
-                <div class="hero-slide" style="background-image: url('./images/works_processed/023_風林火山.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/001_一陽来復.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/011_一期一会.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/015_明鏡止水.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/023_風林火山.jpg')"></div>
                 
                 <!-- クローン用の最初のスライド -->
-                <div class="hero-slide" style="background-image: url('./images/works_processed/001_一陽来復.jpg')"></div>
+                <div class="hero-slide" style="background-image: url('./images/001_一陽来復.jpg')"></div>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
@@ -901,7 +901,7 @@
                 card.onclick = () => openModal(index);
                 
                 card.innerHTML = `
-                    <div class="card-image" style="background-image: url('./images/works_processed/${item.id}_${item.title}.jpg')">
+                    <div class="card-image" style="background-image: url('./images/${item.id}_${item.title}.jpg')">
                         <div class="card-date">${item.date}</div>
                     </div>
                     <div class="card-content">
@@ -956,7 +956,7 @@
             const modalImage = document.getElementById('modalImage');
             const modalInfo = document.getElementById('modalInfo');
             
-            modalImage.style.backgroundImage = `url('./images/works_processed/${item.id}_${item.title}.jpg')`;
+            modalImage.style.backgroundImage = `url('./images/${item.id}_${item.title}.jpg')`;
             modalInfo.innerHTML = `
                 <h2>${item.title}</h2>
                 <p class="reading">${item.reading}</p>
